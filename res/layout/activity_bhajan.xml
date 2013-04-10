@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+android:id="@+id/linearLayout"
+android:layout_width="fill_parent"
+android:layout_height="fill_parent"
+android:background="#ffffffcc"
+android:orientation="vertical"
+xmlns:android="http://schemas.android.com/apk/res/android"
+>
+<TextView
+android:layout_width="fill_parent"
+android:layout_height="wrap_content"
+android:background="#ffff9900"
+android:padding="4sp"
+android:text=" Search Results"
+android:textSize="20dp"
+android:textStyle="bold"
+>
+</TextView>
+<TextView
+android:id="@+id/widget107"
+android:layout_width="fill_parent"
+android:layout_height="2sp"
+>
+</TextView>
+<TextView
+android:id="@+id/label2"
+android:layout_width="fill_parent"
+android:layout_height="wrap_content"
+android:background="#ff0033cc"
+android:text="List of Bhajans"
+android:textStyle="bold"
+>
+</TextView>
+</LinearLayout>
