@@ -26,7 +26,7 @@ public class PlayerFragment extends Fragment implements  OnTouchListener, OnComp
 	private MediaPlayer mediaPlayer;
 	private int lengthOfAudio = 0;
 	private int length=0;
-	private final String url = AppConfig.URL + "/play/song.mp3";
+	private final String url = "http://media.radiosai.org/www/Bhajan.html";
     private final Handler handler = new Handler();
 	private final Runnable r = new Runnable() {	
 		public void run() {

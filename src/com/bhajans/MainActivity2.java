@@ -59,20 +59,20 @@ public class MainActivity2 extends Activity implements TextWatcher {
         
       super.onCreate(savedInstanceState);
       setContentView(R.layout.activity_main);
-      
-		  LookUpData.fetchData();
-		  this.bhajanNames = LookUpData.bhajanList;
-		  this.raagaNames = LookUpData.raagaList;
-		  this.deityNames = LookUpData.deityList;
+          LookUpData.context = (Context)this;     
+ 		  //LookUpData.fetchData();
+		  this.bhajanNames = LookUpData.getData("bhajans");
+		  this.raagaNames = LookUpData.getData("raagas");
+		  this.deityNames = LookUpData.getData("deities");
 		  arrayResponse.clear();
 	      arrayResponse.addAll(bhajanNames);
 	      
         
 	     commonSearchField = (AutoCompleteTextView)findViewById(R.id.editText1);
-	     if(arrayResponse!=null)
+	     if(arrayResponse != null)
 	     {
-	     commonAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, arrayResponse);
-	     commonSearchField.setAdapter(commonAdapter);
+	       commonAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, arrayResponse);
+	       commonSearchField.setAdapter(commonAdapter);
 	     }
 	     
 	     RadioButton raaga = (RadioButton) findViewById(R.id.raaga_radio);
@@ -112,11 +112,11 @@ public class MainActivity2 extends Activity implements TextWatcher {
        public void update_data(String key)
          {
     	  commonAdapter.clear();       
-          if(key=="raagas" && raagaNames!=null) 
+          if(key.equals("raagas") && raagaNames!=null) 
           {
 		    commonAdapter.addAll(raagaNames);	
 	      } 
-          else if(key=="bhajans" && bhajanNames != null)
+          else if(key.equals("bhajans") && bhajanNames != null)
           {  
     	    commonAdapter.addAll(bhajanNames);
           }
