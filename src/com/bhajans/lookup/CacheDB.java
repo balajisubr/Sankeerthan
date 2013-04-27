@@ -3,6 +3,8 @@ package com.bhajans.lookup;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.bhajans.MainActivity2;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -17,20 +19,29 @@ public class CacheDB {
 	
 	public CacheDB(Context context){
 		System.out.println("Before constructing ");
-	  	this.context = context;
+		if(context == null ) 		System.out.println("CONTENT IS NULL!!!!!!!!!!! ");
+		else 		System.out.println("CONTENT IS NOT NUL!!!!!!! AND IS  " + context.getClass());
 	    this.dbHelper = new CacheDBHelper(context, DATABASE_NAME, null, DATABASE_VERSION);
 		System.out.println("After constructing ");
 
 	}
+	private Cursor bhajanCursor;
+	private Cursor raagaCursor;
+	private Cursor deityCursor;
 	private Context context;
 	private CacheDBHelper dbHelper;
 	private SQLiteDatabase db;
-	private static final String DATABASE_NAME = "";
+	private static final String DATABASE_NAME = "BHAJANS";
 	   private static final int DATABASE_VERSION = 1;
 	   private static final String BHAJAN_TABLE_NAME = "bhajans";
 	   private static final String RAAGA_TABLE_NAME = "raagas";
 	   private static final String DEITY_TABLE_NAME = "deities";
 	   private static final String COLUMN_NAME = "name";
+	    String selectBhajanQuery = "SELECT  * FROM " + BHAJAN_TABLE_NAME;
+	    String selectRaagaQuery = "SELECT  * FROM " + RAAGA_TABLE_NAME;
+	    String selectDeityQuery = "SELECT  * FROM " + DEITY_TABLE_NAME;
+
+
 	   
 	   private static final String BHAJAN_TABLE_CREATE =
 	            "CREATE TABLE " + BHAJAN_TABLE_NAME + " (" +
@@ -43,13 +54,15 @@ public class CacheDB {
 	   private static final String DEITY_TABLE_CREATE =
 			            "CREATE TABLE " + DEITY_TABLE_NAME + " (" +
 			            COLUMN_NAME + " TEXT);";
+	   
    class CacheDBHelper extends SQLiteOpenHelper{ 
      SQLiteDatabase readDb = null;
      SQLiteDatabase writeDb = null;
    public CacheDBHelper(Context context, String name, CursorFactory factory,
 			int version) {
        super(context, DATABASE_NAME, null, DATABASE_VERSION);
-       
+ //      writeDb = this.getWritableDatabase();
+       //readDb = this.getReadableDatabase();
 //	   System.out.println("Before the cachedbhelper");
 	   System.out.println("After the cachedbhelper");
 
@@ -70,14 +83,14 @@ public class CacheDB {
 		
 		public SQLiteDatabase getReadDb()
 	       {
-	        if(readDb.equals(null))
+	        if(readDb == null)
 	          readDb = this.getReadableDatabase();
 	        else; 
 	        return	readDb;
 	       }
 		public SQLiteDatabase getWriteDb()
 	       {
-	        if(writeDb.equals(null))
+	        if(writeDb == null)
 	          writeDb = this.getReadableDatabase();
 	        else;
 	        return	writeDb;
@@ -87,6 +100,8 @@ public class CacheDB {
    @SuppressLint("NewApi")
 public void performOperation(String Operation, String table, ArrayList<String> array1)
    {
+	   System.out.println("The size of the data to be inserted is" + array1.size());
+	   System.out.println("Inside the performOperation");
 	   SQLiteDatabase db = dbHelper.getWriteDb();
 
 	   String INSERT = "insert into "   
@@ -118,13 +133,8 @@ public void performOperation(String Operation, String table, ArrayList<String> a
 	   if(Operation.equals("DELETE"))
 	   {
 		   dbStmt.executeUpdateDelete();
-	        
 	   }
 	   
-	   if(Operation.equals("SELECT"))
-	   {
-		   fetchDatafromDB(table);
-	   }
 	   //catch (SQLException e) {
          //  e.printStackTrace();
        //}
@@ -133,30 +143,72 @@ public void performOperation(String Operation, String table, ArrayList<String> a
 //	        }
 
 	   try {
-	        db.close();
+	   //     db.close();
+	  //      dbHelper.close();
 	       } catch (Exception e) {
 	        e.printStackTrace();
 	       }
 	    }
    
-   public List<String> fetchDatafromDB(String table) {
+   public List<String> fetchData(String table)
+   {
+	   List<String> result = new ArrayList<String>();
+	   SQLiteDatabase db = this.dbHelper.getReadDb(); 
+	   result = this.fetchDatafromDB(table, db);
+	   //db.close();
+       //dbHelper.close();
+	   return result;
+   }
+   
+   
+   public List<String> fetchDatafromDB(String table, SQLiteDatabase db) {
+	    List<String> list = new ArrayList<String>(); 
+	    String selectQuery = "SELECT  * FROM " + table;    
+	 System.out.println("The cursor plac eeee");
 	   
-//	    CacheDBHelper dbHelper = new CacheDBHelper(context, DATABASE_NAME, null, DATABASE_VERSION);
-	    SQLiteDatabase db = this.dbHelper.getReadDb();
+	 System.out.println("The table is" + table);
 
-	    List<String> list = new ArrayList<String>();
-	    // Select All Query
-	    String selectQuery = "SELECT  * FROM " + table;
-	 
-	    Cursor cursor = db.rawQuery(selectQuery, null);
-	 
-	    // looping through all rows and adding to list
+	   if(table == "bhajan")
+	   {
+		 System.out.println("select query is " + selectQuery);
+	     bhajanCursor = db.rawQuery(selectQuery, null);
+	     list = parseCursor(bhajanCursor);
+	     System.out.println("AFTER THE PARSE CURSOR IN IF STATEMENT");
+	     //System.out.println("From the bhajan cursor the first element is " + list.get(0));
+	     //bhajanCursor.close();
+	   }
+	   else if(table == "raaga")
+	   {
+		   raagaCursor = db.rawQuery(selectQuery, null);
+	     list = parseCursor(raagaCursor);
+//	     raagaCursor.close();
+	   }
+	   else
+	   {
+		   deityCursor = db.rawQuery(selectQuery, null);
+	     list = parseCursor(deityCursor);
+	  //   deityCursor.close();
+	   }
+	//     db.close();
+	     return list;
+}
+
+  public List<String> parseCursor(Cursor cursor)
+  {
+	  System.out.println("Here inside PARSECURSOR!!!");
+	  List<String> list = new ArrayList<String>();
+	 if (list.size() > 0) System.out.println("THE FIRST ELEMENT IN THE LIST IS " + list.get(0));
 	    if (cursor.moveToFirst()) {
 	        do {
-	            cursor.getString(0);
+	            list.add(cursor.getString(0));
 	        } while (cursor.moveToNext());
 	    }
-	    // return contact list
-	    return list;
-	}
+	    else
+	  	  System.out.println("CURSOR IS EMPTY");
+
+	    	cursor.close();
+	    	if (list.size() > 0)	  System.out.println("THE FIRST ELEMENT IN THE LIST IS " + list.get(0));
+	    return list; 
+  }
+  
 }

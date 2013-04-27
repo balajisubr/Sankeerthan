@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import android.content.Context;
 
 public class LookUpData {
-  public static Context context;	
+  public static Context context = null;	
   public static boolean fetchData = true;
-  public static CacheDB cacheDB = new CacheDB(context);
+  public static CacheDB cacheDB = null;
   static LookUpInfo bhajanLookUp;
   static LookUpInfo raagaLookUp;
   static LookUpInfo deityLookUp;
@@ -17,15 +17,25 @@ public class LookUpData {
 
   public static ArrayList<String> getData(String type)
   {
+	cacheDB = LookUpData.getCacheDB();  
 	if(type.equals("bhajans"))
 	{
-     if(bhajanList.size() > 0) ;
+		System.out.println("Here 001");
+		
+     if(bhajanList.size() > 0) 		System.out.println("Here 002");
+ 
      else
        { 
-    	 if(cacheDB.fetchDatafromDB(type).size() > 0)
-    	   bhajanList = (ArrayList<String>) cacheDB.fetchDatafromDB("bhajans");
+    	 if(cacheDB.fetchData(type).size() > 0)
+    	 {
+    			System.out.println("Here 003");
+    	   bhajanList = (ArrayList<String>) cacheDB.fetchData("bhajans");
+    	 }
     	 else  
-    	   fetchData(type);
+    	 {
+    			System.out.println("Here 004");
+    	   fetchDataFromServer(type);
+    	 }
        }
      return bhajanList;
 	}
@@ -34,10 +44,10 @@ public class LookUpData {
 	  if(raagaList.size() > 0) ;
 	    else
 	      { 
-	    	 if(cacheDB.fetchDatafromDB(type).size() > 0)
-	      	   raagaList = (ArrayList<String>) cacheDB.fetchDatafromDB("raagas");
+	    	 if(cacheDB.fetchData(type).size() > 0)
+	      	   raagaList = (ArrayList<String>) cacheDB.fetchData("raagas");
 	      	 else  
-	      	   fetchData(type);
+	      	   fetchDataFromServer(type);
 	      }
 	  return raagaList;
 	}
@@ -46,20 +56,21 @@ public class LookUpData {
 	if(deityList.size() > 0) ;
 	else
 	  { 
-	   if(cacheDB.fetchDatafromDB(type).size() > 0)
-	     raagaList = (ArrayList<String>) cacheDB.fetchDatafromDB("raagas");
+	   if(cacheDB.fetchData(type).size() > 0)
+	     raagaList = (ArrayList<String>) cacheDB.fetchData("raagas");
 	   else  
-	     fetchData(type);
+	     fetchDataFromServer(type);
 	  }
 		  return deityList;
-	}
-		
+	}		
   }
   
-  public static void fetchData(String infoType)
+  public static void fetchDataFromServer(String infoType)
   {
+	 System.out.println("Fetching Data from server for" + infoType); 
    //shouldFetchData();	  
   // if (fetchData)
+		cacheDB = LookUpData.getCacheDB();  
     {
      if(infoType .equals( "bhajans"))
      {
@@ -96,6 +107,20 @@ public class LookUpData {
 	 fetchData = true;
   }
   
+  public static void setContext(Context context)
+  {
+	LookUpData.context = context;
+  }
   
-
+  public static Context getContext()
+  {
+	  return LookUpData.context;
+  }
+  
+  public static CacheDB getCacheDB()
+  {
+   if(cacheDB == null)
+	   cacheDB = new CacheDB(getContext());
+   return cacheDB;
+  }
 }
