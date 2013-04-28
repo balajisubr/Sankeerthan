@@ -21,7 +21,7 @@ public class MainActivity extends Activity {
              
         new Handler().postDelayed(new Runnable(){
             public void run() {
-                Intent mainIntent = new Intent(MainActivity.this,MainActivity2.class);
+                Intent mainIntent = new Intent(MainActivity.this,MainActivity1.class);
                 MainActivity.this.startActivity(mainIntent);
                 MainActivity.this.finish();
             }

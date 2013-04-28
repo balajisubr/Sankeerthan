@@ -19,7 +19,7 @@ public class BhajanDetails implements IDisplayResults {
 	
 	public BhajanDetails(SearchBhajan search, MainActivity2 context){
 		this.searchBhajan = search;
-		this.context = context;
+		this.context = context.getActivity();
 		bundle = new Bundle();
 	}
 	

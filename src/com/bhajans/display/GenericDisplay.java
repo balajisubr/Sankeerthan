@@ -3,6 +3,7 @@ package com.bhajans.display;
 import java.util.ArrayList;
 
 import com.bhajans.BhajanResultsActivity;
+import com.bhajans.MainActivity1;
 import com.bhajans.MainActivity2;
 import com.bhajans.search.SearchBhajan;
 import com.bhajans.search.SearchDeity;
@@ -26,12 +27,16 @@ public class GenericDisplay {
 	//private Class<? extends SearchInfo> searchClass;
 	private SearchInfo searchClass;
 	
-	public GenericDisplay(SearchInfo searchClass, MainActivity2 context)
+	public GenericDisplay(SearchInfo searchClass, MainActivity2 mainActivity2)
 	{
 		this.searchClass = searchClass;
-		this.context = context;
+		this.context = mainActivity2.getActivity();
 	}
 	
+	public GenericDisplay(SearchDeity searchDeity2, MainActivity1 mainActivity1) {
+		// TODO Auto-generated constructor stub
+	}
+
 	public void processErrorsOrDisplay()
 	{
 	  this.getSearchClass();
