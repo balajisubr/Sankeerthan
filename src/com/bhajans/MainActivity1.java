@@ -27,7 +27,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 import android.view.View.OnClickListener;
 
-import com.bhajans.display.DisplayBhajanDetails;
+import com.bhajans.display.ODisplayBhajanDetails;
 import com.bhajans.display.GenericDisplay;
 import com.bhajans.lookup.BhajanLookup;
 import com.bhajans.model.Bhajan;
@@ -55,7 +55,7 @@ public class MainActivity1 extends Activity {
         tab = actionBar.newTab()
             .setText("Hi")
             .setTabListener(new TabsListener(
-                    this, "album", PlayerFragment.class));
+                    this, "top", OPlayerFragment.class));
         actionBar.addTab(tab);
 
       //  setContentView(R.layout.activity_main);

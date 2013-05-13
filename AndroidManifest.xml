@@ -29,7 +29,7 @@
             android:name=".MainActivity1">
         </activity>  
         <activity
-            android:name="com.bhajans.display.DisplayBhajanDetails">
+            android:name="com.bhajans.display.ODisplayBhajanDetails">
         </activity>
         <activity
             android:name="com.bhajans.display.ErrorDisplayActivity">

@@ -9,13 +9,35 @@
      <ListView
         android:id="@android:id/list"
         android:layout_width="fill_parent"
-        android:layout_height="300dp" />   
+        android:layout_height="300dp" />  
+        
+        <SeekBar
+    android:id="@+id/seekBar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="3dp" />
 
- <fragment
+<LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="5dp"
+    android:gravity="center_horizontal"
+    android:orientation="horizontal" >
+
+    <Button
+        android:id="@+id/btn_play"
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:text="play" />
+
+</LinearLayout> 
+
+ <!--fragment
         android:id="@+id/player_fragment"
         android:layout_width="fill_parent"
         android:layout_height="200dp"
-        class="com.bhajans.PlayerFragment" />     
+        class="com.bhajans.PlayerFragment"/
+ -->     
        
 </LinearLayout>
 

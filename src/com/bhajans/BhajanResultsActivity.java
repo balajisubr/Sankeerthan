@@ -1,6 +1,6 @@
 package com.bhajans;
 
-import com.bhajans.display.DisplayBhajanDetails;
+import com.bhajans.display.ODisplayBhajanDetails;
 import com.bhajans.model.Bhajan;
 import com.bhajans.search.SearchBhajan;
 
@@ -57,7 +57,7 @@ public class BhajanResultsActivity extends ListActivity {
 				}
 		        Bhajan result = searchBhajan.result;
 
-		        Intent intent = new Intent(BhajanResultsActivity.this,DisplayBhajanDetails.class);
+		        Intent intent = new Intent(BhajanResultsActivity.this,ODisplayBhajanDetails.class);
 		        Bundle myData = new Bundle();
 		        myData.putString("raaga", result.raaga);
 		        myData.putString("lyrics", result.lyrics);

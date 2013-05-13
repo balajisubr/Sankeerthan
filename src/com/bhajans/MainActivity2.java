@@ -34,7 +34,7 @@ import android.widget.Toast;
 import android.view.View.OnClickListener;
 import android.content.DialogInterface;
 
-import com.bhajans.display.DisplayBhajanDetails;
+import com.bhajans.display.ODisplayBhajanDetails;
 import com.bhajans.display.GenericDisplay;
 import com.bhajans.lookup.BhajanLookup;
 import com.bhajans.lookup.DeityLookup;

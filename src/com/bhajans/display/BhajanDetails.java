@@ -1,9 +1,16 @@
 package com.bhajans.display;
 
+import java.util.ArrayList;
+
+import com.bhajans.BhajanDetailsFragment;
 import com.bhajans.MainActivity2;
+import com.bhajans.OPlayerFragment;
 import com.bhajans.model.Bhajan;
 import com.bhajans.search.SearchBhajan;
 
+import android.R;
+import android.app.Activity;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -48,15 +55,25 @@ public class BhajanDetails implements IDisplayResults {
 	}
 
 	public void navigateToDisplayActivity() {
-		 intent = new Intent(context,DisplayBhajanDetails.class);
-         Bhajan result = searchBhajan.result;
-         System.out.println("raaga in method is " + result.raaga);
-         bundle.putString("raaga", result.raaga);
-         bundle.putString("lyrics", result.lyrics);
-         bundle.putString("meaning", result.meaning);
-         bundle.putString("deity", result.deity);
-         intent.putExtras(bundle);
-         context.startActivity(intent);
+		Bhajan result = searchBhajan.result;
+		android.app.FragmentManager fragmentManager = ((Activity)context).getFragmentManager(); 
+		ArrayList<String> bhajans = new ArrayList<String>();
+		bhajans.add(result.deity);bhajans.add(result.raaga);bhajans.add(result.lyrics);bhajans.add(result.meaning);
+        BhajanDetailsFragment fragment = new BhajanDetailsFragment(bhajans);
+        fragmentManager.beginTransaction().replace(android.R.id.content, fragment).commit();
+       // fragmentManager.beginTransaction().replace(android.R.id.content, pfragment).commit();
+       
+
+		 //intent = new Intent(context,DisplayBhajanDetails.class);
+        // Bhajan result = searchBhajan.result;
+         //System.out.println("raaga in method is " + result.raaga);
+         //bundle.putString("raaga", result.raaga);
+         //bundle.putString("lyrics", result.lyrics);
+         //bundle.putString("meaning", result.meaning);
+         //bundle.putString("deity", result.deity);
+         //intent.putExtras(bundle);
+         //context.startActivity(intent);
+		
 	}
 
 
