@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.bhajans.BhajanDetailsFragment;
-import com.bhajans.BhajanResultsActivity;
+import com.bhajans.BhajanResultsFragment;
 import com.bhajans.MainActivity1;
 import com.bhajans.MainActivity2;
 import com.bhajans.model.Bhajan;
@@ -14,6 +14,7 @@ import com.bhajans.search.SearchInfo;
 import com.bhajans.search.SearchRaaga;
 
 import android.app.Activity;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -57,10 +58,10 @@ public class GenericDisplay {
 
    public void processResultErrorsorDisplay() 
      {
-       if(searchClass.errorMsg.length() > 0 && !searchClass.errorMsg.isEmpty() && searchClass.errorMsg!="") 
-	{
-	 navigateToErrorActivity(searchClass.errorMsg);	
-	}
+      if(searchClass.errorMsg.length() > 0 && !searchClass.errorMsg.isEmpty() && searchClass.errorMsg!="") 
+	   {
+	    navigateToErrorActivity(searchClass.errorMsg);	
+	   }
 		
        else
         {
@@ -75,7 +76,7 @@ public class GenericDisplay {
                 bundle.putString("lyrics", searchBhajan.result.lyrics);
                 bundle.putString("meaning", searchBhajan.result.meaning);
                 bundle.putString("deity", searchBhajan.result.deity);
-        	navigateToDisplayActivity();
+        	navigateToDisplayActivity(bundle);
               }
             else
               {
@@ -105,36 +106,41 @@ public class GenericDisplay {
 	 }
 	}
 
-	public void navigateToDisplayActivity() {
-		Intent intent = null;
+	public void navigateToDisplayActivity(Bundle bundle) {
+		android.app.FragmentManager fragmentManager = ((Activity)context).getFragmentManager(); 
+        FragmentTransaction ft = fragmentManager.beginTransaction();
+
 		switch (classId) {
         case 1: 
-          //intent = new Intent(context,DisplayBhajanDetails.class);
-    		//Bhajan result = searchBhajan.result;
-    		android.app.FragmentManager fragmentManager = ((Activity)context).getFragmentManager(); 
-    		ArrayList<String> bhajans = new ArrayList<String>();
-    		System.out.println("THE deityu is " + searchBhajan.result.deity);
-    		bhajans.add(searchBhajan.result.deity);bhajans.add(searchBhajan.result.raaga);bhajans.add(searchBhajan.result.lyrics);bhajans.add(searchBhajan.result.meaning);
-            BhajanDetailsFragment fragment = new BhajanDetailsFragment(bhajans);
-            fragmentManager.beginTransaction().replace(android.R.id.content, fragment).commit();
-            fragmentManager.addOnBackStackChangedListener(null);
+        	System.out.println("the raaga from the bundle is" + bundle.getString("raaga"));
+            BhajanDetailsFragment fragment = new BhajanDetailsFragment(bundle);
+            ft.replace(android.R.id.content, fragment);
           break;
-        case 2: case 3:          
-          intent = new Intent(context,BhajanResultsActivity.class);
+        case 2: case 3:      
+        	BhajanResultsFragment fragment1 = new BhajanResultsFragment(bundle);
+            ft.replace(android.R.id.content, fragment1);
           break;
         default: 
         break;
-       }		 
+       }	
+		
+        fragmentManager.addOnBackStackChangedListener(null);
+        ft.commit();
+
     //     intent.putExtras(bundle);
      //    context.startActivity(intent);
 	}
 	
 	public void navigateToErrorActivity(String errorMessage)
 	{
+	  Toast.makeText(this.context, errorMessage, Toast.LENGTH_LONG).show();		
+
+		/*
 		 intent = new Intent(context,ErrorDisplayActivity.class);
 	     bundle.putString("error",errorMessage);
 	     intent.putExtras(bundle);
 	     context.startActivity(intent);
+	     */
 	}
 	
 	public void getSearchClass()
@@ -160,7 +166,7 @@ public class GenericDisplay {
 	  for (int i=0;i<arrayResponse.length;i++) 
 		  arrayResponse[i]=list.toArray()[i].toString();
 	  bundle.putStringArray("bhajan", arrayResponse);
-      navigateToDisplayActivity();
+      navigateToDisplayActivity(bundle);
 	}
 
 

@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".BhajanResultsActivity">
+            android:name=".BhajanResultsFragment">
         </activity>  
         <activity
             android:name=".MainActivity1">

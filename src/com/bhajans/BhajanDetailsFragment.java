@@ -8,6 +8,7 @@ import org.apache.http.client.ClientProtocolException;
 import org.json.JSONException;
 
 import com.bhajans.lookup.LookUpData;
+import com.bhajans.model.Bhajan;
 
 import android.annotation.SuppressLint;
 import android.media.MediaPlayer;
@@ -34,7 +35,8 @@ import android.widget.SeekBar;
 @SuppressLint("ValidFragment")
 public class BhajanDetailsFragment extends ListFragment implements  OnTouchListener, OnCompletionListener, OnClickListener, OnBufferingUpdateListener {
 	
-	private ArrayList<String> bhajanDetails;
+	private ArrayList<String> bhajanDetails = new ArrayList<String>();
+	private Bundle bundle;
     private Button btn_play;
 	private SeekBar seekBar;
 	private MediaPlayer mediaPlayer;
@@ -43,6 +45,7 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 	private final String url = AppConfig.URL + "/play/song.mp3";
 	//private final String url = "http://dl.radiosai.org/BV_U003_V001_04_SHALINEE_SAI_HEY_ANATHA_NATHA.mp3";
     private final Handler handler = new Handler();
+    private final String[] keys = new String[]{"raaga","lyrics","meaning", "deity"};
 	private final Runnable r = new Runnable() {	
 		public void run() {
 			updateSeekProgress();					
@@ -50,9 +53,32 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 	};
 
 	
-	public BhajanDetailsFragment(ArrayList<String> bhajanDetails)
+	public BhajanDetailsFragment(Bundle bundle)
 	{
-	  this.bhajanDetails = bhajanDetails;
+this.bundle = bundle;	
+System.out.println("The raaga in the bundle in the fragment is" + bundle.getString("raaga"));
+System.out.println("The lyrics in the bundle in the fragment is" + bundle.getString("lyrics"));
+System.out.println("The meaning in the bundle in the fragment is" + bundle.getString("meaning"));
+System.out.println("The deity in the bundle in the fragment is" + bundle.getString("deity"));
+
+for(String s: keys)
+{
+	 System.out.println("The value of s1 is"  + s);
+ String value = bundle.getString(s);
+ System.out.println("The value is " + value);
+ if(value == null || value.isEmpty())
+         value= "No data for" + s;
+ System.out.println("The value of value1 is"  + value);
+ System.out.println("The value of s2 is"  + s);
+ 
+ bhajanDetails.add(value);
+}
+setBhajanDetails(bhajanDetails);
+System.out.println("The raaga in the bundle in the fragment is" + bundle.getString("raaga"));
+System.out.println("The lyrics in the bundle in the fragment is" + bundle.getString("lyrics"));
+System.out.println("The meaning in the bundle in the fragment is" + bundle.getString("meaning"));
+System.out.println("The deity in the bundle in the fragment is" + bundle.getString("deity"));
+
 	}
 	
 	public void onCreate(Bundle savedInstanceState) {
@@ -71,11 +97,10 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 		btn_play.setOnClickListener(this);
 	    seekBar = (SeekBar)view.findViewById(R.id.seekBar);
 		seekBar.setOnTouchListener(this);
-		
 		mediaPlayer = new MediaPlayer();
 		mediaPlayer.setOnBufferingUpdateListener(this);
 		mediaPlayer.setOnCompletionListener(this);
-
+       
 		return view;
 	}
 	
@@ -167,4 +192,21 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 	private void playAudio() {
 		mediaPlayer.start();
 	}
+	
+    public ArrayList<String> getBhajanDetails()
+    {
+      if(bhajanDetails.size() == 0)
+      {
+            int i;
+            for(i=0;i<4;i++)
+              bhajanDetails.add("No Data found");
+      }
+      return bhajanDetails;
+    }
+
+    public void setBhajanDetails(ArrayList<String> string)
+    {
+     this.bhajanDetails = string ;
+    }
+
 }
