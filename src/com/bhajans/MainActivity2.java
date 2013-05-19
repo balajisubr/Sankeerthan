@@ -64,12 +64,15 @@ public class MainActivity2 extends Fragment {
         StrictMode.setThreadPolicy(policy);
 
 		super.onCreate(savedInstanceState);
-		  LookUpData.fetchData();
-		  this.bhajanNames = LookUpData.bhajanList;
-		  this.raagaNames = LookUpData.raagaList;
-		  this.deityNames = LookUpData.deityList;
-		  arrayResponse.clear();
-	      arrayResponse.addAll(bhajanNames);
+        LookUpData.setContext(this.getActivity());     
+		this.bhajanNames = LookUpData.getData("bhajans");
+	    this.raagaNames = LookUpData.getData("raagas");
+		this.deityNames = LookUpData.getData("deities");
+        if(!(bhajanNames == null))
+        {
+		    arrayResponse.clear();
+	        arrayResponse.addAll(bhajanNames);
+        }
 	}
 
 	@Override
@@ -161,11 +164,11 @@ public class MainActivity2 extends Fragment {
        public void update_data(String key)
          {
     	  commonAdapter.clear();       
-          if(key=="raagas" && raagaNames!=null) 
+          if(key.equals("raagas") && raagaNames!=null) 
           {
 		    commonAdapter.addAll(raagaNames);	
 	      } 
-          else if(key=="bhajans" && bhajanNames != null)
+          else if(key.equals("bhajans") && bhajanNames != null)
           {  
     	    commonAdapter.addAll(bhajanNames);
           }
