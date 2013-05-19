@@ -152,6 +152,7 @@ public void performOperation(String Operation, String table, ArrayList<String> a
    
    public List<String> fetchData(String table)
    {
+	   System.out.println("Trying to fetch data from the DB for" + table);
 	   List<String> result = new ArrayList<String>();
 	   SQLiteDatabase db = this.dbHelper.getReadDb(); 
 	   result = this.fetchDatafromDB(table, db);
@@ -168,7 +169,7 @@ public void performOperation(String Operation, String table, ArrayList<String> a
 	   
 	 System.out.println("The table is" + table);
 
-	   if(table == "bhajan")
+	   if(table == "bhajans")
 	   {
 		 System.out.println("select query is " + selectQuery);
 	     bhajanCursor = db.rawQuery(selectQuery, null);
@@ -177,7 +178,7 @@ public void performOperation(String Operation, String table, ArrayList<String> a
 	     //System.out.println("From the bhajan cursor the first element is " + list.get(0));
 	     //bhajanCursor.close();
 	   }
-	   else if(table == "raaga")
+	   else if(table == "raagas")
 	   {
 		   raagaCursor = db.rawQuery(selectQuery, null);
 	     list = parseCursor(raagaCursor);

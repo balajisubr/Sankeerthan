@@ -63,8 +63,8 @@ public class MainActivity2 extends Activity implements TextWatcher {
       	if(LookUpData.context == null ) 		System.out.println("in mainactivity2 CONTENT IS NULL!!!!!!!!!!! ");
 		else 		System.out.println("in mainactivity2 CONTENT IS NOT NUL!!!!!!! AND IS  " + LookUpData.context.getClass());
 		  this.bhajanNames = LookUpData.getData("bhajans");
-		  //this.raagaNames = LookUpData.getData("raagas");
-		  //this.deityNames = LookUpData.getData("deities");
+		  this.raagaNames = LookUpData.getData("raagas");
+		  this.deityNames = LookUpData.getData("deities");
           if(!(bhajanNames == null))
           {
 		    arrayResponse.clear();

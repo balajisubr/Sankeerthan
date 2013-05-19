@@ -78,7 +78,9 @@ public class LookUpData {
          bhajanLookUp.lookupInfo();
          if(bhajanLookUp.list.size() > 0)
              bhajanList = bhajanLookUp.list;  
-         cacheDB.performOperation("insert", "bhajans", bhajanList);
+         cacheDB.performOperation("INSERT", "bhajans", bhajanList);
+         ArrayList<String> bhajans = (ArrayList<String>) cacheDB.fetchData("bhajans");
+         System.out.println("The size of bhajans is" + bhajans.size());
      }
      else if(infoType.equals("raagas")) 	
      {
@@ -86,7 +88,7 @@ public class LookUpData {
          raagaLookUp.lookupInfo();
          if(raagaLookUp.list.size() > 0)
              raagaList = raagaLookUp.list;
-         cacheDB.performOperation("insert", "raagas", raagaList);
+         cacheDB.performOperation("INSERT", "raagas", raagaList);
      }
      else if(infoType.equals("deities")) 	
      {
@@ -94,7 +96,7 @@ public class LookUpData {
          deityLookUp.lookupInfo();
          if(deityLookUp.list.size() > 0)
              deityList = deityLookUp.list;
-         cacheDB.performOperation("insert", "deities", deityList);
+         cacheDB.performOperation("INSERT", "deities", deityList);
      }
      //fetchData = false;
     }
