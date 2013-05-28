@@ -45,7 +45,6 @@ public class BhajanResultsFragment extends ListFragment {
 	{}
 	
 	public BhajanResultsFragment(Bundle bundle) {
-		setArguments(bundle);
 	}
 
 	public void onCreate(Bundle savedInstanceState) {
@@ -54,12 +53,13 @@ public class BhajanResultsFragment extends ListFragment {
 	
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		ArrayAdapter adapter = new ArrayAdapter<String>(this.getActivity(), R.layout.row,bhajans);
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), R.layout.row,bhajans);
 		ListView listView = getListView();
 		listView.setTextFilterEnabled(true);
  
 		listView.setOnItemClickListener(new OnItemClickListener() {
 		  public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+	    		Bundle bundle = new Bundle();
 				String name = ((TextView) view).getText().toString();
 				/**************************************************************************/
 		        SearchBhajan searchBhajan = null;
@@ -71,11 +71,11 @@ public class BhajanResultsFragment extends ListFragment {
 				}
 		        Bhajan result = searchBhajan.result;
 	    		android.app.FragmentManager fragmentManager = (getActivity()).getFragmentManager(); 
-	    		Bundle bundle = new Bundle();
                 bundle.putString("raaga", searchBhajan.result.raaga);
                 bundle.putString("lyrics", searchBhajan.result.lyrics);
                 bundle.putString("meaning", searchBhajan.result.meaning);
                 bundle.putString("deity", searchBhajan.result.deity);
+                bundle.putString("bname", searchBhajan.result.name);
 	            BhajanDetailsFragment fragment = new BhajanDetailsFragment(bundle);
 	            FragmentTransaction ft = fragmentManager.beginTransaction();
 	            ft.replace(android.R.id.content, fragment);

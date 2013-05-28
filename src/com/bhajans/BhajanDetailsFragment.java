@@ -7,6 +7,7 @@ import java.util.HashMap;
 import org.apache.http.client.ClientProtocolException;
 import org.json.JSONException;
 
+import com.bhajans.display.FavoriteDB;
 import com.bhajans.lookup.LookUpData;
 import com.bhajans.model.Bhajan;
 
@@ -17,6 +18,7 @@ import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.StrictMode;
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.ListFragment;
@@ -34,14 +36,18 @@ import android.widget.SeekBar;
 
 @SuppressLint("ValidFragment")
 public class BhajanDetailsFragment extends ListFragment implements  OnTouchListener, OnCompletionListener, OnClickListener, OnBufferingUpdateListener {
-	
+	public String choice = "";
+	final String FAV = "Favorite";
+	final String UNFAV = "Unfavorite";
 	private ArrayList<String> bhajanDetails = new ArrayList<String>();
 	private Bundle bundle;
     private Button btn_play;
+    private Button btn_fav;
 	private SeekBar seekBar;
 	private MediaPlayer mediaPlayer;
 	private int lengthOfAudio = 0;
 	private int length=0;
+	private String bhajanName = "";
 	private final String url = AppConfig.URL + "/play/song.mp3";
 	//private final String url = "http://dl.radiosai.org/BV_U003_V001_04_SHALINEE_SAI_HEY_ANATHA_NATHA.mp3";
     private final Handler handler = new Handler();
@@ -56,29 +62,20 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 	public BhajanDetailsFragment(Bundle bundle)
 	{
 this.bundle = bundle;	
-System.out.println("The raaga in the bundle in the fragment is" + bundle.getString("raaga"));
-System.out.println("The lyrics in the bundle in the fragment is" + bundle.getString("lyrics"));
-System.out.println("The meaning in the bundle in the fragment is" + bundle.getString("meaning"));
-System.out.println("The deity in the bundle in the fragment is" + bundle.getString("deity"));
 
 for(String s: keys)
 {
-	 System.out.println("The value of s1 is"  + s);
+	 System.out.println("The value of key s is"  + s);
  String value = bundle.getString(s);
- System.out.println("The value is " + value);
+System.out.println("The value is " + value);
  if(value == null || value.isEmpty())
          value= "No data for" + s;
  System.out.println("The value of value1 is"  + value);
- System.out.println("The value of s2 is"  + s);
  
  bhajanDetails.add(value);
 }
 setBhajanDetails(bhajanDetails);
-System.out.println("The raaga in the bundle in the fragment is" + bundle.getString("raaga"));
-System.out.println("The lyrics in the bundle in the fragment is" + bundle.getString("lyrics"));
-System.out.println("The meaning in the bundle in the fragment is" + bundle.getString("meaning"));
-System.out.println("The deity in the bundle in the fragment is" + bundle.getString("deity"));
-
+this.setBhajanName(bundle.getString("bname"));
 	}
 	
 	public void onCreate(Bundle savedInstanceState) {
@@ -87,7 +84,7 @@ System.out.println("The deity in the bundle in the fragment is" + bundle.getStri
 	
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		ArrayAdapter adapter = new ArrayAdapter<String>(this.getActivity(), R.layout.row,bhajanDetails);
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), R.layout.row,bhajanDetails);
 		setListAdapter(adapter);
 	}
 	
@@ -100,11 +97,39 @@ System.out.println("The deity in the bundle in the fragment is" + bundle.getStri
 		mediaPlayer = new MediaPlayer();
 		mediaPlayer.setOnBufferingUpdateListener(this);
 		mediaPlayer.setOnCompletionListener(this);
-       
+	    btn_fav = (Button) view.findViewById(R.id.btn_fav);
+	    this.setFavText(btn_fav.getText().toString());
+	
+	    btn_fav.setOnClickListener(new OnClickListener()
+	   	{
+	     public void onClick(View v)
+	     {
+			onClick1();
+		}});
+   
 		return view;
 	}
 	
 	
+	public void onClick1() {
+		Button favButton = (Button) (getView().findViewById(R.id.btn_fav));
+		String buttonText = favButton.getText().toString();
+        FavoriteDB.setContext(this.getActivity());
+        System.out.println("the bhajan in fragment is " + buttonText);
+        System.out.println("The button text" + favButton.getText().toString());
+        if(buttonText.equals(FAV))
+        {
+          FavoriteDB.addBhajan(this.getBhajanName());
+          favButton.setText(UNFAV);
+        }
+        else
+        {
+          FavoriteDB.removeBhajan(this.getBhajanName());
+  		favButton.setText(FAV);
+        }
+        System.out.println("in the onclick1, the bhajan name is" + this.getBhajanName());
+	}
+
 	public void onBufferingUpdate(MediaPlayer mediaPlayer, int percent) {
 		seekBar.setSecondaryProgress(percent);
 	}
@@ -133,9 +158,10 @@ System.out.println("The deity in the bundle in the fragment is" + bundle.getStri
 		}
 	}
 	
-	public void onClick(View view) {
-
-		try {
+	
+	
+	public void onClick2(View view) {
+    	  try {
 			mediaPlayer.setDataSource(url);
 			mediaPlayer.prepare();
 			lengthOfAudio = mediaPlayer.getDuration();
@@ -208,5 +234,39 @@ System.out.println("The deity in the bundle in the fragment is" + bundle.getStri
     {
      this.bhajanDetails = string ;
     }
+    
+    public String getBhajanName()
+    {
+     return bhajanName;	
+    }
+    
+    public void setBhajanName(String bhajanName)
+    {
+      this.bhajanName = bhajanName;
+    }
+	
+	public void setFavText(String s)
+	{
+	 this.choice = s;
+	}
+	
+	public String getFavText()
+	{
+	  if(choice == FAV)
+		  return FAV;
+	  else 
+		  return UNFAV;
+	}
+
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		
+	}
+    
+    
+  
+    
+    
+    
 
 }

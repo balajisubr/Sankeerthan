@@ -36,9 +36,11 @@ public class SearchBhajan extends SearchInfo  {
   public Bhajan result = null;
   //public ArrayList<String> serverErrors = new ArrayList<String>(); 
   private static String subURL = "/find_bhajans/";
+  private String key = "";
   public SearchBhajan(String key) throws InterruptedException
   {
 	super(key, subURL);
+	this.key = key;
   }
   
   
@@ -79,7 +81,7 @@ public class SearchBhajan extends SearchInfo  {
 	System.out.println("lyrics is" + lyrics);
 	String deity = jsonObject.optString("deity");
 	System.out.println("deity is" + deity);
-	this.result = (new Bhajan(raaga,meaning,lyrics,deity));
+	this.result = (new Bhajan(raaga,meaning,lyrics,deity, key));
   }
 
 }  

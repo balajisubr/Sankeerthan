@@ -25,9 +25,15 @@ public class CacheDB {
 		System.out.println("After constructing ");
 
 	}
+	
+	public CacheDB()
+	{
+	 	
+	}
 	private Cursor bhajanCursor;
 	private Cursor raagaCursor;
 	private Cursor deityCursor;
+	private Cursor favoriteCursor;
 	private Context context;
 	private CacheDBHelper dbHelper;
 	private SQLiteDatabase db;
@@ -36,10 +42,12 @@ public class CacheDB {
 	   private static final String BHAJAN_TABLE_NAME = "bhajans";
 	   private static final String RAAGA_TABLE_NAME = "raagas";
 	   private static final String DEITY_TABLE_NAME = "deities";
+	   private static final String FAV_TABLE_NAME = "favorites";
 	   private static final String COLUMN_NAME = "name";
 	    String selectBhajanQuery = "SELECT  * FROM " + BHAJAN_TABLE_NAME;
 	    String selectRaagaQuery = "SELECT  * FROM " + RAAGA_TABLE_NAME;
 	    String selectDeityQuery = "SELECT  * FROM " + DEITY_TABLE_NAME;
+	    String selectFavQuery = "SELECT  * FROM " + FAV_TABLE_NAME;
 
 
 	   
@@ -54,6 +62,10 @@ public class CacheDB {
 	   private static final String DEITY_TABLE_CREATE =
 			            "CREATE TABLE " + DEITY_TABLE_NAME + " (" +
 			            COLUMN_NAME + " TEXT);";
+	   
+	   private static final String FAV_TABLE_CREATE =
+	            "CREATE TABLE " + FAV_TABLE_NAME + " (" +
+	            COLUMN_NAME + " TEXT);";
 	   
    class CacheDBHelper extends SQLiteOpenHelper{ 
      SQLiteDatabase readDb = null;
@@ -74,7 +86,7 @@ public class CacheDB {
 	        db.execSQL(BHAJAN_TABLE_CREATE);
 	        db.execSQL(RAAGA_TABLE_CREATE);
 	        db.execSQL(DEITY_TABLE_CREATE);
-
+	        db.execSQL(FAV_TABLE_CREATE);
 	    }
 
 		@Override
@@ -107,17 +119,17 @@ public void performOperation(String Operation, String table, ArrayList<String> a
 	   String INSERT = "insert into "   
 	            + table + " (" + COLUMN_NAME + ") values (?)";
 	   
-	   String DELETE = "delete from " + table; 
+	   String DELETE = "delete from " + table + " where " + COLUMN_NAME + "= (?)"  ; 
 	   
-	   String FETCH = "select DISTINCT(" + COLUMN_NAME + "from " + table + ")";
+	   String FETCH = "select COUNT(*) " + "from " + table + ") where " + COLUMN_NAME + "= (?)" ;
 
        db.beginTransaction();
 
        SQLiteStatement dbStmt = db.compileStatement(Operation.equals("INSERT") ? INSERT : DELETE);
 
+       int aSize = array1.size();
 	   if(Operation.equals("INSERT"))
 	   {  
-	        int aSize = array1.size();
 
 	     //   try {
 
@@ -132,8 +144,28 @@ public void performOperation(String Operation, String table, ArrayList<String> a
 	   
 	   if(Operation.equals("DELETE"))
 	   {
-		   dbStmt.executeUpdateDelete();
+		//   dbStmt.executeUpdateDelete();
+
+	     //   try {
+
+	            for (int i = 0; i < aSize; i++) {
+	                dbStmt.bindString(1, array1.get(i));
+	                dbStmt.executeUpdateDelete();
+	            }
+
+	         //.setTransactionSuccessful();
+	       // }
+
 	   }
+	  /* 
+	   if(Operation.equals("SELECT"))
+	   {
+		   for (int i = 0; i < aSize; i++) {
+               dbStmt.bindString(1, array1.get(i));
+               dbStmt.
+           }   
+	   }
+	   */
 	   
 	   //catch (SQLException e) {
          //  e.printStackTrace();
@@ -184,12 +216,21 @@ public void performOperation(String Operation, String table, ArrayList<String> a
 	     list = parseCursor(raagaCursor);
 //	     raagaCursor.close();
 	   }
-	   else
+	   else if(table == "deities")
 	   {
 		   deityCursor = db.rawQuery(selectQuery, null);
 	     list = parseCursor(deityCursor);
 	  //   deityCursor.close();
 	   }
+	   
+	   else if(table == "favorites")
+	   {
+		   favoriteCursor = db.rawQuery(selectQuery, null);
+		   list = parseCursor(favoriteCursor);
+	   }
+	   
+	   
+	   
 	//     db.close();
 	     return list;
 }

@@ -27,6 +27,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 import android.view.View.OnClickListener;
 
+import com.bhajans.display.FavoriteFragment;
 import com.bhajans.display.GenericDisplay;
 import com.bhajans.lookup.BhajanLookup;
 import com.bhajans.model.Bhajan;
@@ -46,15 +47,15 @@ public class MainActivity1 extends Activity {
         actionBar.setDisplayShowTitleEnabled(false);
 
         Tab tab = actionBar.newTab()
-                .setText("MainActivity")
+                .setText("Search Bhajans")
                 .setTabListener(new TabsListener<MainActivity2>(
                         this, "artist", MainActivity2.class));
         actionBar.addTab(tab);
 
         tab = actionBar.newTab()
-            .setText("Hi")
-            .setTabListener(new TabsListener(
-                    this, "top", OPlayerFragment.class));
+            .setText("Favorites")
+            .setTabListener(new TabsListener<FavoriteFragment>(
+                    this, "top", FavoriteFragment.class));
         actionBar.addTab(tab);
 
       //  setContentView(R.layout.activity_main);
