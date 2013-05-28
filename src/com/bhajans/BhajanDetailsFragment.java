@@ -160,7 +160,7 @@ this.setBhajanName(bundle.getString("bname"));
 	
 	
 	
-	public void onClick2(View view) {
+	public void onClick(View view) {
     	  try {
 			mediaPlayer.setDataSource(url);
 			mediaPlayer.prepare();
@@ -258,10 +258,7 @@ this.setBhajanName(bundle.getString("bname"));
 		  return UNFAV;
 	}
 
-	public void onClick(View v) {
-		// TODO Auto-generated method stub
-		
-	}
+
     
     
   
