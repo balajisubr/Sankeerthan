@@ -75,7 +75,7 @@ System.out.println("The value is " + value);
  bhajanDetails.add(value);
 }
 setBhajanDetails(bhajanDetails);
-this.setBhajanName(bundle.getString("bname"));
+this.setBhajanName(bundle.getString("bhajan"));
 	}
 	
 	public void onCreate(Bundle savedInstanceState) {
@@ -98,8 +98,10 @@ this.setBhajanName(bundle.getString("bname"));
 		mediaPlayer.setOnBufferingUpdateListener(this);
 		mediaPlayer.setOnCompletionListener(this);
 	    btn_fav = (Button) view.findViewById(R.id.btn_fav);
+        FavoriteDB.setContext(this.getActivity());
 	    this.setFavText(btn_fav.getText().toString());
 	
+	    
 	    btn_fav.setOnClickListener(new OnClickListener()
 	   	{
 	     public void onClick(View v)

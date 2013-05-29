@@ -76,7 +76,7 @@ public class GenericDisplay {
                 bundle.putString("lyrics", searchBhajan.result.lyrics);
                 bundle.putString("meaning", searchBhajan.result.meaning);
                 bundle.putString("deity", searchBhajan.result.deity);
-                bundle.putString("bname", searchBhajan.result.name);
+                bundle.putString("bhajan", searchBhajan.result.name);
         	navigateToDisplayActivity(bundle);
               }
             else

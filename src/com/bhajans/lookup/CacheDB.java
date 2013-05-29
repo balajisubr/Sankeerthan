@@ -127,9 +127,10 @@ public void performOperation(String Operation, String table, ArrayList<String> a
 
        SQLiteStatement dbStmt = db.compileStatement(Operation.equals("INSERT") ? INSERT : DELETE);
 
-       int aSize = array1.size();
 	   if(Operation.equals("INSERT"))
 	   {  
+	       int aSize = array1.size();
+		   System.out.println("The size of array to be inster into db is" + aSize );
 
 	     //   try {
 
@@ -147,6 +148,7 @@ public void performOperation(String Operation, String table, ArrayList<String> a
 		//   dbStmt.executeUpdateDelete();
 
 	     //   try {
+	       int aSize = array1.size();
 
 	            for (int i = 0; i < aSize; i++) {
 	                dbStmt.bindString(1, array1.get(i));

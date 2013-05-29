@@ -32,7 +32,7 @@ import android.widget.EditText;
 
 @SuppressLint("ValidFragment")
 public class BhajanResultsFragment extends ListFragment {
-	
+	protected Bundle bundle;
     ArrayList<String> bhajans = new ArrayList<String>();
 	String[] Bhajans = new String[10];
 	{
@@ -45,6 +45,7 @@ public class BhajanResultsFragment extends ListFragment {
 	{}
 	
 	public BhajanResultsFragment(Bundle bundle) {
+		this.bundle =bundle;
 	}
 
 	public void onCreate(Bundle savedInstanceState) {
@@ -75,7 +76,7 @@ public class BhajanResultsFragment extends ListFragment {
                 bundle.putString("lyrics", searchBhajan.result.lyrics);
                 bundle.putString("meaning", searchBhajan.result.meaning);
                 bundle.putString("deity", searchBhajan.result.deity);
-                bundle.putString("bname", searchBhajan.result.name);
+                bundle.putString("bhajan", searchBhajan.result.name);
 	            BhajanDetailsFragment fragment = new BhajanDetailsFragment(bundle);
 	            FragmentTransaction ft = fragmentManager.beginTransaction();
 	            ft.replace(android.R.id.content, fragment);
@@ -107,7 +108,6 @@ public class BhajanResultsFragment extends ListFragment {
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 	    View view = inflater.inflate(R.layout.raaga_deity_list, container, false);
-	    Bundle bundle = this.getArguments();
 	    setBhajans(bundle.getStringArray("bhajan"));
 		return view;
 	}

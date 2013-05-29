@@ -42,7 +42,15 @@ public class FavoriteDB {
 			bhajanToAdd.add(bhajan);
 			FavoriteDB.getCacheDB().performOperation("DELETE", "favorites", bhajanToAdd);    
 			System.out.println("The size of the favorites DB is " + FavoriteDB.fetchBhajans().size());
-
+	  }
+	  
+	  public static void selectBhajan(String bhajan)
+	  {
+		  ArrayList<String> bhajanToAdd = new ArrayList<String>();
+			System.out.println("The add bhajan has the value" + bhajan);
+			bhajanToAdd.add(bhajan);
+			FavoriteDB.getCacheDB().performOperation("SELECT", "favorites", bhajanToAdd);    
+			System.out.println("The size of the favorites DB is " + FavoriteDB.fetchBhajans().size());		  
 	  }
 	  
 	  public static ArrayList<String> fetchBhajans(){
