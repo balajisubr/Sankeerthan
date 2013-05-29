@@ -99,8 +99,13 @@ this.setBhajanName(bundle.getString("bhajan"));
 		mediaPlayer.setOnCompletionListener(this);
 	    btn_fav = (Button) view.findViewById(R.id.btn_fav);
         FavoriteDB.setContext(this.getActivity());
+        int count = FavoriteDB.selectBhajan(this.bundle.getString("bhajan"));
+        System.out.println("The count is " + count);
 	    this.setFavText(btn_fav.getText().toString());
-	
+	    if(count == 0)
+	    	btn_fav.setText(FAV);
+	    else
+	    	btn_fav.setText(UNFAV);
 	    
 	    btn_fav.setOnClickListener(new OnClickListener()
 	   	{

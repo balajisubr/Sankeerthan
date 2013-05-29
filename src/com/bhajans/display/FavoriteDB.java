@@ -44,13 +44,14 @@ public class FavoriteDB {
 			System.out.println("The size of the favorites DB is " + FavoriteDB.fetchBhajans().size());
 	  }
 	  
-	  public static void selectBhajan(String bhajan)
+	  public static int selectBhajan(String bhajan)
 	  {
 		  ArrayList<String> bhajanToAdd = new ArrayList<String>();
 			System.out.println("The add bhajan has the value" + bhajan);
 			bhajanToAdd.add(bhajan);
-			FavoriteDB.getCacheDB().performOperation("SELECT", "favorites", bhajanToAdd);    
-			System.out.println("The size of the favorites DB is " + FavoriteDB.fetchBhajans().size());		  
+			int count = FavoriteDB.getCacheDB().fetchCount("favorites", bhajan);
+			System.out.println("The size of the count is " + count);		  
+			return count;
 	  }
 	  
 	  public static ArrayList<String> fetchBhajans(){

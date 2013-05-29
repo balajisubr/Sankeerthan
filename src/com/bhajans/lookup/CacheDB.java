@@ -110,6 +110,8 @@ public class CacheDB {
    }
   
    @SuppressLint("NewApi")
+   
+   
 public void performOperation(String Operation, String table, ArrayList<String> array1)
    {
 	   System.out.println("The size of the data to be inserted is" + array1.size());
@@ -121,7 +123,6 @@ public void performOperation(String Operation, String table, ArrayList<String> a
 	   
 	   String DELETE = "delete from " + table + " where " + COLUMN_NAME + "= (?)"  ; 
 	   
-	   String FETCH = "select COUNT(*) " + "from " + table + ") where " + COLUMN_NAME + "= (?)" ;
 
        db.beginTransaction();
 
@@ -195,7 +196,13 @@ public void performOperation(String Operation, String table, ArrayList<String> a
 	   return result;
    }
    
-   
+   public int fetchCount(String table, String value)
+   {
+	  SQLiteDatabase db = dbHelper.getWriteDb(); 
+	  String FETCH = "select COUNT(*) " + "from " + table + " where " + COLUMN_NAME + " = " + "'" + value+ "'"  ;
+      SQLiteStatement dbStmt = db.compileStatement(FETCH);
+      return (int) dbStmt.simpleQueryForLong();
+   }
    public List<String> fetchDatafromDB(String table, SQLiteDatabase db) {
 	    List<String> list = new ArrayList<String>(); 
 	    String selectQuery = "SELECT  * FROM " + table;    
