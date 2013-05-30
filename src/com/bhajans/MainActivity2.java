@@ -68,6 +68,7 @@ public class MainActivity2 extends Fragment {
 		this.bhajanNames = LookUpData.getData("bhajans");
 	    this.raagaNames = LookUpData.getData("raagas");
 		this.deityNames = LookUpData.getData("deities");
+		System.out.println("The deity names size" + deityNames.size());
         if(!(bhajanNames == null))
         {
 		    arrayResponse.clear();
@@ -123,14 +124,14 @@ public class MainActivity2 extends Fragment {
 	     OnClickListener l1 = new OnClickListener(){
 	       public void onClick(View v) {
 	    	   commonSearchField.setText("");
-	         update_data("raagas");
+	         updateData("raagas");
 	      }
 	     };
 	    		
 	     OnClickListener l2 = new OnClickListener(){
 	  	   public void onClick(View v) {
 	  		 commonSearchField.setText("");
-	  	     update_data("bhajans");   
+	  	     updateData("bhajans");   
 	  	    }
 	  	   };
 	  	   
@@ -138,7 +139,7 @@ public class MainActivity2 extends Fragment {
 	  	   public void onClick(View v)
 	  	   {
 	  		 commonSearchField.setText("");
-	  		 update_data("deities");
+	  		 updateData("deities");
 	  	   }
 	  	  };
 	  	  		
@@ -161,7 +162,7 @@ public class MainActivity2 extends Fragment {
 	   }
 
 	    
-       public void update_data(String key)
+       public void updateData(String key)
          {
     	  commonAdapter.clear();       
           if(key.equals("raagas") && raagaNames!=null) 
@@ -174,6 +175,8 @@ public class MainActivity2 extends Fragment {
           }
           else
           {
+     System.out.println("The key is" + key);  
+     System.out.println("The size of deitu names " + deityNames.size());
         	if(deityNames != null)  
         	commonAdapter.addAll(deityNames);  
           }  

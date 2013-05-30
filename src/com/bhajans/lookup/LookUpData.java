@@ -57,7 +57,7 @@ public class LookUpData {
 	else
 	  { 
 	   if(cacheDB.fetchData(type).size() > 0)
-	     raagaList = (ArrayList<String>) cacheDB.fetchData("raagas");
+	     deityList = (ArrayList<String>) cacheDB.fetchData("deities");
 	   else  
 	     fetchDataFromServer(type);
 	  }

@@ -18,11 +18,11 @@ import android.database.sqlite.SQLiteStatement;
 public class CacheDB {
 	
 	public CacheDB(Context context){
-		System.out.println("Before constructing ");
-		if(context == null ) 		System.out.println("CONTENT IS NULL!!!!!!!!!!! ");
-		else 		System.out.println("CONTENT IS NOT NUL!!!!!!! AND IS  " + context.getClass());
+//		System.out.println("Before constructing ");
+//		if(context == null ) 		System.out.println("CONTENT IS NULL!!!!!!!!!!! ");
+//		else 		System.out.println("CONTENT IS NOT NUL!!!!!!! AND IS  " + context.getClass());
 	    this.dbHelper = new CacheDBHelper(context, DATABASE_NAME, null, DATABASE_VERSION);
-		System.out.println("After constructing ");
+//		System.out.println("After constructing ");
 
 	}
 	
@@ -82,7 +82,7 @@ public class CacheDB {
 
 	    @Override
 	    public void onCreate(SQLiteDatabase db) {
-	    	System.out.println("Here inside the oncreate of cacheDBHelper");
+//	    	System.out.println("Here inside the oncreate of cacheDBHelper");
 	        db.execSQL(BHAJAN_TABLE_CREATE);
 	        db.execSQL(RAAGA_TABLE_CREATE);
 	        db.execSQL(DEITY_TABLE_CREATE);
@@ -115,7 +115,7 @@ public class CacheDB {
 public void performOperation(String Operation, String table, ArrayList<String> array1)
    {
 	   System.out.println("The size of the data to be inserted is" + array1.size());
-	   System.out.println("Inside the performOperation");
+//	   System.out.println("Inside the performOperation");
 	   SQLiteDatabase db = dbHelper.getWriteDb();
 
 	   String INSERT = "insert into "   
@@ -131,7 +131,7 @@ public void performOperation(String Operation, String table, ArrayList<String> a
 	   if(Operation.equals("INSERT"))
 	   {  
 	       int aSize = array1.size();
-		   System.out.println("The size of array to be inster into db is" + aSize );
+//		   System.out.println("The size of array to be inster into db is" + aSize + "and the table is" + table );
 
 	     //   try {
 
@@ -187,7 +187,7 @@ public void performOperation(String Operation, String table, ArrayList<String> a
    
    public List<String> fetchData(String table)
    {
-	   System.out.println("Trying to fetch data from the DB for" + table);
+//	   System.out.println("Trying to fetch data from the DB for" + table);
 	   List<String> result = new ArrayList<String>();
 	   SQLiteDatabase db = this.dbHelper.getReadDb(); 
 	   result = this.fetchDatafromDB(table, db);
@@ -206,33 +206,30 @@ public void performOperation(String Operation, String table, ArrayList<String> a
    public List<String> fetchDatafromDB(String table, SQLiteDatabase db) {
 	    List<String> list = new ArrayList<String>(); 
 	    String selectQuery = "SELECT  * FROM " + table;    
-	 System.out.println("The cursor plac eeee");
 	   
-	 System.out.println("The table is" + table);
+	 System.out.println("The table in fetch data from db is" + table);
 
-	   if(table == "bhajans")
+	   if(table.equals("bhajans"))
 	   {
-		 System.out.println("select query is " + selectQuery);
 	     bhajanCursor = db.rawQuery(selectQuery, null);
 	     list = parseCursor(bhajanCursor);
-	     System.out.println("AFTER THE PARSE CURSOR IN IF STATEMENT");
 	     //System.out.println("From the bhajan cursor the first element is " + list.get(0));
 	     //bhajanCursor.close();
 	   }
-	   else if(table == "raagas")
+	   else if(table.equals("raagas"))
 	   {
 		   raagaCursor = db.rawQuery(selectQuery, null);
 	     list = parseCursor(raagaCursor);
 //	     raagaCursor.close();
 	   }
-	   else if(table == "deities")
+	   else if(table.equals("deities"))
 	   {
 		   deityCursor = db.rawQuery(selectQuery, null);
 	     list = parseCursor(deityCursor);
 	  //   deityCursor.close();
 	   }
 	   
-	   else if(table == "favorites")
+	   else if(table.equals("favorites"))
 	   {
 		   favoriteCursor = db.rawQuery(selectQuery, null);
 		   list = parseCursor(favoriteCursor);
@@ -246,9 +243,8 @@ public void performOperation(String Operation, String table, ArrayList<String> a
 
   public List<String> parseCursor(Cursor cursor)
   {
-	  System.out.println("Here inside PARSECURSOR!!!");
 	  List<String> list = new ArrayList<String>();
-	 if (list.size() > 0) System.out.println("THE FIRST ELEMENT IN THE LIST IS " + list.get(0));
+ // if (list.size() > 0) System.out.println("THE FIRST ELEMENT IN THE LIST IS " + list.get(0));
 	    if (cursor.moveToFirst()) {
 	        do {
 	            list.add(cursor.getString(0));
@@ -258,7 +254,7 @@ public void performOperation(String Operation, String table, ArrayList<String> a
 	  	  System.out.println("CURSOR IS EMPTY");
 
 	    	cursor.close();
-	    	if (list.size() > 0)	  System.out.println("THE FIRST ELEMENT IN THE LIST IS " + list.get(0));
+//	    	if (list.size() > 0)	  System.out.println("THE FIRST ELEMENT IN THE LIST IS " + list.get(0));
 	    return list; 
   }
   
