@@ -32,7 +32,7 @@
             android:name="com.bhajans.display.ODisplayBhajanDetails">
         </activity>
         <activity
-            android:name="com.bhajans.display.ErrorDisplayActivity">
+            android:name="com.bhajans.display.OErrorDisplayActivity">
         </activity>   
         <activity
             android:name="com.bhajans.playback.PlaybackActivity">
