@@ -31,60 +31,50 @@ import java.net.URLEncoder;
 
 import android.widget.Toast;
 
-public class SearchDeity extends SearchInfo  {
- 
-  public Bhajan result = null;
+public class SearchDeity extends SearchInfo {
+	public Bhajan result = null;
   //public ArrayList<String> serverErrors = new ArrayList<String>(); 
-  public ArrayList<String> list = new ArrayList<String>();
-  private static String subURL = "/find_deities/";
-  public SearchDeity(String key) throws InterruptedException
-  {
-	super(key, subURL);
-  }
+	public ArrayList<String> list = new ArrayList<String>();
+	private static String subURL = "/find_deities/";
+	public SearchDeity(String key) throws InterruptedException {
+		super(key, subURL);
+    }
   
-  public void getData() 
-  {
-	String result;
-	try {
-		result = this.fetchData();
-		System.out.println("REsult in getdata is " + result);
-	    parseData(result);
-		 
-	} catch (ClientProtocolException e) {
-		this.serverErrors.add("There was an error! Please try again later!");
-	} catch (IOException e) {
-		this.serverErrors.add("There was an error in accessing data! Please try later");
-	} catch (JSONException e) {
-		this.serverErrors.add("There was an error! Please try later!");
-	}	  
-  }
+	public void getData() {
+		String result;
+		try {
+			result = this.fetchData();
+			parseData(result);
+			} catch (ClientProtocolException e) {
+			this.serverErrors.add("There was an error! Please try again later!");
+			} catch (IOException e) {
+			this.serverErrors.add("There was an error in accessing data! Please try later");
+			} catch (JSONException e) {
+			this.serverErrors.add("There was an error! Please try later!");
+			}	  
+		}
   
-  public String fetchData() throws ClientProtocolException, IOException
-  {
-    return super.fetchData(); 
-  }
+	public String fetchData() throws ClientProtocolException, IOException {
+		return super.fetchData(); 
+	}
   
-  public void parseData(String result) throws ClientProtocolException, IOException, JSONException
-  {
-    super.parseData(result);
-  }
+	public void parseData(String result) throws ClientProtocolException, IOException, JSONException {
+		super.parseData(result);
+	}
   
-  protected void extractData(JSONObject jsonObject)
-  {
-	  System.out.println("The size of the list is" + this.list.size());
-	  JSONArray bhajanJSON;
-	try {
-		bhajanJSON = jsonObject.getJSONArray("bhajan_names");
-		String bhajanName = bhajanJSON.toString();
-		System.out.println("bhajan name is 1" + bhajanName);
-		for (int i=0; i<bhajanJSON.length(); i++) {
-		  list.add(bhajanJSON.getString(i) );
-		} 
-	} catch (JSONException e) {
-		this.serverErrors.add("There was an error! Please try later!");
+	protected void extractData(JSONObject jsonObject) {
+		JSONArray bhajanJSON;
+		try {
+			bhajanJSON = jsonObject.getJSONArray("bhajan_names");
+			String bhajanName = bhajanJSON.toString();
+			for (int i=0; i<bhajanJSON.length(); i++) {
+				list.add(bhajanJSON.getString(i) );
+			} 
+		} catch (JSONException e) {
+			serverErrors.add("There was an error! Please try later!");
 	   }
-	  }
-  }
+	}
+ }
 
 
   
