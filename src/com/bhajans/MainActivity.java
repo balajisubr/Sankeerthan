@@ -1,21 +1,14 @@
 package com.bhajans;
 
-import java.util.ArrayList;
-
-import com.bhajans.lookup.LookUpInfo;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.StrictMode;
 
 public class MainActivity extends Activity {
 
-
-    @Override
     public void onCreate(Bundle icicle) {
-
         super.onCreate(icicle);
         setContentView(R.layout.layout);
              

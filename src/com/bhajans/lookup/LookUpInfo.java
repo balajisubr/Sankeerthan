@@ -17,12 +17,10 @@ public class LookUpInfo extends SearchInfo {
 		super(key, subURL);
 	}
 	
-	  public void lookupInfo() 
-	  {
+	public void lookupInfo() {
 		String result;
 		try {
 			result = this.fetchData();
-			System.out.println("REsult in getdata is " + result);
 		    parseData(result);
 			 
 		} catch (ClientProtocolException e) {
@@ -45,20 +43,15 @@ public class LookUpInfo extends SearchInfo {
 	  }
 
 	  
-	 protected void extractData(JSONObject jsonObject)
-	 {
-	 JSONArray namesList = new JSONArray();
-	 try 
-	   {
-		namesList = jsonObject.getJSONArray("names_list");
-		String namesListString = namesList.toString();  
-		System.out.println("names list is" + namesListString );
-		for (int i=0; i<namesList.length(); i++) 
-				list.add(namesList.getString(i) );
-		  System.out.println("List element names in lookupinfo are " + list.get(0) + "\n" + list.get(1) + "\n" + list.get(2));    
-	   } 
-	   catch (JSONException e) {
-		   this.serverErrors.add("There was an error! Please try later!");		
-		   }
-  }
+	  protected void extractData(JSONObject jsonObject)	{
+		  JSONArray namesList = new JSONArray();
+		  try 
+		  {
+			  namesList = jsonObject.getJSONArray("names_list");
+			  for (int i=0; i<namesList.length(); i++) 
+				  list.add(namesList.getString(i) );
+		  } catch (JSONException e) {
+			  this.serverErrors.add("There was an error! Please try later!");		
+		  }
+	  }
 }

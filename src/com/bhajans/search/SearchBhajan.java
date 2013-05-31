@@ -33,56 +33,43 @@ import android.widget.Toast;
 
 public class SearchBhajan extends SearchInfo  {
  
-  public Bhajan result = null;
-  //public ArrayList<String> serverErrors = new ArrayList<String>(); 
-  private static String subURL = "/find_bhajans/";
-  private String key = "";
-  public SearchBhajan(String key) throws InterruptedException
-  {
-	super(key, subURL);
-	this.key = key;
-  }
+	public Bhajan result = null;
+	private static String subURL = "/find_bhajans/";
+	private String key = "";
+	public SearchBhajan(String key) throws InterruptedException {
+		super(key, subURL);
+		this.key = key;
+	}
   
+	public void getData() {
+		String result;
+		try {
+			result = this.fetchData();
+			parseData(result);
+		} catch (ClientProtocolException e) {
+			this.serverErrors.add("There was an error! Please try again later!");
+		} catch (IOException e) {
+			this.serverErrors.add("There was an error in accessing data! Please try later");
+		} catch (JSONException e) {
+			this.serverErrors.add("There was an error! Please try later!");
+		}	  
+	}
   
-  public void getData() 
-  {
-	String result;
-	try {
-		result = this.fetchData();
-		System.out.println("REsult in getdata is " + result);
-	    parseData(result);
-		 
-	} catch (ClientProtocolException e) {
-		this.serverErrors.add("There was an error! Please try again later!");
-	} catch (IOException e) {
-		this.serverErrors.add("There was an error in accessing data! Please try later");
-	} catch (JSONException e) {
-		this.serverErrors.add("There was an error! Please try later!");
-	}	  
-  }
+	public String fetchData() throws ClientProtocolException, IOException {
+		return super.fetchData(); 
+	}
   
-  public String fetchData() throws ClientProtocolException, IOException
-  {
-    return super.fetchData(); 
-  }
+	public void parseData(String result) throws ClientProtocolException, IOException, JSONException {
+		super.parseData(result);
+	}
   
-  public void parseData(String result) throws ClientProtocolException, IOException, JSONException
-  {
-    super.parseData(result);
-  }
-  
-  protected void extractData(JSONObject jsonObject)
-  {
-	String raaga = jsonObject.optString("raaga");
-	System.out.println("Raaga is" + raaga);
-	String meaning = jsonObject.optString("meaning");
-	System.out.println("meaning is" + meaning);
-	String lyrics = jsonObject.optString("lyrics");
-	System.out.println("lyrics is" + lyrics);
-	String deity = jsonObject.optString("deity");
-	System.out.println("deity is" + deity);
-	this.result = (new Bhajan(raaga,meaning,lyrics,deity, key));
-  }
+	protected void extractData(JSONObject jsonObject) {
+		String raaga = jsonObject.optString("raaga");
+		String meaning = jsonObject.optString("meaning");
+		String lyrics = jsonObject.optString("lyrics");
+		String deity = jsonObject.optString("deity");
+		this.result = (new Bhajan(raaga,meaning,lyrics,deity, key));
+	}
 
 }  
   
