@@ -65,11 +65,10 @@ public class BhajanResultsFragment extends ListFragment {
 			try {
 				searchBhajan = new SearchBhajan(name);
 				searchBhajan.getData();
-				}
-			
-			catch (InterruptedException e) {
+			} catch (InterruptedException e) {
 				e.printStackTrace();
-				}
+			}
+
 			Bhajan result = searchBhajan.result;
 	    	android.app.FragmentManager fragmentManager = (getActivity()).getFragmentManager(); 
             bundle.putString("raaga", searchBhajan.result.raaga);
@@ -96,7 +95,7 @@ public class BhajanResultsFragment extends ListFragment {
 			}
 		});
 		setListAdapter(adapter);
-	}
+    }
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 	    View view = inflater.inflate(R.layout.raaga_deity_list, container, false);

@@ -49,11 +49,11 @@ public class MainActivity2 extends Fragment {
 	public View clickView;
 	public ArrayAdapter<String> commonAdapter;
 	public ArrayList<String> data=new ArrayList<String>();
-    private EditText text;
-    ArrayList<String> arrayResponse=new ArrayList<String>();
-    ArrayList<String> bhajanNames;
-    ArrayList<String> raagaNames;
-    ArrayList<String> deityNames;
+	private EditText text;
+	ArrayList<String> arrayResponse=new ArrayList<String>();
+	ArrayList<String> bhajanNames;
+	ArrayList<String> raagaNames;	
+	ArrayList<String> deityNames;
 	AutoCompleteTextView commonSearchField;
 	ProgressDialog pd;
 	
@@ -86,28 +86,23 @@ public class MainActivity2 extends Fragment {
 	  
 	   	Button search = (Button) view.findViewById(R.id.button1);
 	   	search.setOnClickListener(new OnClickListener() {
-	    public void onClick(View v)
-	    	{
-	   	 	try {
-	   	 		onClick1();
-	   	 	} 
-	   	 	catch (ClientProtocolException e) {
+		public void onClick(View v) {
+		try {
+	   		onClick1();
+		} catch (ClientProtocolException e) {
 			e.printStackTrace();
-  		    } 
-	   	 	catch (IOException e) {
+  		} catch (IOException e) {
 			e.printStackTrace();
-		    } 
-	   	 	catch (JSONException e) {
+		} catch (JSONException e) {
 			e.printStackTrace();
-	   	 	} 
-	   	 	catch (InterruptedException e) {
+		} catch (InterruptedException e) {
 			e.printStackTrace();
-	   	 	}
-	     }
+		}
+	     	}
 	   	});
 	   	commonSearchField = (AutoCompleteTextView) view.findViewById(R.id.editText1);
 	
-	    if(arrayResponse!=null)	{
+		if(arrayResponse!=null)	{
 	    	commonAdapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_dropdown_item_1line, arrayResponse);
 	    	commonSearchField.setAdapter(commonAdapter);
 	    }
@@ -168,24 +163,22 @@ public class MainActivity2 extends Fragment {
 	   		commonAdapter.notifyDataSetChanged();
 	   	}
        
-       
-	   	public void onClick1() throws ClientProtocolException, IOException, JSONException, InterruptedException {
+       public void onClick1() throws ClientProtocolException, IOException, JSONException, InterruptedException {
 	   		View view = this.getView(); {
-	   			EditText text = (EditText) getView().findViewById(R.id.editText1);
-	   			RadioGroup radio_group = (RadioGroup) view.findViewById(R.id.radioGroup1);
-	   			int checked_radio_id = radio_group.getCheckedRadioButtonId();
+	   		EditText text = (EditText) getView().findViewById(R.id.editText1);
+	   		RadioGroup radio_group = (RadioGroup) view.findViewById(R.id.radioGroup1);
+	   		int checked_radio_id = radio_group.getCheckedRadioButtonId();
           
-	   			if (text.getText().length() == 0) {
-	   				String error_message = "Please enter valid data";//" + (is_raaga_checked ? "raaga" : "bhajan");
-	   				Toast.makeText(this.getActivity(), error_message, Toast.LENGTH_LONG).show();
-	   				return;
-	   			}
+	   		if (text.getText().length() == 0) {
+	   			String error_message = "Please enter valid data";//" + (is_raaga_checked ? "raaga" : "bhajan");
+	   			Toast.makeText(this.getActivity(), error_message, Toast.LENGTH_LONG).show();
+	   			return;
+	   		}
 	   			/*
               	pd = ProgressDialog.show(this, "Loading..", "Fetching Data", true, false);
             	pd.setCancelable(true);
             	*/
-           
-
+         
            switch(checked_radio_id){
            case R.id.deity_radio:
        	  		SearchDeity searchDeity = new SearchDeity(text.getText().toString());
@@ -221,8 +214,8 @@ public class MainActivity2 extends Fragment {
          	   }
          	 }).start();*/} 
          
-	   	public void afterTextChanged(Editable s) {}
-	   	public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-	   	public void onTextChanged(CharSequence s, int start, int before, int count) {}
+    public void afterTextChanged(Editable s) {}
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+    public void onTextChanged(CharSequence s, int start, int before, int count) {}
 	   	
    	}
