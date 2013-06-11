@@ -25,7 +25,7 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 	private final String url = AppConfig.URL + "/play/song.mp3";
 	private final String FAV = "Favorite";
 	private final String UNFAV = "Unfavorite";
-    private final String[] keys = new String[]{"raaga","lyrics","meaning", "deity"};
+        private final String[] keys = new String[]{"raaga","lyrics","meaning", "deity"};
     
 	private String choice = "";
 	private ArrayList<String> bhajanDetails = new ArrayList<String>();
@@ -38,7 +38,7 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 	private int length = 0;
 	private String bhajanName = "";
 	//private final String url = "http://dl.radiosai.org/BV_U003_V001_04_SHALINEE_SAI_HEY_ANATHA_NATHA.mp3";
-    private final Handler handler = new Handler();
+        private final Handler handler = new Handler();
 	private final Runnable r = new Runnable() {	
     public void run() {
         updateSeekProgress();					
@@ -56,137 +56,136 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 
         setBhajanDetails(bhajanDetails);
         setBhajanName(bundle.getString("bhajan"));
-	 }
+	}
 	
 	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+	    super.onCreate(savedInstanceState);
 	}
 	
 	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), R.layout.row,bhajanDetails);
-		setListAdapter(adapter);
+	    super.onActivityCreated(savedInstanceState);
+	    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), R.layout.row,bhajanDetails);
+	    setListAdapter(adapter);
 	}
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 	    View view = inflater.inflate(R.layout.list_bhajans, container, false);
-		btn_play = (Button) view.findViewById(R.id.btn_play);
-		btn_play.setOnClickListener(this);
+	    
+	    btn_play = (Button) view.findViewById(R.id.btn_play);
+	    btn_play.setOnClickListener(this);
+	    
 	    seekBar = (SeekBar)view.findViewById(R.id.seekBar);
-		seekBar.setOnTouchListener(this);
-		mediaPlayer = new MediaPlayer();
-		mediaPlayer.setOnBufferingUpdateListener(this);
-		mediaPlayer.setOnCompletionListener(this);
+	    seekBar.setOnTouchListener(this);
+	    
+            mediaPlayer = new MediaPlayer();
+	    mediaPlayer.setOnBufferingUpdateListener(this);
+            mediaPlayer.setOnCompletionListener(this);
+            
 	    btn_fav = (Button) view.findViewById(R.id.btn_fav);
         FavoriteDB.setContext(this.getActivity());
         int count = FavoriteDB.selectBhajan(this.bundle.getString("bhajan"));
 	    this.setFavText(btn_fav.getText().toString());
+
 	    if(count == 0) {
             btn_fav.setText(FAV);
 	    }
 	    else {
             btn_fav.setText(UNFAV);
 	    }
+
 	    btn_fav.setOnClickListener(new OnClickListener()
 	   	{
 	    public void onClick(View v) {
-			onClick1();
-		}});
+		onClick1();
+	    }   });
    
-		return view;
+	    return view;
 	}
 	
 	
 	public void onClick1() {
-		Button favButton = (Button) (getView().findViewById(R.id.btn_fav));
-		String buttonText = favButton.getText().toString();
+	    Button favButton = (Button) (getView().findViewById(R.id.btn_fav));
+	    String buttonText = favButton.getText().toString();
         FavoriteDB.setContext(this.getActivity());
         if(buttonText.equals(FAV)) {
             FavoriteDB.addBhajan(this.getBhajanName());
             favButton.setText(UNFAV);
-        }
-        else {
+        } else {
         	FavoriteDB.removeBhajan(this.getBhajanName());
         	favButton.setText(FAV);
         }
 	}
 
 	public void onBufferingUpdate(MediaPlayer mediaPlayer, int percent) {
-		seekBar.setSecondaryProgress(percent);
+	    seekBar.setSecondaryProgress(percent);
 	}
 
 	public void onCompletion(MediaPlayer mp) {
-		btn_play.setText("play");
+	    btn_play.setText("play");
 	}
 
 	public boolean onTouch(View v, MotionEvent event) {
-		if (mediaPlayer.isPlaying()) {
-			SeekBar tmpSeekBar = (SeekBar) v;
-			mediaPlayer.seekTo((lengthOfAudio / 100) * tmpSeekBar.getProgress() );
-			System.out.println("lengthofAudio is" + lengthOfAudio);
-		}
-		return false;
+	    if (mediaPlayer.isPlaying()) {
+	       SeekBar tmpSeekBar = (SeekBar) v;
+	       mediaPlayer.seekTo((lengthOfAudio / 100) * tmpSeekBar.getProgress() );
+	       System.out.println("lengthofAudio is" + lengthOfAudio);
+	    }
+	    return false;
 	}
 
 
 	private void updateSeekProgress() {	 
-		if (mediaPlayer.isPlaying()) {
-			seekBar.setProgress((int)(((float)mediaPlayer.getCurrentPosition() / lengthOfAudio) * 100));
-			handler.postDelayed(r, 2000);
-		 }
+	    if (mediaPlayer.isPlaying()) {
+		seekBar.setProgress((int)(((float)mediaPlayer.getCurrentPosition() / lengthOfAudio) * 100));
+		handler.postDelayed(r, 2000);
+	    }
 	}
 	
-	public void onClick(View view) {
+    public void onClick(View view) {
     	try {
-			mediaPlayer.setDataSource(url);
-			mediaPlayer.prepare();
-			lengthOfAudio = mediaPlayer.getDuration();
-		 } 
-    	 catch (Exception e) {
-		 }
+	        mediaPlayer.setDataSource(url);
+	        mediaPlayer.prepare();
+	        lengthOfAudio = mediaPlayer.getDuration();
+         } catch (Exception e) {
+         }
     	
-		 seekBar.setProgress((int)(((float)mediaPlayer.getCurrentPosition() / lengthOfAudio) * 100));
-		 handler.postDelayed(r, 1000);
-		 SeekBar tmpSeekBar = (SeekBar) view.findViewById(R.id.seekBar);
-		 switch (view.getId()) {
-		 case R.id.btn_play:
-			 if(mediaPlayer.isPlaying()){
-				 btn_play.setText("play");
-				 pauseAudio();
-				 length=mediaPlayer.getCurrentPosition();
-			 }
-		 	 else {
-			 if(mediaPlayer!=null) {
-				 if(tmpSeekBar==null) {
-					 tmpSeekBar = (SeekBar) view.findViewById(R.id.seekBar);
-			 }
+        seekBar.setProgress((int)(((float)mediaPlayer.getCurrentPosition() / lengthOfAudio) * 100));
+        handler.postDelayed(r, 1000);
+        SeekBar tmpSeekBar = (SeekBar) view.findViewById(R.id.seekBar);
+	    switch (view.getId()) {
+		case R.id.btn_play:
+		    if(mediaPlayer.isPlaying()){
+		        btn_play.setText("play");
+		        pauseAudio();
+		        length=mediaPlayer.getCurrentPosition();
+		    } else {
+		            if(mediaPlayer!=null) {
+		            if(tmpSeekBar==null) {
+	                    tmpSeekBar = (SeekBar) view.findViewById(R.id.seekBar);
+	            }
 				//mediaPlayer.seekTo((lengthOfAudio / 100) * tmpSeekBar.getProgress() );
-			 playAudio();
-			 btn_play.setText("pause");
-			 }
-			 else {
-				 System.out.println("Here as mediaPlayer is null");	
-			 }
-			 }
-			 break;
-		 default:
-			 break;
-		 }
+		        playAudio();
+		        btn_play.setText("pause");
+	        }}
+	        break;
+		default:
+		break;
+		}
 		
-		 updateSeekProgress();
+        updateSeekProgress();
 	}
 	
 	public void onDestroy() {
-		mediaPlayer.stop();	
-		super.onDestroy();
+	    mediaPlayer.stop();	
+	    super.onDestroy();
 	}
 
 	private void pauseAudio() {
-		mediaPlayer.pause();
+	    mediaPlayer.pause();
 	}
 
 	private void playAudio() {
-		mediaPlayer.start();
+	    mediaPlayer.start();
 	}
 	
     public ArrayList<String> getBhajanDetails() {
@@ -194,8 +193,8 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
             int i;
             for(i=0;i<4;i++)
         	    bhajanDetails.add("No Data found");
-        }
-        return bhajanDetails;
+         }
+         return bhajanDetails;
     }
 
     public void setBhajanDetails(ArrayList<String> string) {
@@ -211,13 +210,13 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
     }
 	
 	public void setFavText(String s) {
-		this.choice = s;
+	    this.choice = s;
 	}
 	
 	public String getFavText() {
-		if(choice == FAV)
-			return FAV;
-		else 
-			return UNFAV;
+	    if(choice == FAV)
+		return FAV;
+	    else 
+		return UNFAV;
 	}
 }

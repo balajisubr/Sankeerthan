@@ -48,35 +48,35 @@ public class BhajanResultsFragment extends ListFragment {
 	}
 
 	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+	    super.onCreate(savedInstanceState);
 	}
 	
 	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), R.layout.row,bhajans);
-		ListView listView = getListView();
-		listView.setTextFilterEnabled(true);
+	    super.onActivityCreated(savedInstanceState);
+	    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), R.layout.row,bhajans);
+	    ListView listView = getListView();
+	    listView.setTextFilterEnabled(true);
  
-		listView.setOnItemClickListener(new OnItemClickListener() {
-		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-	    	Bundle bundle = new Bundle();
-			String name = ((TextView) view).getText().toString();
+	    listView.setOnItemClickListener(new OnItemClickListener() {
+	    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+	        Bundle bundle = new Bundle();
+		String name = ((TextView) view).getText().toString();
 	        SearchBhajan searchBhajan = null;
-			try {
-				searchBhajan = new SearchBhajan(name);
-				searchBhajan.getData();
+		    try {
+			searchBhajan = new SearchBhajan(name);
+			searchBhajan.getData();
 			} catch (InterruptedException e) {
-				e.printStackTrace();
+			e.printStackTrace();
 			}
 
-			Bhajan result = searchBhajan.result;
+		Bhajan result = searchBhajan.result;
 	    	android.app.FragmentManager fragmentManager = (getActivity()).getFragmentManager(); 
-            bundle.putString("raaga", searchBhajan.result.raaga);
-            bundle.putString("lyrics", searchBhajan.result.lyrics);
-            bundle.putString("meaning", searchBhajan.result.meaning);
-            bundle.putString("deity", searchBhajan.result.deity);
-            bundle.putString("bhajan", searchBhajan.result.name);
-            BhajanDetailsFragment fragment = new BhajanDetailsFragment(bundle);
+                bundle.putString("raaga", searchBhajan.result.raaga);
+                bundle.putString("lyrics", searchBhajan.result.lyrics);
+                bundle.putString("meaning", searchBhajan.result.meaning);
+                bundle.putString("deity", searchBhajan.result.deity);
+                bundle.putString("bhajan", searchBhajan.result.name);
+                BhajanDetailsFragment fragment = new BhajanDetailsFragment(bundle);
 	        FragmentTransaction ft = fragmentManager.beginTransaction();
 	        ft.replace(android.R.id.content, fragment);
 	        fragmentManager.addOnBackStackChangedListener(null);
@@ -95,26 +95,26 @@ public class BhajanResultsFragment extends ListFragment {
 			}
 		});
 		setListAdapter(adapter);
-    }
+       }
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 	    View view = inflater.inflate(R.layout.raaga_deity_list, container, false);
 	    setBhajans(bundle.getStringArray("bhajan"));
-		return view;
+	    return view;
 	}
 	
 	public void setBhajans(String bhajans[]) {
-		int i;
-		for(i=0;i<bhajans.length;i++) {
-			 this.bhajans.add(bhajans[i]);	 
-		}
+	    int i;
+	    for(i=0;i<bhajans.length;i++) {
+		this.bhajans.add(bhajans[i]);	 
+	    }
 	}
 	
 	public ArrayList<String> getBhajans() {
-		if(bhajans.size() == 0) {
-			int i;
-			for(i=0;i<4;i++)
-	              bhajans.add("No Data found");
+	    if(bhajans.size() == 0) {
+		int i;
+		for(i=0;i<4;i++)
+	            bhajans.add("No Data found");
 	    }
 	    return bhajans;
 	}

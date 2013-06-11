@@ -20,20 +20,20 @@ public class FavoriteFragment extends ListFragment{
 		
 	}
 	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+	    super.onCreate(savedInstanceState);
 	}
 	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
-		FavoriteDB.setContext(this.getActivity());
-		bhajans = FavoriteDB.fetchBhajans();
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), R.layout.row,bhajans);
-		ListView listView = getListView();
-		listView.setTextFilterEnabled(true);
-		setListAdapter(adapter);
+	    super.onActivityCreated(savedInstanceState);
+	    FavoriteDB.setContext(this.getActivity());
+	    bhajans = FavoriteDB.fetchBhajans();
+	    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), R.layout.row,bhajans);
+	    ListView listView = getListView();
+	    listView.setTextFilterEnabled(true);
+	    setListAdapter(adapter);
 	}
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.raaga_deity_list, container, false);	
-		return view;
+	    View view = inflater.inflate(R.layout.raaga_deity_list, container, false);	
+	    return view;
 	}
 }

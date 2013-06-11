@@ -59,19 +59,19 @@ public class MainActivity2 extends Fragment {
 	
 	
 	public void onCreate(Bundle savedInstanceState) {
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitNetwork().build();
-        StrictMode.setThreadPolicy(policy);
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitNetwork().build();
+            StrictMode.setThreadPolicy(policy);
 
-		super.onCreate(savedInstanceState);
-        LookUpData.setContext(this.getActivity());     
-		this.bhajanNames = LookUpData.getData(AppConfig.BHAJANS);
+	    super.onCreate(savedInstanceState);
+            LookUpData.setContext(this.getActivity());     
+	    this.bhajanNames = LookUpData.getData(AppConfig.BHAJANS);
 	    this.raagaNames = LookUpData.getData(AppConfig.RAAGAS);
-		this.deityNames = LookUpData.getData(AppConfig.DEITIES);
+	    this.deityNames = LookUpData.getData(AppConfig.DEITIES);
 		
-        if(!(bhajanNames == null)) {
+            if(!(bhajanNames == null)) {
         	arrayResponse.clear();
 	        arrayResponse.addAll(bhajanNames);
-        }
+            }
 	}
 
 	@Override
@@ -81,30 +81,30 @@ public class MainActivity2 extends Fragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.activity_main, container, false);
-	   	this.view = view;
+	    View view = inflater.inflate(R.layout.activity_main, container, false);
+	    this.view = view;
 	  
-	   	Button search = (Button) view.findViewById(R.id.button1);
-	   	search.setOnClickListener(new OnClickListener() {
-		public void onClick(View v) {
+	    Button search = (Button) view.findViewById(R.id.button1);
+	    search.setOnClickListener(new OnClickListener() {
+	    public void onClick(View v) {
 		try {
-	   		onClick1();
+	   	    onClick1();
 		} catch (ClientProtocolException e) {
-			e.printStackTrace();
+		    e.printStackTrace();
   		} catch (IOException e) {
-			e.printStackTrace();
+		    e.printStackTrace();
 		} catch (JSONException e) {
-			e.printStackTrace();
+		    e.printStackTrace();
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+		    e.printStackTrace();
 		}
-	     	}
-	   	});
-	   	commonSearchField = (AutoCompleteTextView) view.findViewById(R.id.editText1);
+	     }});
+	     
+	   commonSearchField = (AutoCompleteTextView) view.findViewById(R.id.editText1);
 	
-		if(arrayResponse!=null)	{
-	    	commonAdapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_dropdown_item_1line, arrayResponse);
-	    	commonSearchField.setAdapter(commonAdapter);
+	   if(arrayResponse!=null) {
+	       commonAdapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_dropdown_item_1line, arrayResponse);
+	       commonSearchField.setAdapter(commonAdapter);
 	    }
 	     
 	    RadioButton raaga = (RadioButton) view.findViewById(R.id.raaga_radio);
@@ -113,8 +113,8 @@ public class MainActivity2 extends Fragment {
 	       
 	    OnClickListener l1 = new OnClickListener() {
 	    	public void onClick(View v) {
-	    		commonSearchField.setText("");
-	    		updateData("raagas");
+	    	    commonSearchField.setText("");
+	    	    updateData("raagas");
 	        }
 	    };
 	    		
@@ -122,58 +122,55 @@ public class MainActivity2 extends Fragment {
 	    public void onClick(View v) {
 	    	commonSearchField.setText("");
 	    	updateData("bhajans");   
-	  	}};
+	    }};
 	  	   
-	  	OnClickListener l3 = new OnClickListener(){
-	  	public void onClick(View v) {
-	  	   	commonSearchField.setText("");
-	  	   	updateData("deities");
-	  	}};
+	    OnClickListener l3 = new OnClickListener(){
+	    public void onClick(View v) {
+	        commonSearchField.setText("");
+	        updateData("deities");
+	    }};
 	  	  		
-	  	raaga.setOnClickListener(l1);
-	  	bhajan.setOnClickListener(l2);
-	  	deity.setOnClickListener(l3);
+	    raaga.setOnClickListener(l1);
+	    bhajan.setOnClickListener(l2);
+	    deity.setOnClickListener(l3);
 	   	
-		return view;
-		}
+	    return view;
+	}
       
-	   	public void setClickView(View v) {
-	   		this.clickView = v;  
-	   	}
+	public void setClickView(View v) {
+	    this.clickView = v;  
+	}
 	   
-	   	public View getClickView() {
-	   		return clickView;   
-	   	}
-
-	    
-	   	public void updateData(String key) {
-	   		commonAdapter.clear();       
-	   		if(key.equals("raagas") && raagaNames!=null) {
-	   			commonAdapter.addAll(raagaNames);	
-	   		} 
-	   		else if(key.equals("bhajans") && bhajanNames != null) {  
-	   			commonAdapter.addAll(bhajanNames);
-            }
-	   		else
-	   		{
-	   			if(deityNames != null)  
-	   				commonAdapter.addAll(deityNames);  
-	   		}  
-	   		commonAdapter.setNotifyOnChange(true);
-	   		commonAdapter.notifyDataSetChanged();
-	   	}
+	public View getClickView() {
+	    return clickView;   
+	}
+ 
+	public void updateData(String key) {
+	    commonAdapter.clear();       
+	    if(key.equals("raagas") && raagaNames!=null) {
+	   	   commonAdapter.addAll(raagaNames);	
+	    } 
+	    else if(key.equals("bhajans") && bhajanNames != null) {  
+	   	commonAdapter.addAll(bhajanNames);
+            } else {
+	   	if(deityNames != null)  
+	   	    commonAdapter.addAll(deityNames);  
+	    }  
+	    commonAdapter.setNotifyOnChange(true);
+	    commonAdapter.notifyDataSetChanged();
+	}
        
-       public void onClick1() throws ClientProtocolException, IOException, JSONException, InterruptedException {
-	   		View view = this.getView(); {
-	   		EditText text = (EditText) getView().findViewById(R.id.editText1);
-	   		RadioGroup radio_group = (RadioGroup) view.findViewById(R.id.radioGroup1);
-	   		int checked_radio_id = radio_group.getCheckedRadioButtonId();
+        public void onClick1() throws ClientProtocolException, IOException, JSONException, InterruptedException {
+	    View view = this.getView(); {
+	    EditText text = (EditText) getView().findViewById(R.id.editText1);
+	    RadioGroup radio_group = (RadioGroup) view.findViewById(R.id.radioGroup1);
+	    int checked_radio_id = radio_group.getCheckedRadioButtonId();
           
-	   		if (text.getText().length() == 0) {
-	   			String error_message = "Please enter valid data";//" + (is_raaga_checked ? "raaga" : "bhajan");
-	   			Toast.makeText(this.getActivity(), error_message, Toast.LENGTH_LONG).show();
-	   			return;
-	   		}
+	    if (text.getText().length() == 0) {
+	   	String error_message = "Please enter valid data";//" + (is_raaga_checked ? "raaga" : "bhajan");
+	   	Toast.makeText(this.getActivity(), error_message, Toast.LENGTH_LONG).show();
+	   	return;
+	    }
 	   			/*
               	pd = ProgressDialog.show(this, "Loading..", "Fetching Data", true, false);
             	pd.setCancelable(true);
@@ -181,25 +178,23 @@ public class MainActivity2 extends Fragment {
          
            switch(checked_radio_id){
            case R.id.deity_radio:
-       	  		SearchDeity searchDeity = new SearchDeity(text.getText().toString());
-       	  		searchDeity.getData();
-       	  		GenericDisplay deityDisplay = new GenericDisplay(searchDeity, this);
-       	  		deityDisplay.processErrorsOrDisplay();
-       	  		break;
+       	       SearchDeity searchDeity = new SearchDeity(text.getText().toString());
+       	       searchDeity.getData();
+       	       GenericDisplay deityDisplay = new GenericDisplay(searchDeity, this);
+       	       deityDisplay.processErrorsOrDisplay();
+       	       break;
            case R.id.raaga_radio:
-        	   SearchRaaga searchRaaga = new SearchRaaga(text.getText().toString());
-        	   searchRaaga.getData();
-        	   GenericDisplay raagaDisplay = new GenericDisplay(searchRaaga, this);
-        	   raagaDisplay.processErrorsOrDisplay();
-        	   break;
+               SearchRaaga searchRaaga = new SearchRaaga(text.getText().toString());
+               searchRaaga.getData();
+               GenericDisplay raagaDisplay = new GenericDisplay(searchRaaga, this);
+               raagaDisplay.processErrorsOrDisplay();
+               break;
            case R.id.bhajan_radio:
-        	   SearchBhajan searchBhajan = new SearchBhajan(text.getText().toString());
-           	   searchBhajan.getData();
-
-           	   GenericDisplay bhajanDisplay = new GenericDisplay(searchBhajan, this);
-           	   bhajanDisplay.processErrorsOrDisplay();
-
-           	   break;
+               SearchBhajan searchBhajan = new SearchBhajan(text.getText().toString());
+               searchBhajan.getData();
+               GenericDisplay bhajanDisplay = new GenericDisplay(searchBhajan, this);
+               bhajanDisplay.processErrorsOrDisplay();
+               break;
            }}
           /*
           new Thread(new Runnable() {
@@ -214,8 +209,8 @@ public class MainActivity2 extends Fragment {
          	   }
          	 }).start();*/} 
          
-    public void afterTextChanged(Editable s) {}
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-    public void onTextChanged(CharSequence s, int start, int before, int count) {}
+        public void afterTextChanged(Editable s) {}
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+        public void onTextChanged(CharSequence s, int start, int before, int count) {}
 	   	
    	}
