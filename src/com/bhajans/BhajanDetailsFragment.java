@@ -40,9 +40,9 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 	//private final String url = "http://dl.radiosai.org/BV_U003_V001_04_SHALINEE_SAI_HEY_ANATHA_NATHA.mp3";
     private final Handler handler = new Handler();
 	private final Runnable r = new Runnable() {	
-		public void run() {
-			updateSeekProgress();					
-		}
+    public void run() {
+        updateSeekProgress();					
+	}
 	};
 
 	
@@ -82,10 +82,10 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
         int count = FavoriteDB.selectBhajan(this.bundle.getString("bhajan"));
 	    this.setFavText(btn_fav.getText().toString());
 	    if(count == 0) {
-   	    		btn_fav.setText(FAV);
+            btn_fav.setText(FAV);
 	    }
 	    else {
-	    		btn_fav.setText(UNFAV);
+            btn_fav.setText(UNFAV);
 	    }
 	    btn_fav.setOnClickListener(new OnClickListener()
 	   	{
@@ -191,9 +191,9 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 	
     public ArrayList<String> getBhajanDetails() {
     	if(bhajanDetails.size() == 0) {
-        int i;
-        for(i=0;i<4;i++)
-        	bhajanDetails.add("No Data found");
+            int i;
+            for(i=0;i<4;i++)
+        	    bhajanDetails.add("No Data found");
         }
         return bhajanDetails;
     }
