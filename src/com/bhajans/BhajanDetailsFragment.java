@@ -45,31 +45,51 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 	}
 	};
 
+	public BhajanDetailsFragment()
+	{
+		
+	}
 	
 	public BhajanDetailsFragment(Bundle bundle) {
         this.bundle = bundle;
-        
-        for(String s: keys) {
-            String value = bundle.getString(s);
-            bhajanDetails.add(value);
-        }
-
-        setBhajanDetails(bhajanDetails);
-        setBhajanName(bundle.getString("bhajan"));
+        setDetails(bundle);       
 	 }
 	
+	public void setDetails(Bundle bundle)
+	{
+		 for(String s: keys) {
+	         String value = bundle.getString(s);
+	         bhajanDetails.add(value);
+	     }
+
+	     setBhajanDetails(bhajanDetails);
+	     setBhajanName(bundle.getString("bhajan"));
+	}
+	
 	public void onCreate(Bundle savedInstanceState) {
+		//Bundle details = this.getArguments();
+		//setDetails(details);
 		super.onCreate(savedInstanceState);
 	}
 	
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), R.layout.row,bhajanDetails);
-		setListAdapter(adapter);
+		//Bundle details = this.getArguments();
+		//setDetails(details);
+		//ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), R.layout.row,this.getBhajanDetails());
+		//setListAdapter(adapter);
 	}
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 	    View view = inflater.inflate(R.layout.list_bhajans, container, false);
+		Bundle details = new Bundle();
+		if(!(getArguments() == null)) {
+	        details = this.getArguments();
+		    setDetails(details);
+		}
+		
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), R.layout.row,this.getBhajanDetails());
+		setListAdapter(adapter);
 		btn_play = (Button) view.findViewById(R.id.btn_play);
 		btn_play.setOnClickListener(this);
 	    seekBar = (SeekBar)view.findViewById(R.id.seekBar);
@@ -79,7 +99,7 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 		mediaPlayer.setOnCompletionListener(this);
 	    btn_fav = (Button) view.findViewById(R.id.btn_fav);
         FavoriteDB.setContext(this.getActivity());
-        int count = FavoriteDB.selectBhajan(this.bundle.getString("bhajan"));
+        int count = FavoriteDB.selectBhajan(getBhajanName());
 	    this.setFavText(btn_fav.getText().toString());
 	    if(count == 0) {
             btn_fav.setText(FAV);

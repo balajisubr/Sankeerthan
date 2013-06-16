@@ -71,16 +71,17 @@ public class BhajanResultsFragment extends ListFragment {
 
 			Bhajan result = searchBhajan.result;
 	    	android.app.FragmentManager fragmentManager = (getActivity()).getFragmentManager(); 
-            bundle.putString("raaga", searchBhajan.result.raaga);
-            bundle.putString("lyrics", searchBhajan.result.lyrics);
-            bundle.putString("meaning", searchBhajan.result.meaning);
-            bundle.putString("deity", searchBhajan.result.deity);
-            bundle.putString("bhajan", searchBhajan.result.name);
+            bundle.putString("raaga", result.raaga);
+            bundle.putString("lyrics", result.lyrics);
+            bundle.putString("meaning", result.meaning);
+            bundle.putString("deity", result.deity);
+            bundle.putString("bhajan", result.name);
             BhajanDetailsFragment fragment = new BhajanDetailsFragment(bundle);
 	        FragmentTransaction ft = fragmentManager.beginTransaction();
-	        ft.replace(android.R.id.content, fragment);
-	        fragmentManager.addOnBackStackChangedListener(null);
+	        ft.replace(android.R.id.content, fragment).addToBackStack( "search" );
+	        //fragmentManager.addOnBackStackChangedListener(null);
 	        ft.commit();
+	        fragmentManager.executePendingTransactions();      //
 
 		     /*   
 		        Intent intent = new Intent(BhajanResultsActivity.this,ODisplayBhajanDetails.class);

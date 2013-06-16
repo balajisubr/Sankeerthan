@@ -101,18 +101,19 @@ public class GenericDisplay {
 		switch (classId) {
         case 1: 
             BhajanDetailsFragment fragment = new BhajanDetailsFragment(bundle);
-            ft.replace(android.R.id.content, fragment);
+            ft.replace(android.R.id.content, fragment).addToBackStack( "search" );
             break;
         case 2: case 3:      
         	BhajanResultsFragment fragment1 = new BhajanResultsFragment(bundle);
-            ft.replace(android.R.id.content, fragment1);
+            ft.replace(android.R.id.content, fragment1).addToBackStack( "search" );
             break;
         default: 
         	break;
 		}	
 		
-		fragmentManager.addOnBackStackChangedListener(null);
+		//fragmentManager.addOnBackStackChangedListener(null);
         ft.commit();
+        fragmentManager.executePendingTransactions();      //
 	}
 	
 	public void navigateToErrorActivity(String errorMessage) {

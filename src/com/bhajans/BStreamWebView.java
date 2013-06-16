@@ -12,7 +12,6 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-@SuppressLint("ValidFragment")
 public class BStreamWebView extends Fragment {
 
     private WebView mWebView;
