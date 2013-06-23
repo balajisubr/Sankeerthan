@@ -7,9 +7,16 @@
     android:background="#FFFFFF">
         
      <ListView
-        android:id="@android:id/list"
-        android:layout_width="fill_parent"
-        android:layout_height="300dp" />  
+        android:id="@+android:id/list"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp" />
+        
+         <ExpandableListView
+                android:id="@+id/ExpList"
+                android:layout_height="230dp"
+                android:layout_width="fill_parent"
+                android:groupIndicator="@null" />   
+          
         
         <SeekBar
     android:id="@+id/seekBar"
@@ -26,22 +33,20 @@
 
     <Button
         android:id="@+id/btn_play"
-        android:layout_width="90dp"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"        
         android:text="play" />
         
          <Button
         android:id="@+id/btn_fav"
-        android:layout_width="90dp"
+        android:layout_width="110dp"
         android:layout_height="wrap_content"
         android:text="Favorite" />
         
 
 </LinearLayout> 
 
-
-
- <!--fragment
+<!--fragment
         android:id="@+id/player_fragment"
         android:layout_width="fill_parent"
         android:layout_height="200dp"

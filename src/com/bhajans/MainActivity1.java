@@ -22,19 +22,19 @@ public class MainActivity1 extends Activity {
         actionBar.setDisplayShowTitleEnabled(false);
 
         Tab tab = actionBar.newTab()
-        		.setText("Search Bhajans")
+        		.setText("Search Bhajans (1/4)")
                 .setTabListener(new TabsListener<MainActivity2>(
                         this, "search", MainActivity2.class));
         actionBar.addTab(tab);
 
         tab = actionBar.newTab()
-        		.setText("Favorites")
+        		.setText("Favorites (2/4)")
         		.setTabListener(new TabsListener<FavoriteFragment>(
                     this, "top", FavoriteFragment.class));
         actionBar.addTab(tab);
         
         tab = actionBar.newTab()
-        		.setText("Bhajan Stream")
+        		.setText("Bhajan Stream (3/4)")
         		.setTabListener(new TabsListener<BStreamWebView>(
                     this, "top", BStreamWebView.class));
         actionBar.addTab(tab);

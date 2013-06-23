@@ -1,7 +1,13 @@
 package com.bhajans;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map.Entry;
+
 import com.bhajans.display.FavoriteDB;
+import com.bhajans.display.expand.*;
+
 import android.annotation.SuppressLint;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnBufferingUpdateListener;
@@ -18,6 +24,7 @@ import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ExpandableListView;
 import android.widget.SeekBar;
 
 @SuppressLint("ValidFragment")
@@ -28,7 +35,7 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
     private final String[] keys = new String[]{"raaga","lyrics","meaning", "deity"};
     
 	private String choice = "";
-	private ArrayList<String> bhajanDetails = new ArrayList<String>();
+	private HashMap<String, String> bhajanDetails = new HashMap<String, String>();
 	private Bundle bundle;
     private Button btn_play;
     private Button btn_fav;
@@ -59,7 +66,9 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 	{
 		 for(String s: keys) {
 	         String value = bundle.getString(s);
-	         bhajanDetails.add(value);
+	         if(value.equals(null) || value.length()==0 || value.isEmpty())
+	        	 value = "No info for" + s;
+	         bhajanDetails.put(s, value);
 	     }
 
 	     setBhajanDetails(bhajanDetails);
@@ -82,14 +91,21 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 	    View view = inflater.inflate(R.layout.list_bhajans, container, false);
+	    
 		Bundle details = new Bundle();
 		if(!(getArguments() == null)) {
 	        details = this.getArguments();
 		    setDetails(details);
 		}
 		
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), R.layout.row,this.getBhajanDetails());
+		ArrayList<String> tmp= this.formatListItems(getBhajanDetails());
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), R.layout.row,tmp);
 		setListAdapter(adapter);
+        ExpandableListView ExpandList = (ExpandableListView) view.findViewById(R.id.ExpList);
+        ArrayList<Group> ExpListItems = SetStandardGroups(getBhajanDetails());
+        ExpandListAdapter ExpAdapter = new ExpandListAdapter(this.getActivity(), ExpListItems);
+        ExpandList.setAdapter(ExpAdapter);
+
 		btn_play = (Button) view.findViewById(R.id.btn_play);
 		btn_play.setOnClickListener(this);
 	    seekBar = (SeekBar)view.findViewById(R.id.seekBar);
@@ -209,16 +225,11 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 		mediaPlayer.start();
 	}
 	
-    public ArrayList<String> getBhajanDetails() {
-    	if(bhajanDetails.size() == 0) {
-            int i;
-            for(i=0;i<4;i++)
-        	    bhajanDetails.add("No Data found");
-        }
+    public HashMap<String, String> getBhajanDetails() {
         return bhajanDetails;
     }
 
-    public void setBhajanDetails(ArrayList<String> string) {
+    public void setBhajanDetails(HashMap<String, String> string) {
     	this.bhajanDetails = string ;
     }
     
@@ -240,4 +251,62 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 		else 
 			return UNFAV;
 	}
+	
+	public ArrayList<String> formatListItems(HashMap<String, String> details)
+	{
+		ArrayList<String> arDetails = new ArrayList<String>();
+		Iterator<Entry<String, String>> i = details.entrySet().iterator();
+		while (i.hasNext())
+		{		
+	     Entry<String, String> entry = i.next();
+	     if(entry.getKey().equals("lyrics") || entry.getKey().equals("meaning")){
+	    	 if(i.hasNext()) {
+	    		 entry = i.next();
+	    	 }
+	    	 else {
+	    	   return arDetails;
+	    	 }
+	     }
+		 String detail = entry.getKey().toUpperCase() + ": " + entry.getValue() + "\n";
+		 arDetails.add(detail);
+		 System.out.println("The string is" + detail);
+		}
+		return arDetails;
+	}
+	
+	
+	public ArrayList<Group> SetStandardGroups(HashMap<String, String> details) {
+	    ArrayList<Group> list = new ArrayList<Group>();
+	    ArrayList<Child> list2 = new ArrayList<Child>();
+	    Group lyricsGroup = new Group();
+	    lyricsGroup.setName("  LYRICS: ");
+	    String[] lyrics = formatLyrics(details.get("lyrics"));
+	    for(int i = 0; i < lyrics.length; i++){
+	    	Child c = new Child();
+	    	c.setName(lyrics[i]);
+	    	c.setTag(null);
+	    	list2.add(c);
+	    }
+	    lyricsGroup.setItems(list2);
+        list2 = new ArrayList<Child>();
+
+	    Group meaningGroup = new Group();
+	    meaningGroup.setName("  MEANING: ");
+	    Child meaning = new Child();
+	    meaning.setName(details.get("meaning"));
+	    meaning.setTag(null);
+	    list2.add(meaning);
+	    meaningGroup.setItems(list2);
+	    list.add(lyricsGroup);
+	    list.add(meaningGroup);
+	    return list;
+	}
+	
+	public String[] formatLyrics(String lyrics) {
+		System.out.println("The lyrics are" + lyrics);
+	 	String[] formattedLyrics = lyrics.split(";");
+	 	return formattedLyrics;
+	}
+	
+	
 }

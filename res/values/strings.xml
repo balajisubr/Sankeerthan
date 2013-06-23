@@ -9,4 +9,8 @@
     <string name="search">Search</string>
     <string name="hello">Hello World, SoftwarePassionView!</string>
     <string name="main_no_items">No orders to display</string>
+        <color name="Black">#000000</color>
+    <color name="ExpandChildBackground">#FFAFABAB</color>
+    <color name="ExpandGroupBackground">#FF7C7C7C</color>
+
 </resources>
