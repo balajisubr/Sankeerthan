@@ -51,7 +51,7 @@ public class TabsListener<T extends Fragment> implements ActionBar.TabListener {
 	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
         if (mFragment != null) {
             // Detach the fragment, because another one is being attached
-            ft.detach(mFragment);
+           ft.detach(mFragment);
         	//ft.remove(mFragment);
         }
     }

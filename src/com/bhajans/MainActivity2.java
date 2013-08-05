@@ -174,12 +174,16 @@ public class MainActivity2 extends Fragment {
 	   			Toast.makeText(this.getActivity(), error_message, Toast.LENGTH_LONG).show();
 	   			return;
 	   		}
-	   			/*
-              	pd = ProgressDialog.show(this, "Loading..", "Fetching Data", true, false);
+	   	  /*
+	   	  final Activity act = this.getActivity();	
+	   	  new Thread(new Runnable() {
+	   	    public void run() {
+              	pd = ProgressDialog.show(act, "Loading..", "Fetching Data", true, false);
             	pd.setCancelable(true);
-            	*/
-         
-           switch(checked_radio_id){
+	   	    }
+	   	  }).start();
+	   	 */
+	   	 switch(checked_radio_id){
            case R.id.deity_radio:
        	  		SearchDeity searchDeity = new SearchDeity(text.getText().toString());
        	  		searchDeity.getData();
@@ -200,20 +204,29 @@ public class MainActivity2 extends Fragment {
            	   bhajanDisplay.processErrorsOrDisplay();
 
            	   break;
-           }}
-          /*
+           }}}
+          
+/*	   		
+	   	    getActivity().runOnUiThread(new Runnable() {
+
+	   	        public void run() {
+                   pd.dismiss();
+	   	        }
+	   	    });
+       }
+	   	    /*
           new Thread(new Runnable() {
         	public void run() {
          	     // do the thing that takes a long time
-         	     runOnUiThread(new Runnable() {
+         	      runOnUiThread(new Runnable() {
          	       public void run()
          	       {
          	         pd.dismiss();
          	       }
          	     });
          	   }
-         	 }).start();*/} 
-         
+         	 }).start();} 
+         */
     public void afterTextChanged(Editable s) {}
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
     public void onTextChanged(CharSequence s, int start, int before, int count) {}

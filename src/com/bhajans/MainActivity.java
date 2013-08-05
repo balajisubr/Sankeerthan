@@ -18,6 +18,6 @@ public class MainActivity extends Activity {
                 MainActivity.this.startActivity(mainIntent);
                 MainActivity.this.finish();
             }
-        }, 2000);
+        }, 3500);
     }
 }

@@ -3,6 +3,7 @@ package com.bhajans.lookup;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.bhajans.AppConfig;
 import com.bhajans.MainActivity2;
 
 import android.annotation.SuppressLint;
@@ -35,10 +36,10 @@ public class CacheDB {
 	private SQLiteDatabase db;
 	private static final String DATABASE_NAME = "BHAJANS";
 	private static final int DATABASE_VERSION = 1;
-	private static final String BHAJAN_TABLE_NAME = "bhajans";
-	private static final String RAAGA_TABLE_NAME = "raagas";
-	private static final String DEITY_TABLE_NAME = "deities";
-	private static final String FAV_TABLE_NAME = "favorites";
+	private static final String BHAJAN_TABLE_NAME = AppConfig.BHAJANS;
+	private static final String RAAGA_TABLE_NAME = AppConfig.RAAGAS;
+	private static final String DEITY_TABLE_NAME = AppConfig.DEITIES;
+	private static final String FAV_TABLE_NAME = AppConfig.FAVORITES;
 	private static final String COLUMN_NAME = "name";
 	
 	private String selectBhajanQuery = "SELECT  * FROM " + BHAJAN_TABLE_NAME;
@@ -96,6 +97,7 @@ public class CacheDB {
    @SuppressLint("NewApi")
    
    public void performOperation(String Operation, String table, ArrayList<String> array1) {
+	   System.out.println("Performing operation" + Operation);
 	   SQLiteDatabase db = dbHelper.getWriteDb();
 
 	   String INSERT = "insert into "   
@@ -175,20 +177,20 @@ public class CacheDB {
 	   List<String> list = new ArrayList<String>(); 
 	   String selectQuery = "SELECT  * FROM " + table;    
 	   
-	   if(table.equals("bhajans")) {
+	   if(table.equals(AppConfig.BHAJANS)) {
 		   bhajanCursor = db.rawQuery(selectQuery, null);
 		   list = parseCursor(bhajanCursor);
 	   }
-	   else if(table.equals("raagas")) {
+	   else if(table.equals(AppConfig.RAAGAS)) {
 		   raagaCursor = db.rawQuery(selectQuery, null);
 		   list = parseCursor(raagaCursor);
 	   }
-	   else if(table.equals("deities")) {
+	   else if(table.equals(AppConfig.DEITIES)) {
 		   deityCursor = db.rawQuery(selectQuery, null);
 		   list = parseCursor(deityCursor);
 	   }
 	   
-	   else if(table.equals("favorites")) {
+	   else if(table.equals(AppConfig.FAVORITES)) {
 		   favoriteCursor = db.rawQuery(selectQuery, null);
 		   list = parseCursor(favoriteCursor);
 	   }

@@ -22,6 +22,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Toast;
 
 public class FavoriteFragment extends ListFragment{
 	
@@ -68,6 +69,14 @@ public class FavoriteFragment extends ListFragment{
 		}
 
 		Bhajan result = searchBhajan.result;
+		
+		if((!searchBhajan.errorMsg.isEmpty() || searchBhajan.serverErrors.size() > 0))
+		{
+		Toast.makeText(this.getActivity(), "An error occured while fetching data. Please check connection or try again later", Toast.LENGTH_LONG).show();
+		return;
+	    }
+		
+		
     	Bundle bundle = new Bundle();
         bundle.putString("raaga", result.raaga);
         bundle.putString("lyrics", result.lyrics);
@@ -77,6 +86,6 @@ public class FavoriteFragment extends ListFragment{
 		tab.setTabListener(new TabsListener<BhajanDetailsFragment>(
                 this.getActivity(), "Bhajan Details", BhajanDetailsFragment.class, bundle));
 		this.getActivity().getActionBar().setSelectedNavigationItem(0);
-
+		
 	}
 }

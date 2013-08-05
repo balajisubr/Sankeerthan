@@ -6,5 +6,8 @@ public final class AppConfig {
     public final static String DEITIES = "deities";
     public final static String RAAGAS = "raagas";
     public final static String LYRICS = "lyrics";
+    public final static String FAVORITES = "favorites";
+    public final static String INSERT = "INSERT";
+    public final static String DELETE = "DELETE";
     public AppConfig(){}
 }
