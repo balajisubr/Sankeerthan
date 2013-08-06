@@ -170,7 +170,7 @@ public class MainActivity2 extends Fragment {
 	   		int checked_radio_id = radio_group.getCheckedRadioButtonId();
           
 	   		if (text.getText().length() == 0) {
-	   			String error_message = "Please enter valid data";//" + (is_raaga_checked ? "raaga" : "bhajan");
+	   			String error_message = "Please enter valid data";
 	   			Toast.makeText(this.getActivity(), error_message, Toast.LENGTH_LONG).show();
 	   			return;
 	   		}

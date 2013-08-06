@@ -10,6 +10,7 @@ import android.os.StrictMode;
 import com.bhajans.display.BStreamWebView;
 import com.bhajans.display.FavoriteFragment;
 import com.bhajans.display.ThoughtForDay;
+import com.bhajans.display.Introduction;
 
 public class MainActivity1 extends Activity {
 		
@@ -26,8 +27,8 @@ public class MainActivity1 extends Activity {
 
         Tab tab = actionBar.newTab()
         		.setText("About Sankeerthan")
-                .setTabListener(new TabsListener<MainActivity2>(
-                        this, "search", MainActivity2.class));
+                .setTabListener(new TabsListener<Introduction>(
+                        this, "search", Introduction.class));
         actionBar.addTab(tab);
         
         tab = actionBar.newTab()

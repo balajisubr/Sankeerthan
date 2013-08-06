@@ -21,9 +21,6 @@ public class LookUpData {
 	public static ArrayList<String> deityList = new ArrayList<String>();
 	public static HashMap<String, ArrayList<String>> values = new HashMap<String, ArrayList<String>>(){
 
-		/**
-		 * 
-		 */
     private static final long serialVersionUID = 1L;};
 	static
 	 {
@@ -32,13 +29,13 @@ public class LookUpData {
 	   values.put(AppConfig.DEITIES, deityList);	
   	 }
 	
-    
-
 	public static ArrayList<String> getData(String type) {
 		cacheDB = LookUpData.getCacheDB();  
 			if(values.get(type).size() > 0) {
 			    if(System.currentTimeMillis() - getLastLookedUpTime(type) > 60000)
+			    {
 			        fetchDataFromServer(type);
+			    }
 			}
 			else { 
 				if(cacheDB.fetchData(type).size() > 0) {
@@ -56,59 +53,20 @@ public class LookUpData {
   public static void fetchDataFromServer(String infoType) {
 	  Log.d("LookUpData", "Fetching Data from server for" + infoType) ;
 	  cacheDB = LookUpData.getCacheDB();
-	  {
-//		  if(infoType .equals( AppConfig.BHAJANS)) {
-			  lookUp = new LookUpInfo(infoType,"/lookup_all/");
-			  lookUp.lookupInfo();
-			  if(lookUp.list.size() > 0) {
-				  if(values.get(infoType).size() > 0 )
-				  {
-					System.out.println("The size in the old bhajanList is" + bhajanList.size());  
-					cacheDB.performOperation(AppConfig.DELETE, infoType, values.get(infoType));  
-				  }
-		          values.put(infoType, lookUp.list);
-		          cacheDB.performOperation(AppConfig.INSERT, infoType, values.get(infoType));				  
-			  }
-			  
-			  ArrayList<String> bhajans = (ArrayList<String>) cacheDB.fetchData(infoType);
-			  System.out.println("The size of bhajans is" + bhajans.size());
-			  /*
+	  lookUp = new LookUpInfo(infoType,"/lookup_all/");
+	  lookUp.lookupInfo();
+	  if(lookUp.list.size() > 0) {
+		  if(values.get(infoType).size() > 0 ) {
+			  cacheDB.performOperation(AppConfig.DELETE, infoType, values.get(infoType));  
 		  }
-		  else if(infoType.equals(AppConfig.RAAGAS)) {
-			  raagaList.size();
-			  raagaLookUp = new LookUpInfo(AppConfig.RAAGAS,"/lookup_all/");
-			  raagaLookUp.lookupInfo();
-			  if(raagaLookUp.list.size() > 0) {
-				  if(raagaList.size() > 0)
-			      {
-				    cacheDB.performOperation(AppConfig.DELETE, AppConfig.RAAGAS, raagaList);  
-				  }
-		          raagaList = raagaLookUp.list;
-				  cacheDB.performOperation(AppConfig.INSERT, AppConfig.RAAGAS, raagaList);
-		  }
-		  
-		  else if(infoType.equals(AppConfig.DEITIES)) {
-			  deityList.size();
-			  deityLookUp = new LookUpInfo(AppConfig.DEITIES,"/lookup_all/");
-			  deityLookUp.lookupInfo();
-			  if(deityLookUp.list.size() > 0)
-			  {
-				  if(deityList.size() > 0)
-			      {
-				    cacheDB.performOperation(AppConfig.DELETE, AppConfig.DEITIES, raagaList);  
-				  }
-                  deityList = deityLookUp.list;
-				  cacheDB.performOperation(AppConfig.INSERT, AppConfig.DEITIES, deityList);
-
-			  }
-		  }
-		  */
-	   
-	  
-		  updateLastLookedUpTime(infoType, System.currentTimeMillis());
+		  values.put(infoType, lookUp.list);
+		  cacheDB.performOperation(AppConfig.INSERT, infoType, values.get(infoType));				  
 	  }
-     //fetchData = false;
-  }  
+			  
+	  ArrayList<String> bhajans = (ArrayList<String>) cacheDB.fetchData(infoType);
+	  System.out.println("The size of bhajans is" + bhajans.size());
+	  updateLastLookedUpTime(infoType, System.currentTimeMillis());
+	  }  
   	
     
   	public synchronized static void setContext(Context context) {
@@ -127,7 +85,7 @@ public class LookUpData {
   	
   	public synchronized static void updateLastLookedUpTime(String key, long timeInMsec)
   	{
-  		System.out.println("updating last looked up time with "  + timeInMsec + "for" + timeInMsec);
+  		System.out.println("updating last looked up time with "  + timeInMsec + "for" + key);
   	    lookedUpTime.put(key, timeInMsec);
   	}
   	

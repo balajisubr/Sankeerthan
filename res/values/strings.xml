@@ -1,14 +1,15 @@
 <resources>
-    <string name="app_name">Bhajans</string>
+    <string name="app_name">Sankeerthan</string>
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
-    <string name="title_activity_main">MainActivity</string>
-    <string name="search_raaga">Search By Raaga</string>
-    <string name="search_bhajan">Search By Name</string>
-    <string name="search_deity">Search By Deity</string>
+    <string name="title_activity_main">Sankeerthan</string>
+    <string name="search_raaga">Search By Raaga(E.g Kalyani, Bhairavi)</string>
+    <string name="search_bhajan">Search By Name(E.g. Prema Muditha)</string>
+    <string name="search_deity">Search By Deity(E.g. Krishna, Jesus)</string>
     <string name="search">Search</string>
     <string name="hello">Hello World, SoftwarePassionView!</string>
     <string name="main_no_items">No orders to display</string>
+    <string name="intro_text"> Sankeerthan (or \'good music\') gives you the ability to search for bhajans. You can search by the name of the bhajan or the specific deity on which the Bhajan is based. Another criteria to search is \'raaga\' which are standard Indian melodic modes. You can also mark your favorite Bhajans and listen to them at any time. Please note that you must be connected to Internet to listen to any Bhajan, view its lyrics, meaning etc. You can also listen to RadioSai Bhajan Stream or view Thought for the Day. Please send feedback/suggestions to balajisubr@gmail.com. Aum Sai Ram</string>
         <color name="Black">#000000</color>
     <color name="ExpandChildBackground">#FFAFABAB</color>
     <color name="ExpandGroupBackground">#FF7C7C7C</color>
