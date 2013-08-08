@@ -94,6 +94,10 @@ public class LookUpData {
   	{
   		System.out.println("Fetching last looked up time for" + key);
   		System.out.println("The last looked up time is" + lookedUpTime.get(key) + "for" + key);
-  	    return lookedUpTime.get(key);	
+  		try {
+  	        return (lookedUpTime.get(key));
+  		} catch(NullPointerException e) {
+  			return System.currentTimeMillis();
+  		}
   	}
 }

@@ -175,7 +175,7 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 	
 	public void onClick(View view) {
     	try {
-			mediaPlayer.setDataSource(url);//(bhajanDetails.get("url"));
+			mediaPlayer.setDataSource(bhajanDetails.get("url"));
 			mediaPlayer.prepare();
 			lengthOfAudio = mediaPlayer.getDuration();
 		 } 
