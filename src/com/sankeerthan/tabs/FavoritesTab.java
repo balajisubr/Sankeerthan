@@ -59,7 +59,7 @@ public class FavoritesTab extends ListFragment{
 	public void navigateToTab(String name)
 	{
 		if(name.equals("No Favorites")) return;
-		Tab tab= this.getActivity().getActionBar().getTabAt(0);   
+		Tab tab= this.getActivity().getActionBar().getTabAt(1);   
         SearchBhajan searchBhajan = null;
 		try {
 			 searchBhajan = new SearchBhajan(name);
@@ -83,9 +83,10 @@ public class FavoritesTab extends ListFragment{
         bundle.putString("meaning", result.meaning);
         bundle.putString("deity", result.deity);
         bundle.putString("bhajan", result.name);
+        bundle.putString("url", result.url);
 		tab.setTabListener(new TabsListener<BhajanDetailsFragment>(
                 this.getActivity(), "Bhajan Details", BhajanDetailsFragment.class, bundle));
-		this.getActivity().getActionBar().setSelectedNavigationItem(0);
+		this.getActivity().getActionBar().setSelectedNavigationItem(1);
 		
 	}
 }

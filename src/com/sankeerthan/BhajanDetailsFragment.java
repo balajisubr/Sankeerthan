@@ -45,7 +45,7 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 	private int lengthOfAudio = 0;
 	private int length = 0;
 	private String bhajanName = "";
-	private final String url = "http://dl.radiosai.org/BV_U003_V001_04_SHALINEE_SAI_HEY_ANATHA_NATHA.mp3";
+	//private final String url = "http://dl.radiosai.org/BV_U003_V001_04_SHALINEE_SAI_HEY_ANATHA_NATHA.mp3";
     private final Handler handler = new Handler();
 	private final Runnable r = new Runnable() {	
     public void run() {
@@ -66,7 +66,9 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 	public void setDetails(Bundle bundle)
 	{
 		 for(String s: keys) {
+			 System.out.println("The value of key s is" + s);
 	         String value = bundle.getString(s);
+			 System.out.println("The value of key" + s + "is" + value);
 	         if(value.equals(null) || value.length()==0 || value.isEmpty())
 	        	 value = "No info for" + s;
 	         bhajanDetails.put(s, value);

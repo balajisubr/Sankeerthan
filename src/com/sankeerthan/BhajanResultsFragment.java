@@ -54,7 +54,7 @@ public class BhajanResultsFragment extends ListFragment {
 	
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), R.layout.row,bhajans);
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), R.layout.row,this.getBhajans());
 		ListView listView = getListView();
 		listView.setTextFilterEnabled(true);
  
@@ -107,10 +107,12 @@ public class BhajanResultsFragment extends ListFragment {
 	}
 	
 	public void setBhajans(String bhajans[]) {
+		this.bhajans.clear();
 		int i;
 		for(i=0;i<bhajans.length;i++) {
 			 this.bhajans.add(bhajans[i]);	 
 		}
+		System.out.println("The length of Bhajans in set bhajans is" + this.bhajans.size());
 	}
 	
 	public ArrayList<String> getBhajans() {
@@ -119,6 +121,7 @@ public class BhajanResultsFragment extends ListFragment {
 			for(i=0;i<4;i++)
 	              bhajans.add("No Data found");
 	    }
+	    System.out.println("The size of the bhajans is" + bhajans.size());
 	    return bhajans;
 	}
  
