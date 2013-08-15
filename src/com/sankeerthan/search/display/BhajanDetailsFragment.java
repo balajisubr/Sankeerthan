@@ -1,4 +1,4 @@
-package com.sankeerthan;
+package com.sankeerthan.search.display;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,6 +6,8 @@ import java.util.Iterator;
 import java.util.Map.Entry;
 
 import com.sankeerthan.R;
+import com.sankeerthan.R.id;
+import com.sankeerthan.R.layout;
 import com.sankeerthan.display.expand.*;
 import com.sankeerthan.model.FavoriteDB;
 

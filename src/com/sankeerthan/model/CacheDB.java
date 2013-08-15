@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.sankeerthan.AppConfig;
-import com.sankeerthan.MainActivity2;
+import com.sankeerthan.tabs.SearchTab;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;

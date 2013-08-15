@@ -1,4 +1,4 @@
-package com.sankeerthan;
+package com.sankeerthan.tabs;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -34,7 +34,10 @@ import android.widget.Toast;
 import android.view.View.OnClickListener;
 import android.content.DialogInterface;
 
+import com.sankeerthan.AppConfig;
 import com.sankeerthan.R;
+import com.sankeerthan.R.id;
+import com.sankeerthan.R.layout;
 import com.sankeerthan.display.*;
 import com.sankeerthan.lookup.OBhajanLookup;
 import com.sankeerthan.lookup.ODeityLookup;
@@ -42,9 +45,10 @@ import com.sankeerthan.lookup.ORaagaLookup;
 import com.sankeerthan.model.Bhajan;
 import com.sankeerthan.model.LookUpData;
 import com.sankeerthan.search.*;
+import com.sankeerthan.search.display.GenericDisplay;
 
 @TargetApi(11)
-public class MainActivity2 extends Fragment {
+public class SearchTab extends Fragment {
 	public View view;
 	public View clickView;
 	public ArrayAdapter<String> commonAdapter;

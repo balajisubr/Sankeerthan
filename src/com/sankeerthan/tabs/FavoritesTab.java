@@ -3,11 +3,10 @@ package com.sankeerthan.tabs;
 import java.util.ArrayList;
 
 import com.sankeerthan.R;
-import com.sankeerthan.BhajanDetailsFragment;
-import com.sankeerthan.MainActivity2;
 import com.sankeerthan.model.Bhajan;
 import com.sankeerthan.model.FavoriteDB;
 import com.sankeerthan.search.SearchBhajan;
+import com.sankeerthan.search.display.BhajanDetailsFragment;
 
 import android.app.ActionBar.Tab;
 import android.app.FragmentTransaction;

@@ -1,8 +1,9 @@
-package com.sankeerthan;
+package com.sankeerthan.search.display;
 
 import java.util.ArrayList;
 
 import com.sankeerthan.R;
+import com.sankeerthan.R.layout;
 import com.sankeerthan.model.Bhajan;
 import com.sankeerthan.search.SearchBhajan;
 

@@ -1,4 +1,4 @@
-package com.sankeerthan.display;
+package com.sankeerthan.search.display;
 
 public interface IDisplayResults {
   public void processServerErrors();

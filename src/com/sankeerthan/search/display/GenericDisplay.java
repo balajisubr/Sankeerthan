@@ -1,17 +1,15 @@
-package com.sankeerthan.display;
+package com.sankeerthan.search.display;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.sankeerthan.BhajanDetailsFragment;
-import com.sankeerthan.BhajanResultsFragment;
-import com.sankeerthan.MainActivity1;
-import com.sankeerthan.MainActivity2;
+import com.sankeerthan.MainActivity;
 import com.sankeerthan.model.Bhajan;
 import com.sankeerthan.search.SearchBhajan;
 import com.sankeerthan.search.SearchDeity;
 import com.sankeerthan.search.SearchInfo;
 import com.sankeerthan.search.SearchRaaga;
+import com.sankeerthan.tabs.SearchTab;
 
 import android.app.Activity;
 import android.app.FragmentTransaction;
@@ -32,7 +30,7 @@ public class GenericDisplay {
 	public int classId = 0;
 	private SearchInfo searchClass;
 	 
-	public GenericDisplay(SearchInfo searchClass, MainActivity2 mainActivity2)  {
+	public GenericDisplay(SearchInfo searchClass, SearchTab mainActivity2)  {
 		this.searchClass = searchClass; 
 		this.context = mainActivity2.getActivity();
     }
