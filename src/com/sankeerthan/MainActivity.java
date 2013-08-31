@@ -4,6 +4,7 @@
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.Activity;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.StrictMode;
 
@@ -22,6 +23,8 @@ public class MainActivity extends Activity {
         StrictMode.setThreadPolicy(policy);
 
         super.onCreate(savedInstanceState);
+        
+        setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         
         ActionBar actionBar = getActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
