@@ -8,6 +8,7 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.StrictMode;
 
+import com.sankeerthan.tabs.FAQFeedback;
 import com.sankeerthan.tabs.IntroductionTab;
 import com.sankeerthan.tabs.BhajanStreamTab;
 import com.sankeerthan.tabs.FavoritesTab;
@@ -59,6 +60,12 @@ public class MainActivity extends Activity {
         		.setText("RadioSai Thought for the Day")
         		.setTabListener(new TabsListener<ThoughtForDayTab>(
                     this, "top", ThoughtForDayTab.class));
+        actionBar.addTab(tab);    
+        
+        tab = actionBar.newTab()
+        		.setText("Frequently Asked Questions (FAQ)")
+        		.setTabListener(new TabsListener<FAQFeedback>(
+                    this, "top", FAQFeedback.class));
         actionBar.addTab(tab);        
     }
 }
