@@ -31,7 +31,6 @@ public class CacheDB {
 	private Cursor raagaCursor;
 	private Cursor deityCursor;
 	private Cursor favoriteCursor;
-	private Context context;
 	private CacheDBHelper dbHelper;
 	private SQLiteDatabase db;
 	private static final String DATABASE_NAME = "BHAJANS";
@@ -132,26 +131,11 @@ public class CacheDB {
 	       //.setTransactionSuccessful();
 	       // }
 	   }
-	  /* 
-	   if(Operation.equals("SELECT"))
-	   {
-		   for (int i = 0; i < aSize; i++) {
-               dbStmt.bindString(1, array1.get(i));
-               dbStmt.
-           }   
-	   }
-	   */
-	   
-	   //catch (SQLException e) {
-         //  e.printStackTrace();
-       //}
+
 	   db.setTransactionSuccessful();
 	   db.endTransaction();
-//	        }
 
 	   try {
-	   //     db.close();
-	  //      dbHelper.close();
 	       } catch (Exception e) {
 	        e.printStackTrace();
 	       }

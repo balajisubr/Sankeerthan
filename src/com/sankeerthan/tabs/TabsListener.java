@@ -14,11 +14,6 @@ public class TabsListener<T extends Fragment> implements ActionBar.TabListener {
     private final Class<T> mClass;
     private Bundle mbundle;
 
-    /** Constructor used each time a new tab is created.
-      * @param activity  The host Activity, used to instantiate the fragment
-      * @param tag  The identifier tag for the fragment
-      * @param clz  The fragment's Class, used to instantiate the fragment
-      */
     public TabsListener(Activity activity, String tag, Class<T> clz) {
         mActivity = activity;
         mTag = tag;
@@ -32,17 +27,12 @@ public class TabsListener<T extends Fragment> implements ActionBar.TabListener {
         mbundle = bundle;
     }
 
-    /* The following are each of the ActionBar.TabListener callbacks */
-
     @SuppressLint("NewApi")
 	public void onTabSelected(Tab tab, FragmentTransaction ft) {
-        // Check if the fragment is already initialized
         if (mFragment == null) {
-            // If not, instantiate and add it to the activity
             mFragment = Fragment.instantiate(mActivity, mClass.getName(), mbundle);
             ft.add(android.R.id.content, mFragment, mTag);
         } else {
-            // If it exists, simply attach it in order to show it
             ft.attach(mFragment);
         }
     }
@@ -50,7 +40,6 @@ public class TabsListener<T extends Fragment> implements ActionBar.TabListener {
     @SuppressLint("NewApi")
 	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
         if (mFragment != null) {
-            // Detach the fragment, because another one is being attached
            ft.detach(mFragment);
         	//ft.remove(mFragment);
         }
@@ -58,8 +47,7 @@ public class TabsListener<T extends Fragment> implements ActionBar.TabListener {
 
     @SuppressLint("NewApi")
 	public void onTabReselected(Tab tab, FragmentTransaction ft) {
-    	    ft.attach(mFragment);
-        // User selected the already selected tab. Usually do nothing.
+    	ft.attach(mFragment);
     }
 
 

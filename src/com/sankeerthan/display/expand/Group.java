@@ -20,5 +20,9 @@ public class Group {
 		this.Items = Items;
 	}
 	
+	public void setItem(Child item) {
+		Items.add(item);
+	}
+	
 	
 }

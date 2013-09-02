@@ -34,7 +34,7 @@ public class MainActivity extends Activity {
         Tab tab = actionBar.newTab()
         		.setText("About Sankeerthan")
                 .setTabListener(new TabsListener<IntroductionTab>(
-                        this, "search", IntroductionTab.class));
+                        this, "about", IntroductionTab.class));
         actionBar.addTab(tab);
         
         tab = actionBar.newTab()
@@ -47,25 +47,25 @@ public class MainActivity extends Activity {
         tab = actionBar.newTab()
         		.setText("Favorites")
         		.setTabListener(new TabsListener<FavoritesTab>(
-                    this, "top", FavoritesTab.class));
+                    this, "favorites", FavoritesTab.class));
         actionBar.addTab(tab);
         
         tab = actionBar.newTab()
         		.setText("RadioSai Bhajan Stream")
         		.setTabListener(new TabsListener<BhajanStreamTab>(
-                    this, "top", BhajanStreamTab.class));
+                    this, "stream", BhajanStreamTab.class));
         actionBar.addTab(tab);
         
         tab = actionBar.newTab()
         		.setText("RadioSai Thought for the Day")
         		.setTabListener(new TabsListener<ThoughtForDayTab>(
-                    this, "top", ThoughtForDayTab.class));
+                    this, "thought", ThoughtForDayTab.class));
         actionBar.addTab(tab);    
         
         tab = actionBar.newTab()
         		.setText("Frequently Asked Questions (FAQ)")
         		.setTabListener(new TabsListener<FAQFeedback>(
-                    this, "top", FAQFeedback.class));
+                    this, "faq", FAQFeedback.class));
         actionBar.addTab(tab);        
     }
 }

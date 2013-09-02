@@ -8,7 +8,6 @@ import org.json.JSONObject;
 
 public class SearchRaaga extends SearchInfo  {
  
-  //public ArrayList<String> serverErrors = new ArrayList<String>();
 	public ArrayList<String> list = new ArrayList<String>();
 	private static String subURL = "/find_raagas/";
 	public SearchRaaga(String key) throws InterruptedException {
@@ -43,7 +42,6 @@ public class SearchRaaga extends SearchInfo  {
 		try {
 			bhajanJSON = jsonObject.getJSONArray("bhajan_names");
 			String bhajanName = bhajanJSON.toString();
-			System.out.println("bhajan name is 1" + bhajanName);
 			for (int i=0; i<bhajanJSON.length(); i++) {
 				list.add(bhajanJSON.getString(i) );
 			} 

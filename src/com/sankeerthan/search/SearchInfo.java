@@ -47,22 +47,30 @@ public abstract class SearchInfo {
 			HttpGet request = setupClient();
 			HttpResponse response = client.execute(request);
 			HttpEntity entity = response.getEntity();
-			if(entity==null) {
-				serverErrors.add("No response from server! Please try again later."); 
+			try {
+			if(entity.equals(null)) {
+				serverErrors.add("No valid response from server! Please try again later."); 
 			}
+			}
+			catch (NullPointerException e){
+				serverErrors.add("No valid response from server! Please try again later.");
+			}
+
 			InputStream stream = entity.getContent();
 			BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
 			StringBuilder sb = new StringBuilder();
 
-			String line = null;
+			String line = "";
 			try {
 				while ((line = reader.readLine()) != null) {	
 					sb.append(line);
 				}
 			} 
+						
 			catch (IOException e) {  
 				serverErrors.add("Server Error encountered! Please try again later due to ioex in reading"); return "";
 			} 
+			
 			finally {
 				try {
 					stream.close();
@@ -81,12 +89,19 @@ public abstract class SearchInfo {
 	}
   
 	protected void parseData(String result) throws ClientProtocolException, IOException, JSONException {
-		if(result==null) result = "";
+		try{
+		    if(result.equals(null)) result = "";
+		}
+		
+		catch (NullPointerException e){
+			serverErrors.add("No valid response from server! Please try again later.");
+		}
+
 		if(result!="") {
 			JSONTokener tokener = new JSONTokener(result.toString());
 			JSONObject jsonObject = new JSONObject(tokener);
 			this.errorMsg = jsonObject.optString("error");
-			if(errorMsg == "")	{
+			if(errorMsg.equals(""))	{
 				extractData(jsonObject);
 			}
 		}
@@ -101,7 +116,6 @@ public abstract class SearchInfo {
     	HttpParams params = client.getParams();
     	HttpConnectionParams.setConnectionTimeout(params, 20000); 
     	String url = URL + subURL + key + ".json";
-    	System.out.println("The URL is" + url);
     	URI uri = new URI(url.replace(" ", "%20"));
     	HttpGet request = new HttpGet(uri.toString());
     	return request;

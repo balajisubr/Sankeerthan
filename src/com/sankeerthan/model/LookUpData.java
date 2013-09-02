@@ -33,8 +33,9 @@ public class LookUpData {
 	public static ArrayList<String> getData(String type) {
 		cacheDB = LookUpData.getCacheDB();  
 			if(values.get(type).size() > 0) {
-			    if(System.currentTimeMillis() - getLastLookedUpTime(type) > 60000)
-			    {
+			    if(System.currentTimeMillis() - getLastLookedUpTime(type) > AppConfig.SERVER_DATA_REFRESH_PERIOD)
+			    {   
+			    	System.out.println("last lookup: Fetching data from server for " + type);
 			        fetchDataFromServer(type);
 			    }
 			}
@@ -65,7 +66,6 @@ public class LookUpData {
 	  }
 			  
 	  ArrayList<String> bhajans = (ArrayList<String>) cacheDB.fetchData(infoType);
-	  System.out.println("The size of bhajans is" + bhajans.size());
 	  updateLastLookedUpTime(infoType, System.currentTimeMillis());
 	  }  
   	
