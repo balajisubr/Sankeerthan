@@ -1,7 +1,7 @@
 package com.sankeerthan.search.display;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
 
@@ -35,10 +35,10 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
   	//private final String url = AppConfig.URL + "/play/song.mp3";
 	private final String FAV = "Favorite";
 	private final String UNFAV = "Remove as favorite";
-    private final String[] keys = new String[]{"raaga","lyrics","meaning", "deity", "url"};
+    private final String[] keys = new String[]{"bhajan", "raaga", "deity", "lyrics","meaning", "url"};
     
 	private String choice = "";
-	private HashMap<String, String> bhajanDetails = new HashMap<String, String>();
+	private LinkedHashMap<String, String> bhajanDetails = new LinkedHashMap<String, String>();
 	private Bundle bundle;
     private Button btn_play;
     private Button btn_fav;
@@ -67,7 +67,7 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 	{
 		 for(String s: keys) {
 	         String value = bundle.getString(s);
-	         if(value.length().equals(0) || value.isEmpty())
+	         if(value.length()==0 || value.isEmpty())
 	        	 value = "No info for" + s;
 	         bhajanDetails.put(s, value);
 	     }
@@ -94,7 +94,7 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 	    View view = inflater.inflate(R.layout.list_bhajans, container, false);
 	    
 		Bundle details = new Bundle();
-		if(!(getArguments().equals(null))) {
+		if(getArguments() != null) {
 	        details = this.getArguments();
 		    setDetails(details);
 		}
@@ -118,7 +118,7 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
         FavoriteDB.setContext(this.getActivity());
         int count = FavoriteDB.selectBhajan(getBhajanName());
 	    this.setFavText(btn_fav.getText().toString());
-	    if(count.equals(0)) {
+	    if(count == 0) {
             btn_fav.setText(FAV);
 	    }
 	    else {
@@ -194,7 +194,7 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 			 }
 		 	 else {
 			 if(mediaPlayer!=null) {
-				 if(tmpSeekBar.equals(null)) {
+				 if(tmpSeekBar == null) {
 					 tmpSeekBar = (SeekBar) view.findViewById(R.id.seekBar);
 			 }
 				//mediaPlayer.seekTo((lengthOfAudio / 100) * tmpSeekBar.getProgress() );
@@ -226,11 +226,11 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 		mediaPlayer.start();
 	}
 	
-    public HashMap<String, String> getBhajanDetails() {
+    public LinkedHashMap<String, String> getBhajanDetails() {
         return bhajanDetails;
     }
 
-    public void setBhajanDetails(HashMap<String, String> string) {
+    public void setBhajanDetails(LinkedHashMap<String, String> string) {
     	this.bhajanDetails = string ;
     }
     
@@ -253,29 +253,33 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 			return UNFAV;
 	}
 	
-	public ArrayList<String> formatListItems(HashMap<String, String> details)
+	public ArrayList<String> formatListItems(LinkedHashMap<String, String> details)
 	{
 		ArrayList<String> arDetails = new ArrayList<String>();
 		Iterator<Entry<String, String>> i = details.entrySet().iterator();
 		while (i.hasNext())
 		{		
 	     Entry<String, String> entry = i.next();
-	     if(entry.getKey().equals("lyrics") || entry.getKey().equals("meaning")){
-	    	 if(i.hasNext()) {
+		 System.out.println("The key is" + entry.getKey());
+	     if(entry.getKey().equals("lyrics") || entry.getKey().equals("meaning") || entry.getKey().equals("url")){
+          /*	    	 if(i.hasNext()) {
 	    		 entry = i.next();
 	    	 }
 	    	 else {
 	    	   return arDetails;
 	    	 }
+	    	 */
+	    	 continue;
 	     }
 		 String detail = entry.getKey().toUpperCase() + ": " + entry.getValue() + "\n";
+		 System.out.println("The detail is" + detail);
 		 arDetails.add(detail);
 		}
 		return arDetails;
 	}
 	
 	
-	public ArrayList<Group> setStandardGroups(HashMap<String, String> details) {
+	public ArrayList<Group> setStandardGroups(LinkedHashMap<String, String> details) {
 	    ArrayList<Group> titles = new ArrayList<Group>();
 	    ArrayList<Child> content = new ArrayList<Child>();
 	    Group lyricsGroup = new Group();

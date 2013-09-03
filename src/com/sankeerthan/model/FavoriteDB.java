@@ -44,7 +44,7 @@ public class FavoriteDB {
 	  
 	public static ArrayList<String> fetchBhajans(){
 		ArrayList<String> favBhajans = (ArrayList<String>) FavoriteDB.getCacheDB().fetchData("favorites");
-		if(favBhajans.size().equals(0)) { 
+		if(favBhajans.size() == 0) { 
 			favBhajans.add("No Favorites");	
 		}
 		return favBhajans; 
