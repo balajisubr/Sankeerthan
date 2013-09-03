@@ -34,7 +34,7 @@ import android.widget.SeekBar;
 public class BhajanDetailsFragment extends ListFragment implements  OnTouchListener, OnCompletionListener, OnClickListener, OnBufferingUpdateListener {
   	//private final String url = AppConfig.URL + "/play/song.mp3";
 	private final String FAV = "Favorite";
-	private final String UNFAV = "Unfavorite";
+	private final String UNFAV = "Remove as favorite";
     private final String[] keys = new String[]{"raaga","lyrics","meaning", "deity", "url"};
     
 	private String choice = "";
@@ -47,13 +47,11 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 	private int lengthOfAudio = 0;
 	private int length = 0;
 	private String bhajanName = "";
-	//private final String url = "http://dl.radiosai.org/BV_U003_V001_04_SHALINEE_SAI_HEY_ANATHA_NATHA.mp3";
     private final Handler handler = new Handler();
 	private final Runnable r = new Runnable() {	
     public void run() {
         updateSeekProgress();					
-	}
-	};
+	}};
 
 	public BhajanDetailsFragment()
 	{
@@ -68,10 +66,8 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 	public void setDetails(Bundle bundle)
 	{
 		 for(String s: keys) {
-			 System.out.println("The value of key s is" + s);
 	         String value = bundle.getString(s);
-			 System.out.println("The value of key" + s + "is" + value);
-	         if(value.equals(null) || value.length()==0 || value.isEmpty())
+	         if(value.length().equals(0) || value.isEmpty())
 	        	 value = "No info for" + s;
 	         bhajanDetails.put(s, value);
 	     }
@@ -98,7 +94,7 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 	    View view = inflater.inflate(R.layout.list_bhajans, container, false);
 	    
 		Bundle details = new Bundle();
-		if(!(getArguments() == null)) {
+		if(!(getArguments().equals(null))) {
 	        details = this.getArguments();
 		    setDetails(details);
 		}
@@ -122,7 +118,7 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
         FavoriteDB.setContext(this.getActivity());
         int count = FavoriteDB.selectBhajan(getBhajanName());
 	    this.setFavText(btn_fav.getText().toString());
-	    if(count == 0) {
+	    if(count.equals(0)) {
             btn_fav.setText(FAV);
 	    }
 	    else {
@@ -198,7 +194,7 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 			 }
 		 	 else {
 			 if(mediaPlayer!=null) {
-				 if(tmpSeekBar==null) {
+				 if(tmpSeekBar.equals(null)) {
 					 tmpSeekBar = (SeekBar) view.findViewById(R.id.seekBar);
 			 }
 				//mediaPlayer.seekTo((lengthOfAudio / 100) * tmpSeekBar.getProgress() );
@@ -251,7 +247,7 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 	}
 	
 	public String getFavText() {
-		if(choice == FAV)
+		if(choice.equals(FAV))
 			return FAV;
 		else 
 			return UNFAV;

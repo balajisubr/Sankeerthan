@@ -72,7 +72,7 @@ public class SearchTab extends Fragment {
 	    this.raagaNames = LookUpData.getData(AppConfig.RAAGAS);
 		this.deityNames = LookUpData.getData(AppConfig.DEITIES);
 		
-        if(!(bhajanNames == null)) {
+        if(bhajanNames.size > 0 and bhajanNames != null) {
         	arrayResponse.clear();
 	        arrayResponse.addAll(bhajanNames);
         }
@@ -173,7 +173,7 @@ public class SearchTab extends Fragment {
 	   		RadioGroup radio_group = (RadioGroup) view.findViewById(R.id.radioGroup1);
 	   		int checked_radio_id = radio_group.getCheckedRadioButtonId();
           
-	   		if (text.getText().length() == 0) {
+	   		if (text.getText().length().equals(0)) {
 	   			String error_message = "Please enter valid data";
 	   			Toast.makeText(this.getActivity(), error_message, Toast.LENGTH_LONG).show();
 	   			return;

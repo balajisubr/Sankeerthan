@@ -117,7 +117,7 @@ public class BhajanResultsFragment extends ListFragment {
 	}
 	
 	public ArrayList<String> getBhajans() {
-		if(bhajans.size() == 0) {
+		if(bhajans.size().equals(0)) {
 			int i;
 			for(i=0;i<4;i++)
 	              bhajans.add("No Data found");
