@@ -35,12 +35,7 @@ import android.widget.EditText;
 @SuppressLint("ValidFragment")
 public class BhajanResultsFragment extends ListFragment {
 	protected Bundle bundle;
-    ArrayList<String> bhajans = new ArrayList<String>();
-	String[] Bhajans = new String[10]; {
-	for ( int i = 0; i< 10; i++){
-		Bhajans[i] = "";
-    }}
-	
+    ArrayList<String> bhajans = new ArrayList<String>();	
 	
 	public BhajanResultsFragment()
 	{}
@@ -61,8 +56,9 @@ public class BhajanResultsFragment extends ListFragment {
  
 		listView.setOnItemClickListener(new OnItemClickListener() {
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-	    	Bundle bundle = new Bundle();
 			String name = ((TextView) view).getText().toString();
+			if(name.equals("No Data found")) return;
+	    	Bundle bundle = new Bundle();
 	        SearchBhajan searchBhajan = null;
 			try {
 				searchBhajan = new SearchBhajan(name);
@@ -118,11 +114,8 @@ public class BhajanResultsFragment extends ListFragment {
 	
 	public ArrayList<String> getBhajans() {
 		if(bhajans.size() == 0) {
-			int i;
-			for(i=0;i<4;i++)
 	              bhajans.add("No Data found");
-	    }
-	    System.out.println("The size of the bhajans is" + bhajans.size());
+		}
 	    return bhajans;
 	}
  
