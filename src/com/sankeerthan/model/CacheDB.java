@@ -96,7 +96,7 @@ public class CacheDB {
    @SuppressLint("NewApi")
    
    public void performOperation(String Operation, String table, ArrayList<String> array1) {
-	   System.out.println("Performing operation" + Operation);
+	   System.out.println("Performing operation" + Operation + "for" + table);
 	   SQLiteDatabase db = dbHelper.getWriteDb();
 
 	   String INSERT = "insert into "   

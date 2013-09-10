@@ -13,9 +13,11 @@ import com.sankeerthan.tabs.SearchTab;
 
 import android.app.Activity;
 import android.app.FragmentTransaction;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Looper;
 import android.widget.Toast;
 
 public class GenericDisplay {
@@ -28,24 +30,31 @@ public class GenericDisplay {
 	public HashMap<String,String> bhajanDetails = new HashMap<String, String>();
 	public Intent intent = null;
 	public int classId = 0;
+	public ProgressDialog pd;
 	private SearchInfo searchClass;
 	 
-	public GenericDisplay(SearchInfo searchClass, SearchTab mainActivity2)  {
+	public GenericDisplay(SearchInfo searchClass, SearchTab searchTab)  {
 		this.searchClass = searchClass; 
-		this.context = mainActivity2.getActivity();
+		this.context = searchTab.getActivity();
     }
 	
    public void processErrorsOrDisplay() {
-	   this.getSearchClass();
+	   getSearchClass();
 	   if(searchClass != null && searchClass.serverErrors.size() > 0) {
 		   processServerErrors(); 
 		   return;
        }
 	   processResultErrorsorDisplay();
-   }
+  }
+   
 
    public void processServerErrors() {
-	   Toast.makeText(this.context, searchClass.serverErrors.get(0), Toast.LENGTH_LONG).show();		
+       ((Activity) this.context).runOnUiThread(new Runnable() {
+           public void run() {
+              //Your code here
+        	   Toast.makeText(GenericDisplay.this.context, searchClass.serverErrors.get(0), Toast.LENGTH_LONG).show();		
+           }
+        });
    }
 
    public void processResultErrorsorDisplay() {
@@ -76,8 +85,7 @@ public class GenericDisplay {
 			   if(searchRaaga.list != null || searchRaaga.list.size() > 0) populateBhajanList(searchRaaga.list);
 			   else {
 				   navigateToErrorActivity("We could not retreive the data you requested! Please try again later!");
-			   }
-			   
+			   }  
 			   break;
 		   case 3:
 			   SearchDeity searchDeity = (SearchDeity) searchClass;
@@ -96,7 +104,7 @@ public class GenericDisplay {
 	public void navigateToDisplayActivity(Bundle bundle) {
 		android.app.FragmentManager fragmentManager = ((Activity)context).getFragmentManager(); 
         FragmentTransaction ft = fragmentManager.beginTransaction();
-
+    	Looper.prepare();
 		switch (classId) {
         case 1: 
             BhajanDetailsFragment fragment = new BhajanDetailsFragment(bundle);
@@ -110,19 +118,11 @@ public class GenericDisplay {
         	break;
 		}	
 		
-		//fragmentManager.addOnBackStackChangedListener(null);
         ft.commit();
-        fragmentManager.executePendingTransactions();      //
 	}
 	
 	public void navigateToErrorActivity(String errorMessage) {
 		Toast.makeText(this.context, errorMessage, Toast.LENGTH_LONG).show();		
-		/* TODO: Check if a fragment can be used
-		 intent = new Intent(context,ErrorDisplayActivity.class);
-	     bundle.putString("error",errorMessage);
-	     intent.putExtras(bundle);
-	     context.startActivity(intent);
-	     */
 	}
 	
 	public void getSearchClass() {

@@ -2,15 +2,19 @@ package com.sankeerthan.search.display;
 
 import java.util.ArrayList;
 
+import com.sankeerthan.AppConfig;
 import com.sankeerthan.R;
 import com.sankeerthan.R.layout;
 import com.sankeerthan.model.Bhajan;
+import com.sankeerthan.model.LookUpData;
 import com.sankeerthan.search.SearchBhajan;
+import com.sankeerthan.tabs.SearchTab;
 
 import android.annotation.SuppressLint;
 import android.app.FragmentTransaction;
 import android.app.ListActivity;
 import android.app.ListFragment;
+import android.app.ProgressDialog;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -28,7 +32,9 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Looper;
 import android.os.StrictMode;
 import android.widget.EditText;
 
@@ -62,12 +68,12 @@ public class BhajanResultsFragment extends ListFragment {
 	        SearchBhajan searchBhajan = null;
 			try {
 				searchBhajan = new SearchBhajan(name);
-				searchBhajan.getData();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 
-			Bhajan result = searchBhajan.result;
+			new FetchBhajan().execute(new SearchBhajan[]{searchBhajan});
+			/*
 	    	android.app.FragmentManager fragmentManager = (getActivity()).getFragmentManager(); 
             bundle.putString("raaga", result.raaga);
             bundle.putString("lyrics", result.lyrics);
@@ -80,7 +86,9 @@ public class BhajanResultsFragment extends ListFragment {
 	        ft.replace(android.R.id.content, fragment).addToBackStack( "search" );
 	        //fragmentManager.addOnBackStackChangedListener(null);
 	        ft.commit();
-	        fragmentManager.executePendingTransactions();      //
+	        fragmentManager.executePendingTransactions();
+	        */      
+	        //
 
 		     /*   
 		        Intent intent = new Intent(BhajanResultsActivity.this,ODisplayBhajanDetails.class);
@@ -118,8 +126,54 @@ public class BhajanResultsFragment extends ListFragment {
 		}
 	    return bhajans;
 	}
+	
+    class FetchBhajan extends AsyncTask<SearchBhajan, Void, Void>
+    {
+    	ProgressDialog pd = null;
+    	
+	    public void onPreExecute() {
+	        	getActivity().runOnUiThread(new Runnable() {
+	    	        public void run() {
+	    				pd = new ProgressDialog(BhajanResultsFragment.this.getActivity());
+	    				pd.setTitle("Processing...");
+	    				pd.setMessage("Please wait.");
+	    				pd.setCancelable(true);
+	    				pd.setIndeterminate(true);
+	    				pd.show();
+	    	        }});
+
+	        }
+		protected Void doInBackground(SearchBhajan... bhajan) {
+			
+			bhajan[0].getData();
+			Bhajan result = bhajan[0].result;
+	    	android.app.FragmentManager fragmentManager = (getActivity()).getFragmentManager(); 
+            bundle.putString("raaga", result.raaga);
+            bundle.putString("lyrics", result.lyrics);
+            bundle.putString("meaning", result.meaning);
+            bundle.putString("deity", result.deity);
+            bundle.putString("bhajan", result.name);
+            bundle.putString("url", result.url);
+	        Looper.prepare();
+            BhajanDetailsFragment fragment = new BhajanDetailsFragment(bundle);
+	        FragmentTransaction ft = fragmentManager.beginTransaction();
+	        ft.replace(android.R.id.content, fragment).addToBackStack( "search" );
+	        ft.commit();
+	 //       fragmentManager.executePendingTransactions();      
+	        if(pd != null){
+	        	pd.dismiss();
+	        }
+			return null;
+		}
+		
+		
+		
+		}
+    	
+    }
+
  
-}
+
 
 
 
