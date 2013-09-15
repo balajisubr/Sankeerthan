@@ -14,7 +14,7 @@ import android.webkit.WebViewClient;
 
 public class CustomWebView extends Fragment{
 	
-	protected String url = "http://android.com";
+	protected String url = "http://google.com";
 
 	protected WebView webView;
 
@@ -38,7 +38,7 @@ public class CustomWebView extends Fragment{
         
             webView.setOnKeyListener(new OnKeyListener(){
 
-            @Override
+            
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                  if ((keyCode == KeyEvent.KEYCODE_BACK) && webView.canGoBack()) {
                      webView.goBack();

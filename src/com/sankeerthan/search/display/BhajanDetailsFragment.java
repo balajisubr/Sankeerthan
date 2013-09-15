@@ -17,6 +17,7 @@ import android.media.MediaPlayer.OnBufferingUpdateListener;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.app.ListFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -35,7 +36,7 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
   	//private final String url = AppConfig.URL + "/play/song.mp3";
 	private final String FAV = "Favorite";
 	private final String UNFAV = "Remove as favorite";
-    private final String[] keys = new String[]{"bhajan", "raaga", "deity", "lyrics","meaning", "url"};
+    private final String[] keys = new String[]{"bhajan", "raaga", "deity", "lyrics", "meaning", "url"};
     
 	private String choice = "";
 	private LinkedHashMap<String, String> bhajanDetails = new LinkedHashMap<String, String>();
@@ -47,7 +48,7 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 	private int lengthOfAudio = 0;
 	private int length = 0;
 	private String bhajanName = "";
-    private final Handler handler = new Handler();
+    private static Handler handler = null;
 	private final Runnable r = new Runnable() {	
     public void run() {
         updateSeekProgress();					
@@ -59,6 +60,10 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 	}
 	
 	public BhajanDetailsFragment(Bundle bundle) {
+		System.out.println("In the constructor of details fragment");
+    	//Looper.loop();
+    	handler = new Handler();
+        BhajanDetailsFragment.setHandler(handler);
         this.bundle = bundle;
         setDetails(bundle);       
 	 }
@@ -67,7 +72,7 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 	{
 		 for(String s: keys) {
 	         String value = bundle.getString(s);
-	         if(value.length()==0 || value.isEmpty())
+	         if( value == null || (value != null && (value.length()==0 || value.isEmpty()))) 
 	        	 value = "No info for" + s;
 	         bhajanDetails.put(s, value);
 	     }
@@ -84,6 +89,9 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 	
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
+		//Looper.prepare();
+		//Looper.loop();
+		//handler = new Handler();
 		//Bundle details = this.getArguments();
 		//setDetails(details);
 		//ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), R.layout.row,this.getBhajanDetails());
@@ -95,6 +103,8 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 	    
 		Bundle details = new Bundle();
 		if(getArguments() != null) {
+	    	handler = new Handler();
+	        BhajanDetailsFragment.setHandler(handler);
 	        details = this.getArguments();
 		    setDetails(details);
 		}
@@ -129,12 +139,15 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 	    public void onClick(View v) {
 			onClick1();
 		}});
-   
 		return view;
 	}
 	
 	
 	public void onClick1() {
+		String regex = "^No info for.*";
+		String name = getBhajanDetail("bhajan");
+		if(name == null || name.matches(regex))
+			return;
 		Button favButton = (Button) (getView().findViewById(R.id.btn_fav));
 		String buttonText = favButton.getText().toString();
         FavoriteDB.setContext(this.getActivity());
@@ -169,7 +182,7 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 	private void updateSeekProgress() {	 
 		if (mediaPlayer.isPlaying()) {
 			seekBar.setProgress((int)(((float)mediaPlayer.getCurrentPosition() / lengthOfAudio) * 100));
-			handler.postDelayed(r, 2000);
+			getHandler().postDelayed(r, 2000);
 		 }
 	}
 	
@@ -183,7 +196,7 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 		 }
     	
 		 seekBar.setProgress((int)(((float)mediaPlayer.getCurrentPosition() / lengthOfAudio) * 100));
-		 handler.postDelayed(r, 1000);
+		 getHandler().postDelayed(r, 1000);
 		 SeekBar tmpSeekBar = (SeekBar) view.findViewById(R.id.seekBar);
 		 switch (view.getId()) {
 		 case R.id.btn_play:
@@ -215,6 +228,8 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 	
 	public void onDestroy() {
 		mediaPlayer.stop();	
+	//	Looper.myLooper().quit();
+	//	setHandler(null);
 		super.onDestroy();
 	}
 
@@ -228,6 +243,12 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 	
     public LinkedHashMap<String, String> getBhajanDetails() {
         return bhajanDetails;
+    }
+    
+    public String getBhajanDetail(String key)
+    {
+    	LinkedHashMap<String, String> localBhajanDetails = getBhajanDetails();
+    	return localBhajanDetails.get(key);
     }
 
     public void setBhajanDetails(LinkedHashMap<String, String> string) {
@@ -260,19 +281,17 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 		while (i.hasNext())
 		{		
 	     Entry<String, String> entry = i.next();
-		 System.out.println("The key is" + entry.getKey());
-	     if(entry.getKey().equals("lyrics") || entry.getKey().equals("meaning") || entry.getKey().equals("url")){
-          /*	    	 if(i.hasNext()) {
-	    		 entry = i.next();
-	    	 }
-	    	 else {
-	    	   return arDetails;
-	    	 }
-	    	 */
+	     String value = "";
+	     String key = entry.getKey();
+	     String defaultValue = "No info for " + key;
+	     if(key.equals("lyrics") || key.equals("meaning") || key.equals("url")){
 	    	 continue;
 	     }
-		 String detail = entry.getKey().toUpperCase() + ": " + entry.getValue() + "\n";
-		 System.out.println("The detail is" + detail);
+	     if(entry.getValue() == null)
+	    	 value = defaultValue;
+	     else
+	    	 value = entry.getValue();
+		 String detail = entry.getKey().toUpperCase() + ": " + value + "\n";
 		 arDetails.add(detail);
 		}
 		return arDetails;
@@ -309,6 +328,24 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 	public String[] formatLyrics(String lyrics) {
 	 	String[] formattedLyrics = lyrics.split(";");
 	 	return formattedLyrics;
+	}
+	
+	public static Handler getHandler()
+	{
+		if(handler == null)
+		{
+			//Looper.prepare();
+			//Looper.loop();
+			handler = new Handler();
+			setHandler(handler);
+		}
+		
+			return handler;
+	}
+	
+	public static void setHandler(Handler handler)
+	{
+		BhajanDetailsFragment.handler = handler;
 	}
 	
 	

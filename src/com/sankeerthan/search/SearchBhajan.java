@@ -40,18 +40,23 @@ public class SearchBhajan extends SearchInfo  {
 		super(key, subURL);
 		this.key = key;
 	}
+	
+	public SearchBhajan(){
+		super();
+		result = new Bhajan();
+	}
   
 	public void getData() {
-		String result;
+		String serverResult;
 		try {
-			result = this.fetchData();
-			parseData(result);
+			serverResult = this.fetchData();
+			parseData(serverResult);
 		} catch (ClientProtocolException e) {
-			this.serverErrors.add("There was an error! Please try again later!");
+			this.serverErrors.add("There was an error! Please try again later! #1");
 		} catch (IOException e) {
-			this.serverErrors.add("There was an error in accessing data! Please try later");
+			this.serverErrors.add("There was an error in accessing data! Please try later #2");
 		} catch (JSONException e) {
-			this.serverErrors.add("There was an error! Please try later!");
+			this.serverErrors.add("There was an error! Please try later! #3");
 		}	  
 	}
   
@@ -69,7 +74,7 @@ public class SearchBhajan extends SearchInfo  {
 		String lyrics = jsonObject.optString("lyrics");
 		String deity = jsonObject.optString("deity");
 		String url = jsonObject.optString("url");
-		this.result = (new Bhajan(raaga,meaning,lyrics,deity, key, url));
+		result = (new Bhajan(raaga,meaning,lyrics,deity, key, url));
 	}
 
 }  

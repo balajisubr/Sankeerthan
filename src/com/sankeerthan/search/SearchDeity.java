@@ -41,16 +41,16 @@ public class SearchDeity extends SearchInfo {
     }
   
 	public void getData() {
-		String result;
+		String serverResult;
 		try {
-			result = this.fetchData();
-			parseData(result);
+			serverResult = this.fetchData();
+			parseData(serverResult);
 			} catch (ClientProtocolException e) {
-			this.serverErrors.add("There was an error! Please try again later!");
+			this.serverErrors.add("There was an error! Please try again later! #4");
 			} catch (IOException e) {
-			this.serverErrors.add("There was an error in accessing data! Please try later");
+			this.serverErrors.add("There was an error in accessing data! Please try later #5");
 			} catch (JSONException e) {
-			this.serverErrors.add("There was an error! Please try later!");
+			this.serverErrors.add("There was an error! Please try later! #6");
 			}	  
 		}
   
@@ -66,12 +66,11 @@ public class SearchDeity extends SearchInfo {
 		JSONArray bhajanJSON;
 		try {
 			bhajanJSON = jsonObject.getJSONArray("bhajan_names");
-			String bhajanName = bhajanJSON.toString();
 			for (int i=0; i<bhajanJSON.length(); i++) {
 				list.add(bhajanJSON.getString(i) );
 			} 
 		} catch (JSONException e) {
-			serverErrors.add("There was an error! Please try later!");
+			serverErrors.add("There was an error! Please try later! #7 ");
 	   }
 	}
  }

@@ -92,12 +92,11 @@ public class LookUpData {
   	
   	public synchronized static long getLastLookedUpTime(String key)
   	{
-  		System.out.println("Fetching last looked up time for" + key);
-  		System.out.println("The last looked up time is" + lookedUpTime.get(key) + "for" + key);
-  		try {
-  	        return (lookedUpTime.get(key));
-  		} catch(NullPointerException e) {
+  		if(lookedUpTime.get(key) != null)
+  			return lookedUpTime.get(key);
+  		else
   			return System.currentTimeMillis();
-  		}
+  		
   	}
+  
 }

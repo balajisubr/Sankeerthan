@@ -76,23 +76,23 @@ public class GenericDisplay {
 				   navigateToDisplayActivity(bundle);
 			   }	
 			   else {	
-        	   navigateToErrorActivity("We could not retreive the data you requested! Please try again later!");
+        	   navigateToErrorActivity("We could not retreive the data you requested! Please try again later! #12");
 			   }
 			   break;
            
 		   case 2: 
 			   SearchRaaga searchRaaga = (SearchRaaga) searchClass;
-			   if(searchRaaga.list != null || searchRaaga.list.size() > 0) populateBhajanList(searchRaaga.list);
+			   if(searchRaaga.list != null && searchRaaga.list.size() > 0) populateBhajanList(searchRaaga.list);
 			   else {
-				   navigateToErrorActivity("We could not retreive the data you requested! Please try again later!");
+				   navigateToErrorActivity("We could not retreive the data you requested! Please try again later! #13");
 			   }  
 			   break;
 		   case 3:
 			   SearchDeity searchDeity = (SearchDeity) searchClass;
-			   if(searchDeity.list != null || searchDeity.list.size() > 0) populateBhajanList(searchDeity.list);
+			   if(searchDeity.list != null && searchDeity.list.size() > 0) populateBhajanList(searchDeity.list);
 			   else
 			   {
-				navigateToErrorActivity("We could not retreive the data you requested! Please try again later!");
+				navigateToErrorActivity("We could not retreive the data you requested! Please try again later! #14");
 			   }
 			   break;
 		   default: 
@@ -106,8 +106,10 @@ public class GenericDisplay {
         FragmentTransaction ft = fragmentManager.beginTransaction();
     	Looper.prepare();
 		switch (classId) {
-        case 1: 
+        case 1:
+            System.out.println("Here before creating fragment");
             BhajanDetailsFragment fragment = new BhajanDetailsFragment(bundle);
+            System.out.println("Here before going to fragment");
             ft.replace(android.R.id.content, fragment).addToBackStack( "search" );
             break;
         case 2: case 3:      
@@ -121,8 +123,13 @@ public class GenericDisplay {
         ft.commit();
 	}
 	
-	public void navigateToErrorActivity(String errorMessage) {
-		Toast.makeText(this.context, errorMessage, Toast.LENGTH_LONG).show();		
+	public void navigateToErrorActivity(final String errorMessage) {
+		System.out.println("Error in navaigate to eror activity");
+		Activity act = (Activity) this.context;
+       	act.runOnUiThread(new Runnable() {
+   	        public void run() {
+   	        	Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show();
+   	    }});
 	}
 	
 	public void getSearchClass() {

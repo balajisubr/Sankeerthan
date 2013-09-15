@@ -1,6 +1,9 @@
 package com.sankeerthan.search.display;
 
+import java.io.IOException;
 import java.util.ArrayList;
+
+import org.apache.http.client.ClientProtocolException;
 
 import com.sankeerthan.AppConfig;
 import com.sankeerthan.R;
@@ -40,6 +43,7 @@ import android.widget.EditText;
 
 @SuppressLint("ValidFragment")
 public class BhajanResultsFragment extends ListFragment {
+	ProgressDialog pd;
 	protected Bundle bundle;
     ArrayList<String> bhajans = new ArrayList<String>();	
 	
@@ -65,29 +69,69 @@ public class BhajanResultsFragment extends ListFragment {
 			String name = ((TextView) view).getText().toString();
 			if(name.equals("No Data found")) return;
 	    	Bundle bundle = new Bundle();
-	        SearchBhajan searchBhajan = null;
+	        SearchBhajan searchBhajan = new SearchBhajan();
 			try {
 				searchBhajan = new SearchBhajan(name);
 			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}/*
+			catch (ClientProtocolException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				*/
+			
+
+	        /*
+			try {
+				Bhajan result = searchBhajan.result;
+				System.out.println("The raaga is " + result.raaga);
+				System.out.println("The lyrics is" + result.lyrics);			
+				System.out.println("The meaning is" + result.meaning);
+	            bundle.putString("raaga", result.raaga);
+	            bundle.putString("lyrics", result.lyrics);
+	            bundle.putString("meaning", result.meaning);
+	            bundle.putString("deity", result.deity);
+	            bundle.putString("bhajan", result.name);
+	            bundle.putString("url", result.url);
+
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			} catch (ClientProtocolException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
+*/
 			new FetchBhajan().execute(new SearchBhajan[]{searchBhajan});
 			/*
-	    	android.app.FragmentManager fragmentManager = (getActivity()).getFragmentManager(); 
-            bundle.putString("raaga", result.raaga);
-            bundle.putString("lyrics", result.lyrics);
-            bundle.putString("meaning", result.meaning);
-            bundle.putString("deity", result.deity);
-            bundle.putString("bhajan", result.name);
-            bundle.putString("url", result.url);
+        	getActivity().runOnUiThread(new Runnable() {
+    	        public void run() {
+    				pd = new ProgressDialog(BhajanResultsFragment.this.getActivity());
+    				pd.setTitle("Processing...");
+    				pd.setMessage("Please wait.");
+    				pd.setCancelable(true);
+    				pd.setIndeterminate(true);
+    				pd.show();
+    	        }});
+        	
+        	*/
+	        /*
             BhajanDetailsFragment fragment = new BhajanDetailsFragment(bundle);
+	    	android.app.FragmentManager fragmentManager = (getActivity()).getFragmentManager(); 
 	        FragmentTransaction ft = fragmentManager.beginTransaction();
 	        ft.replace(android.R.id.content, fragment).addToBackStack( "search" );
 	        //fragmentManager.addOnBackStackChangedListener(null);
 	        ft.commit();
 	        fragmentManager.executePendingTransactions();
-	        */      
+	        pd.dismiss();
+	        */
+	             
 	        //
 
 		     /*   
@@ -122,12 +166,12 @@ public class BhajanResultsFragment extends ListFragment {
 	
 	public ArrayList<String> getBhajans() {
 		if(bhajans.size() == 0) {
-	              bhajans.add("No Data found");
+	        bhajans.add("No Data found");
 		}
 	    return bhajans;
 	}
 	
-    class FetchBhajan extends AsyncTask<SearchBhajan, Void, Void>
+    class FetchBhajan extends AsyncTask<SearchBhajan, Void, Bundle>
     {
     	ProgressDialog pd = null;
     	
@@ -143,27 +187,34 @@ public class BhajanResultsFragment extends ListFragment {
 	    	        }});
 
 	        }
-		protected Void doInBackground(SearchBhajan... bhajan) {
-			
+		protected Bundle doInBackground(SearchBhajan... bhajan) {
 			bhajan[0].getData();
 			Bhajan result = bhajan[0].result;
-	    	android.app.FragmentManager fragmentManager = (getActivity()).getFragmentManager(); 
             bundle.putString("raaga", result.raaga);
             bundle.putString("lyrics", result.lyrics);
             bundle.putString("meaning", result.meaning);
             bundle.putString("deity", result.deity);
             bundle.putString("bhajan", result.name);
             bundle.putString("url", result.url);
-	        Looper.prepare();
-            BhajanDetailsFragment fragment = new BhajanDetailsFragment(bundle);
+            return bundle;
+		}
+		
+		public void onPostExecute(final Bundle bundle)
+		{
+	        //Looper.prepare();
+	    	getActivity().runOnUiThread(new Runnable() {
+	    		public void run(){
+	                BhajanDetailsFragment fragment = new BhajanDetailsFragment(bundle);
+	    	    	android.app.FragmentManager fragmentManager = (getActivity()).getFragmentManager(); 
+
 	        FragmentTransaction ft = fragmentManager.beginTransaction();
 	        ft.replace(android.R.id.content, fragment).addToBackStack( "search" );
 	        ft.commit();
-	 //       fragmentManager.executePendingTransactions();      
+	        fragmentManager.executePendingTransactions();
+	    		}});
 	        if(pd != null){
 	        	pd.dismiss();
-	        }
-			return null;
+	        }			
 		}
 		
 		

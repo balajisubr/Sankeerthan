@@ -15,17 +15,17 @@ public class SearchRaaga extends SearchInfo  {
 	}
 	
 	public void getData() {
-		String result;
+		String serverResult;
 		try {
-			result = this.fetchData();
-			System.out.println("REsult in getdata is " + result);
-			parseData(result);
+			serverResult = this.fetchData();
+			System.out.println("REsult in getdata is " + serverResult);
+			parseData(serverResult);
 		} catch (ClientProtocolException e) {
-			this.serverErrors.add("There was an error! Please try again later!");
+			this.serverErrors.add("There was an error! Please try again later! #8");
 		} catch (IOException e) {
-			this.serverErrors.add("There was an error in accessing data! Please try later");
+			this.serverErrors.add("There was an error in accessing data! Please try later #9");
 		} catch (JSONException e) {
-			this.serverErrors.add("There was an error! Please try later!");
+			this.serverErrors.add("There was an error! Please try later! #10");
 		}	  
 	}
   
@@ -46,7 +46,7 @@ public class SearchRaaga extends SearchInfo  {
 				list.add(bhajanJSON.getString(i) );
 			} 
 		} catch (JSONException e) {
-			this.serverErrors.add("There was an error! Please try later!");
+			this.serverErrors.add("There was an error! Please try later! #11");
 		}
 	  }
 }  

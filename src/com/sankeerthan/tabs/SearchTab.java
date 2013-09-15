@@ -9,6 +9,7 @@ import org.json.JSONException;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Looper;
 import android.os.StrictMode;
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -76,7 +77,7 @@ public class SearchTab extends Fragment {
 	    this.raagaNames = IntroFlashActivity.getLookUpValues(AppConfig.RAAGAS);
 		this.deityNames = IntroFlashActivity.getLookUpValues(AppConfig.DEITIES);
 		
-        if(bhajanNames.size() > 0 && bhajanNames != null) {
+        if(bhajanNames != null && bhajanNames.size() > 0) {
         	arrayResponse.clear();
 	        arrayResponse.addAll(bhajanNames);
         }
@@ -98,7 +99,7 @@ public class SearchTab extends Fragment {
 	   		EditText text1 = (EditText) getView().findViewById(R.id.editText1);
 	   		if (text1.getText().length()== 0) {
 	   			String error_message = "Please enter valid data";
-	   			Toast.makeText(SearchTab.this.getContext(), error_message, Toast.LENGTH_LONG).show();
+	   			Toast.makeText(SearchTab.this.getContext(), error_message, Toast.LENGTH_SHORT).show();
 	   		}
 	   		else{
 		        AsyncTask<Void, Void, Void> task = new SearchProgress();
@@ -154,8 +155,10 @@ public class SearchTab extends Fragment {
 
 	    
 	   	public void updateData(String key) {
-	   		commonAdapter.clear();       
-	   		if(key.equals("raagas") && raagaNames!=null) {
+	   		if(commonAdapter !=null) { 
+	   			if(!commonAdapter.isEmpty())
+	   		        commonAdapter.clear();
+	   		if(raagaNames != null && key.equals("raagas")) {
 	   			commonAdapter.addAll(raagaNames);	
 	   		} 
 	   		else if(key.equals("bhajans") && bhajanNames != null) {  
@@ -168,6 +171,7 @@ public class SearchTab extends Fragment {
 	   		}  
 	   		commonAdapter.setNotifyOnChange(true);
 	   		commonAdapter.notifyDataSetChanged();
+	   		}
 	   	}
 	   	
 	   	public void setContext(Context context){
@@ -235,7 +239,7 @@ public class SearchTab extends Fragment {
     	   	 }}
                catch (InterruptedException e) {
             	   pd.dismiss();
-            	   Toast.makeText(context, "An error occurred! Please contact", Toast.LENGTH_SHORT);
+            	   Toast.makeText(context, "An error occurred! Please contact", Toast.LENGTH_SHORT).show();
                }
                if(pd !=null){
             	   pd.dismiss();

@@ -24,11 +24,11 @@ public class LookUpInfo extends SearchInfo {
 		    parseData(result);
 			 
 		} catch (ClientProtocolException e) {
-			this.serverErrors.add("There was an error! Please try again later!");
+			this.serverErrors.add("There was an error! Please try again later! #13");
 		} catch (IOException e) {
-			this.serverErrors.add("There was an error in accessing data! Please try later");
+			this.serverErrors.add("There was an error in accessing data! Please try later #14");
 		} catch (JSONException e) {
-			this.serverErrors.add("There was an error! Please try later!");
+			this.serverErrors.add("There was an error! Please try later! #15");
 		}	  
 	  }
 	  
@@ -51,7 +51,7 @@ public class LookUpInfo extends SearchInfo {
 			  for (int i=0; i<namesList.length(); i++) 
 				  list.add(namesList.getString(i) );
 		  } catch (JSONException e) {
-			  this.serverErrors.add("There was an error! Please try later!");		
+			  serverErrors.add("There was an error! Please try later! #16");		
 		  }
 	  }
 }

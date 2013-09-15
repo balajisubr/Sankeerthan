@@ -6,6 +6,7 @@ import android.app.ActionBar.Tab;
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.os.Looper;
 import android.os.StrictMode;
 
 import com.sankeerthan.tabs.FAQFeedback;

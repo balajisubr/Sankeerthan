@@ -17,4 +17,14 @@ public class Bhajan
 		this.name    = name;
 	    this.url     = url;
 	}
+	
+	public Bhajan()
+	{
+		raaga   = "";
+		meaning = "";
+		lyrics  = "";
+		deity   = "";
+		name    = "";
+		url     = "";
+	}
 }

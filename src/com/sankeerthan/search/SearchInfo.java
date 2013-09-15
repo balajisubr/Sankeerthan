@@ -42,21 +42,21 @@ public abstract class SearchInfo {
 		client = new DefaultHttpClient();
 	}
 	
+	protected SearchInfo()
+	{
+		
+	}
+	
 	protected String fetchData() throws ClientProtocolException, IOException, ConnectException {
 		try {
 			HttpGet request = setupClient();
 			HttpResponse response = client.execute(request);
 			HttpEntity entity = response.getEntity();
-			try {
-			if(entity.equals(null)) {
-				serverErrors.add("No valid response from server! Please try again later."); 
+			if(entity == null) {
+				serverErrors.add("No valid response from server! Please try again later.#17"); 
 			}
-			}
-			catch (NullPointerException e){
-				serverErrors.add("No valid response from server! Please try again later.");
-			}
-
-			InputStream stream = entity.getContent();
+		
+     		InputStream stream = entity.getContent();
 			BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
 			StringBuilder sb = new StringBuilder();
 
@@ -68,7 +68,7 @@ public abstract class SearchInfo {
 			} 
 						
 			catch (IOException e) {  
-				serverErrors.add("Server Error encountered! Please try again later due to ioex in reading"); return "";
+				serverErrors.add("Server Error encountered! Please try again later due to ioex in reading #18"); return "";
 			} 
 			
 			finally {
@@ -76,7 +76,7 @@ public abstract class SearchInfo {
 					stream.close();
 				} 
 			catch (IOException e) {
-				serverErrors.add("Server Error encountered! Please try again later");
+				serverErrors.add("Server Error encountered! Please try again later #19");
 				e.printStackTrace();
 				return "";
 		     }
@@ -90,18 +90,18 @@ public abstract class SearchInfo {
   
 	protected void parseData(String result) throws ClientProtocolException, IOException, JSONException {
 		try{
-		    if(result.equals(null)) result = "";
+		    if(result == null) result = "";
 		}
 		
 		catch (NullPointerException e){
-			serverErrors.add("No valid response from server! Please try again later.");
+			serverErrors.add("No valid response from server! Please try again later. #20");
 		}
 
 		if(result!="") {
 			JSONTokener tokener = new JSONTokener(result.toString());
 			JSONObject jsonObject = new JSONObject(tokener);
 			this.errorMsg = jsonObject.optString("error");
-			if(errorMsg.equals(""))	{
+			if(errorMsg.isEmpty())	{
 				extractData(jsonObject);
 			}
 		}
