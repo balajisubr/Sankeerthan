@@ -3,7 +3,7 @@ package com.sankeerthan.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sankeerthan.AppConfig;
+import com.sankeerthan.Sankeerthan;
 import com.sankeerthan.tabs.SearchTab;
 
 import android.annotation.SuppressLint;
@@ -35,10 +35,10 @@ public class CacheDB {
 	private SQLiteDatabase db;
 	private static final String DATABASE_NAME = "BHAJANS";
 	private static final int DATABASE_VERSION = 1;
-	private static final String BHAJAN_TABLE_NAME = AppConfig.BHAJANS;
-	private static final String RAAGA_TABLE_NAME = AppConfig.RAAGAS;
-	private static final String DEITY_TABLE_NAME = AppConfig.DEITIES;
-	private static final String FAV_TABLE_NAME = AppConfig.FAVORITES;
+	private static final String BHAJAN_TABLE_NAME = Sankeerthan.BHAJANS;
+	private static final String RAAGA_TABLE_NAME = Sankeerthan.RAAGAS;
+	private static final String DEITY_TABLE_NAME = Sankeerthan.DEITIES;
+	private static final String FAV_TABLE_NAME = Sankeerthan.FAVORITES;
 	private static final String COLUMN_NAME = "name";
 	
 	private String selectBhajanQuery = "SELECT  * FROM " + BHAJAN_TABLE_NAME;
@@ -161,20 +161,20 @@ public class CacheDB {
 	   List<String> list = new ArrayList<String>(); 
 	   String selectQuery = "SELECT  * FROM " + table;    
 	   
-	   if(table.equals(AppConfig.BHAJANS)) {
+	   if(table.equals(Sankeerthan.BHAJANS)) {
 		   bhajanCursor = db.rawQuery(selectQuery, null);
 		   list = parseCursor(bhajanCursor);
 	   }
-	   else if(table.equals(AppConfig.RAAGAS)) {
+	   else if(table.equals(Sankeerthan.RAAGAS)) {
 		   raagaCursor = db.rawQuery(selectQuery, null);
 		   list = parseCursor(raagaCursor);
 	   }
-	   else if(table.equals(AppConfig.DEITIES)) {
+	   else if(table.equals(Sankeerthan.DEITIES)) {
 		   deityCursor = db.rawQuery(selectQuery, null);
 		   list = parseCursor(deityCursor);
 	   }
 	   
-	   else if(table.equals(AppConfig.FAVORITES)) {
+	   else if(table.equals(Sankeerthan.FAVORITES)) {
 		   favoriteCursor = db.rawQuery(selectQuery, null);
 		   list = parseCursor(favoriteCursor);
 	   }

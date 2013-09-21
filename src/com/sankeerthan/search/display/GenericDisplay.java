@@ -4,14 +4,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.sankeerthan.MainActivity;
+import com.sankeerthan.display.SankeerthanDialog;
 import com.sankeerthan.model.Bhajan;
 import com.sankeerthan.search.SearchBhajan;
 import com.sankeerthan.search.SearchDeity;
 import com.sankeerthan.search.SearchInfo;
 import com.sankeerthan.search.SearchRaaga;
+import com.sankeerthan.tabs.FavoritesTab;
 import com.sankeerthan.tabs.SearchTab;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -51,8 +55,9 @@ public class GenericDisplay {
    public void processServerErrors() {
        ((Activity) this.context).runOnUiThread(new Runnable() {
            public void run() {
-              //Your code here
-        	   Toast.makeText(GenericDisplay.this.context, searchClass.serverErrors.get(0), Toast.LENGTH_LONG).show();		
+        	   AlertDialog alert = SankeerthanDialog.getAlertDialog(GenericDisplay.this.context, searchClass.serverErrors.get(0));
+        	  // Toast.makeText(GenericDisplay.this.context, searchClass.serverErrors.get(0), Toast.LENGTH_LONG).show();
+        	   alert.show();
            }
         });
    }
@@ -128,7 +133,9 @@ public class GenericDisplay {
 		Activity act = (Activity) this.context;
        	act.runOnUiThread(new Runnable() {
    	        public void run() {
-   	        	Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show();
+          	   AlertDialog alert = SankeerthanDialog.getAlertDialog(context, errorMessage);
+          	   alert.show();
+   	        //Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show();
    	    }});
 	}
 	

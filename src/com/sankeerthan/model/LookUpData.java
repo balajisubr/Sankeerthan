@@ -3,7 +3,7 @@ package com.sankeerthan.model;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.sankeerthan.AppConfig;
+import com.sankeerthan.Sankeerthan;
 import com.sankeerthan.lookup.LookUpInfo;
 
 import android.content.Context;
@@ -25,15 +25,15 @@ public class LookUpData {
     private static final long serialVersionUID = 1L;};
 	static
 	 {
-	   values.put(AppConfig.BHAJANS, bhajanList);
-	   values.put(AppConfig.RAAGAS, raagaList);	
-	   values.put(AppConfig.DEITIES, deityList);	
+	   values.put(Sankeerthan.BHAJANS, bhajanList);
+	   values.put(Sankeerthan.RAAGAS, raagaList);	
+	   values.put(Sankeerthan.DEITIES, deityList);	
   	 }
 	
 	public static ArrayList<String> getData(String type) {
 		cacheDB = LookUpData.getCacheDB();  
 			if(values.get(type).size() > 0) {
-			    if(System.currentTimeMillis() - getLastLookedUpTime(type) > AppConfig.SERVER_DATA_REFRESH_PERIOD)
+			    if(System.currentTimeMillis() - getLastLookedUpTime(type) > Sankeerthan.SERVER_DATA_REFRESH_PERIOD)
 			    {   
 			    	System.out.println("last lookup: Fetching data from server for " + type);
 			        fetchDataFromServer(type);
@@ -59,10 +59,10 @@ public class LookUpData {
 	  lookUp.lookupInfo();
 	  if(lookUp.list.size() > 0) {
 		  if(values.get(infoType).size() > 0 ) {
-			  cacheDB.performOperation(AppConfig.DELETE, infoType, values.get(infoType));  
+			  cacheDB.performOperation(Sankeerthan.DELETE, infoType, values.get(infoType));  
 		  }
 		  values.put(infoType, lookUp.list);
-		  cacheDB.performOperation(AppConfig.INSERT, infoType, values.get(infoType));				  
+		  cacheDB.performOperation(Sankeerthan.INSERT, infoType, values.get(infoType));				  
 	  }
 			  
 	  ArrayList<String> bhajans = (ArrayList<String>) cacheDB.fetchData(infoType);

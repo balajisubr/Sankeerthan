@@ -3,6 +3,7 @@ package com.sankeerthan.tabs;
 import java.util.ArrayList;
 
 import com.sankeerthan.R;
+import com.sankeerthan.display.SankeerthanDialog;
 import com.sankeerthan.model.Bhajan;
 import com.sankeerthan.model.FavoriteDB;
 import com.sankeerthan.search.SearchBhajan;
@@ -11,6 +12,7 @@ import com.sankeerthan.search.display.BhajanResultsFragment;
 
 import android.app.ActionBar.Tab;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.FragmentTransaction;
 import android.app.ListFragment;
 import android.app.ProgressDialog;
@@ -119,9 +121,12 @@ public class FavoritesTab extends ListFragment{
 			}
 
 			if(bundle.isEmpty()){
-			    Toast.makeText(FavoritesTab.this.getActivity()
-			    		, "An error occured while fetching data. Please check connection or try again later."
-			    		, Toast.LENGTH_LONG).show();
+	         	   AlertDialog alert = SankeerthanDialog.getAlertDialog(FavoritesTab.this.getActivity(), serverError);
+	         	   alert.show();
+
+	     	//	Toast.makeText(FavoritesTab.this.getActivity()
+			//    		, "An error occured while fetching data. Please check connection or try again later."
+			//  		, Toast.LENGTH_LONG).show();
 	            if(pd != null){
 	        	    pd.dismiss();
 	            }			
@@ -129,7 +134,9 @@ public class FavoritesTab extends ListFragment{
 			}
 			
 			if(serverError.length() > 0){
-			    Toast.makeText(FavoritesTab.this.getActivity(), serverError, Toast.LENGTH_LONG).show();
+         	   AlertDialog alert = SankeerthanDialog.getAlertDialog(FavoritesTab.this.getActivity(), serverError);
+         	   alert.show();
+			 //Toast.makeText(FavoritesTab.this.getActivity(), serverError, Toast.LENGTH_LONG).show();
 	            if(pd != null){
 	        	    pd.dismiss();
 	            }			

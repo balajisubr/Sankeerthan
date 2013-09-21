@@ -22,11 +22,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
-import com.sankeerthan.AppConfig;
+import com.sankeerthan.Sankeerthan;
 import com.sankeerthan.model.Bhajan;
 
 public abstract class SearchInfo {
-	protected final String URL = AppConfig.URL;
+	protected final String URL = Sankeerthan.URL;
 	protected HashMap<String, String> dataHash = new HashMap<String,String>();
 	public String key = "";
 	protected String subURL = "";

@@ -1,6 +1,6 @@
 package com.sankeerthan;
 
-public final class AppConfig {
+public final class Sankeerthan {
     public final static String URL = "http://192.168.1.69:3000";
     public final static String BHAJANS = "bhajans";
     public final static String DEITIES = "deities";
@@ -10,5 +10,6 @@ public final class AppConfig {
     public final static String INSERT = "INSERT";
     public final static String DELETE = "DELETE";
     public final static long SERVER_DATA_REFRESH_PERIOD = 60000;
-    public AppConfig(){}
+    public Sankeerthan(){}
+    
 }

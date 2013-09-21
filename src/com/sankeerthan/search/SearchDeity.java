@@ -1,5 +1,5 @@
 package com.sankeerthan.search;
-import com.sankeerthan.AppConfig;
+import com.sankeerthan.Sankeerthan;
 import com.sankeerthan.model.*;
 
 import java.io.BufferedReader;

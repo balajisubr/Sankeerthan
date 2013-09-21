@@ -13,6 +13,7 @@ import android.os.Looper;
 import android.os.StrictMode;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -36,7 +37,7 @@ import android.widget.Toast;
 import android.view.View.OnClickListener;
 import android.content.DialogInterface;
 
-import com.sankeerthan.AppConfig;
+import com.sankeerthan.Sankeerthan;
 import com.sankeerthan.IntroFlashActivity;
 import com.sankeerthan.R;
 import com.sankeerthan.R.id;
@@ -73,9 +74,9 @@ public class SearchTab extends Fragment {
 		super.onCreate(savedInstanceState);
 		this.setContext(this.getActivity());
         LookUpData.setContext(this.getActivity());     
-		this.bhajanNames = IntroFlashActivity.getLookUpValues(AppConfig.BHAJANS);
-	    this.raagaNames = IntroFlashActivity.getLookUpValues(AppConfig.RAAGAS);
-		this.deityNames = IntroFlashActivity.getLookUpValues(AppConfig.DEITIES);
+		this.bhajanNames = IntroFlashActivity.getLookUpValues(Sankeerthan.BHAJANS);
+	    this.raagaNames = IntroFlashActivity.getLookUpValues(Sankeerthan.RAAGAS);
+		this.deityNames = IntroFlashActivity.getLookUpValues(Sankeerthan.DEITIES);
 		
         if(bhajanNames != null && bhajanNames.size() > 0) {
         	arrayResponse.clear();
@@ -239,7 +240,9 @@ public class SearchTab extends Fragment {
     	   	 }}
                catch (InterruptedException e) {
             	   pd.dismiss();
-            	   Toast.makeText(context, "An error occurred! Please contact", Toast.LENGTH_SHORT).show();
+            	   AlertDialog alert = SankeerthanDialog.getAlertDialog(context, "An error occurred! Please contact us.");
+             	   alert.show();
+            	   //Toast.makeText(context, "An error occurred! Please contact" , Toast.LENGTH_SHORT).show();
                }
                if(pd !=null){
             	   pd.dismiss();

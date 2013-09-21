@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import org.apache.http.client.ClientProtocolException;
 
-import com.sankeerthan.AppConfig;
+import com.sankeerthan.Sankeerthan;
 import com.sankeerthan.R;
 import com.sankeerthan.R.layout;
 import com.sankeerthan.model.Bhajan;
@@ -55,6 +55,7 @@ public class BhajanResultsFragment extends ListFragment {
 	}
 
 	public void onCreate(Bundle savedInstanceState) {
+	    setBhajans(bundle.getStringArray("bhajan"));
 		super.onCreate(savedInstanceState);
 	}
 	
@@ -151,7 +152,7 @@ public class BhajanResultsFragment extends ListFragment {
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 	    View view = inflater.inflate(R.layout.raaga_deity_list, container, false);
-	    setBhajans(bundle.getStringArray("bhajan"));
+	    //setBhajans(bundle.getStringArray("bhajan"));
 		return view;
 	}
 	
@@ -208,7 +209,7 @@ public class BhajanResultsFragment extends ListFragment {
 	    	    	android.app.FragmentManager fragmentManager = (getActivity()).getFragmentManager(); 
 
 	        FragmentTransaction ft = fragmentManager.beginTransaction();
-	        ft.replace(android.R.id.content, fragment).addToBackStack( "search" );
+	        ft.addToBackStack("list").replace(android.R.id.content, fragment);//.addToBackStack( null );
 	        ft.commit();
 	        fragmentManager.executePendingTransactions();
 	    		}});
@@ -216,9 +217,6 @@ public class BhajanResultsFragment extends ListFragment {
 	        	pd.dismiss();
 	        }			
 		}
-		
-		
-		
 		}
     	
     }

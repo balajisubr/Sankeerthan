@@ -18,6 +18,8 @@ import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.app.ListFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -230,7 +232,20 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 		mediaPlayer.stop();	
 	//	Looper.myLooper().quit();
 	//	setHandler(null);
+	//	android.app.FragmentManager fragmentManager = (getActivity()).getFragmentManager();
+	//	Fragment frag = fragmentManager.findFragmentByTag("list");
+    //    FragmentTransaction ft = fragmentManager.beginTransaction();
+	//	ft.show(frag);
+	//	ft.commit();
 		super.onDestroy();
+	}
+	
+	public void onDetach()
+	{
+	//	android.app.FragmentManager fragmentManager = (getActivity()).getFragmentManager();
+	//	fragmentManager.popBackStack();
+		super.onDetach();
+		
 	}
 
 	private void pauseAudio() {

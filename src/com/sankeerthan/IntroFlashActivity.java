@@ -49,9 +49,9 @@ public class IntroFlashActivity extends Activity {
     class FetchData extends AsyncTask<Void, Void, Void>
     {
 		protected Void doInBackground(Void... params) {
-        	setLookUpValues(AppConfig.BHAJANS, LookUpData.getData(AppConfig.BHAJANS));
-        	setLookUpValues(AppConfig.RAAGAS, LookUpData.getData(AppConfig.RAAGAS));
-        	setLookUpValues(AppConfig.DEITIES, LookUpData.getData(AppConfig.DEITIES));
+        	setLookUpValues(Sankeerthan.BHAJANS, LookUpData.getData(Sankeerthan.BHAJANS));
+        	setLookUpValues(Sankeerthan.RAAGAS, LookUpData.getData(Sankeerthan.RAAGAS));
+        	setLookUpValues(Sankeerthan.DEITIES, LookUpData.getData(Sankeerthan.DEITIES));
 			return null;
 		}
     	
