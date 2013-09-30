@@ -24,7 +24,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="3dp" />
 
-<LinearLayout
+<RelativeLayout
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="5dp"
@@ -33,18 +33,19 @@
 
     <Button
         android:id="@+id/btn_play"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"        
-        android:text="play" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:text="@string/play" />
         
          <Button
         android:id="@+id/btn_fav"
-        android:layout_width="110dp"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/btn_play"       
         android:layout_height="wrap_content"
-        android:text="Favorite" />
+        android:text="@string/favorite" />
         
 
-</LinearLayout> 
+</RelativeLayout> 
 
 <!--fragment
         android:id="@+id/player_fragment"

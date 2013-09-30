@@ -1,5 +1,4 @@
 package com.sankeerthan.tabs;
-import android.annotation.SuppressLint;
 import android.app.ActionBar.Tab;
 import android.app.Activity;
 import android.app.Fragment;
@@ -27,7 +26,6 @@ public class TabsListener<T extends Fragment> implements ActionBar.TabListener {
         mbundle = bundle;
     }
 
-    @SuppressLint("NewApi")
 	public void onTabSelected(Tab tab, FragmentTransaction ft) {
         if (mFragment == null) {
             mFragment = Fragment.instantiate(mActivity, mClass.getName(), mbundle);
@@ -37,7 +35,6 @@ public class TabsListener<T extends Fragment> implements ActionBar.TabListener {
         }
     }
 
-    @SuppressLint("NewApi")
 	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
         if (mFragment != null) {
            ft.detach(mFragment);
@@ -45,7 +42,6 @@ public class TabsListener<T extends Fragment> implements ActionBar.TabListener {
         }
     }
 
-    @SuppressLint("NewApi")
 	public void onTabReselected(Tab tab, FragmentTransaction ft) {
     	ft.attach(mFragment);
     }

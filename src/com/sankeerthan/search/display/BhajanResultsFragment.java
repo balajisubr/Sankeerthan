@@ -1,45 +1,28 @@
 package com.sankeerthan.search.display;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
-import org.apache.http.client.ClientProtocolException;
 
-import com.sankeerthan.Sankeerthan;
 import com.sankeerthan.R;
-import com.sankeerthan.R.layout;
 import com.sankeerthan.model.Bhajan;
 import com.sankeerthan.model.LookUpData;
 import com.sankeerthan.search.SearchBhajan;
-import com.sankeerthan.tabs.SearchTab;
 
 import android.annotation.SuppressLint;
 import android.app.FragmentTransaction;
-import android.app.ListActivity;
 import android.app.ListFragment;
 import android.app.ProgressDialog;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
  
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Bundle;
-import android.os.Looper;
-import android.os.StrictMode;
-import android.widget.EditText;
 
 @SuppressLint("ValidFragment")
 public class BhajanResultsFragment extends ListFragment {
@@ -74,7 +57,6 @@ public class BhajanResultsFragment extends ListFragment {
 			try {
 				searchBhajan = new SearchBhajan(name);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}/*
 			catch (ClientProtocolException e) {
@@ -182,7 +164,7 @@ public class BhajanResultsFragment extends ListFragment {
 	    				pd = new ProgressDialog(BhajanResultsFragment.this.getActivity());
 	    				pd.setTitle("Processing...");
 	    				pd.setMessage("Please wait.");
-	    				pd.setCancelable(true);
+	    				pd.setCancelable(false);
 	    				pd.setIndeterminate(true);
 	    				pd.show();
 	    	        }});

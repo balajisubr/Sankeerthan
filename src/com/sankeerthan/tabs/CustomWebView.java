@@ -15,9 +15,7 @@ import android.webkit.WebViewClient;
 public class CustomWebView extends Fragment{
 	
 	protected String url = "http://google.com";
-
 	protected WebView webView;
-
     protected boolean mIsWebViewAvailable;
 	
 	protected void setWebViewURL(String url){

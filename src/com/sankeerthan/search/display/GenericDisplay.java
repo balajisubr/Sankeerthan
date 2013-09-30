@@ -3,26 +3,21 @@ package com.sankeerthan.search.display;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.sankeerthan.MainActivity;
 import com.sankeerthan.display.SankeerthanDialog;
-import com.sankeerthan.model.Bhajan;
 import com.sankeerthan.search.SearchBhajan;
 import com.sankeerthan.search.SearchDeity;
 import com.sankeerthan.search.SearchInfo;
 import com.sankeerthan.search.SearchRaaga;
-import com.sankeerthan.tabs.FavoritesTab;
 import com.sankeerthan.tabs.SearchTab;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Looper;
-import android.widget.Toast;
 
 public class GenericDisplay {
 	 

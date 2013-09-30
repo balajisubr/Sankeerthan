@@ -31,13 +31,11 @@ public class ExpandListAdapter extends BaseExpandableListAdapter {
 		groups.get(index).setItems(ch);
 	}
 	public Object getChild(int groupPosition, int childPosition) {
-		// TODO Auto-generated method stub
 		ArrayList<Child> chList = groups.get(groupPosition).getItems();
 		return chList.get(childPosition);
 	}
 
 	public long getChildId(int groupPosition, int childPosition) {
-		// TODO Auto-generated method stub
 		return childPosition;
 	}
 
@@ -45,36 +43,30 @@ public class ExpandListAdapter extends BaseExpandableListAdapter {
 			ViewGroup parent) {
 		Child child = (Child) getChild(groupPosition, childPosition);
 		if (view == null) {
-			LayoutInflater inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
+			LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			view = inflater.inflate(R.layout.expandlist_child_item, null);
 		}
 		TextView tv = (TextView) view.findViewById(R.id.tvChild);
 		tv.setText(child.getName().toString());
 		tv.setTag(child.getTag());
-		// TODO Auto-generated method stub
 		return view;
 	}
 
 	public int getChildrenCount(int groupPosition) {
-		// TODO Auto-generated method stub
 		ArrayList<Child> chList = groups.get(groupPosition).getItems();
-
 		return chList.size();
 
 	}
 
 	public Object getGroup(int groupPosition) {
-		// TODO Auto-generated method stub
 		return groups.get(groupPosition);
 	}
 
 	public int getGroupCount() {
-		// TODO Auto-generated method stub
 		return groups.size();
 	}
 
 	public long getGroupId(int groupPosition) {
-		// TODO Auto-generated method stub
 		return groupPosition;
 	}
 
@@ -82,22 +74,19 @@ public class ExpandListAdapter extends BaseExpandableListAdapter {
 			ViewGroup parent) {
 		Group group = (Group) getGroup(groupPosition);
 		if (view == null) {
-			LayoutInflater inf = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
+			LayoutInflater inf = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			view = inf.inflate(R.layout.expandlist_group_item, null);
 		}
 		TextView tv = (TextView) view.findViewById(R.id.tvGroup);
 		tv.setText(group.getName());
-		// TODO Auto-generated method stub
 		return view;
 	}
 
 	public boolean hasStableIds() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
 	public boolean isChildSelectable(int arg0, int arg1) {
-		// TODO Auto-generated method stub
 		return true;
 	}
 

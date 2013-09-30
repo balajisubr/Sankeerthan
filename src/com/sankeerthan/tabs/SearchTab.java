@@ -1,30 +1,16 @@
 package com.sankeerthan.tabs;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 
-import org.apache.http.client.ClientProtocolException;
-import org.json.JSONException;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Looper;
-import android.os.StrictMode;
-import android.annotation.TargetApi;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnCancelListener;
-import android.content.Intent;
 import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -35,29 +21,21 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 import android.view.View.OnClickListener;
-import android.content.DialogInterface;
+import android.view.inputmethod.InputMethodManager;
 
 import com.sankeerthan.Sankeerthan;
 import com.sankeerthan.IntroFlashActivity;
 import com.sankeerthan.R;
-import com.sankeerthan.R.id;
-import com.sankeerthan.R.layout;
 import com.sankeerthan.display.*;
-import com.sankeerthan.lookup.OBhajanLookup;
-import com.sankeerthan.lookup.ODeityLookup;
-import com.sankeerthan.lookup.ORaagaLookup;
-import com.sankeerthan.model.Bhajan;
 import com.sankeerthan.model.LookUpData;
 import com.sankeerthan.search.*;
 import com.sankeerthan.search.display.GenericDisplay;
 
-@TargetApi(11)
 public class SearchTab extends Fragment {
 	public View view;
 	public View clickView;
 	public ArrayAdapter<String> commonAdapter;
 	public ArrayList<String> data=new ArrayList<String>();
-	private EditText text;
 	ArrayList<String> arrayResponse=new ArrayList<String>();
 	ArrayList<String> bhajanNames;
 	ArrayList<String> raagaNames;	
@@ -68,9 +46,6 @@ public class SearchTab extends Fragment {
 	
 
 	public void onCreate(Bundle savedInstanceState) {
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitNetwork().build();
-        StrictMode.setThreadPolicy(policy);
-
 		super.onCreate(savedInstanceState);
 		this.setContext(this.getActivity());
         LookUpData.setContext(this.getActivity());     
@@ -97,14 +72,22 @@ public class SearchTab extends Fragment {
 	   	Button search = (Button) view.findViewById(R.id.button1);
 	   	search.setOnClickListener(new OnClickListener() {
 		public void onClick(View v) {
+			InputMethodManager mgr = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
 	   		EditText text1 = (EditText) getView().findViewById(R.id.editText1);
+			mgr.hideSoftInputFromWindow(text1.getWindowToken(), 0);
 	   		if (text1.getText().length()== 0) {
-	   			String error_message = "Please enter valid data";
+	   			String error_message = "Please enter something before searching.";
 	   			Toast.makeText(SearchTab.this.getContext(), error_message, Toast.LENGTH_SHORT).show();
 	   		}
 	   		else{
+	   			String regex = "[a-zA-Z\\s]+";
+	   			if(!text1.getText().toString().matches(regex)){
+		   			Toast.makeText(SearchTab.this.getContext(), "Please enter valid information.", Toast.LENGTH_SHORT).show();
+	   			}
+	   			else {
 		        AsyncTask<Void, Void, Void> task = new SearchProgress();
 		        task.execute();
+	   			}
 	   		}
 	   	   }
 	   	});
@@ -200,7 +183,7 @@ public class SearchTab extends Fragment {
    	    				pd = new ProgressDialog(SearchTab.this.getContext());
    	    				pd.setTitle("Processing...");
    	    				pd.setMessage("Please wait.");
-   	    				pd.setCancelable(true);
+   	    				pd.setCancelable(false);
    	    				pd.setIndeterminate(true);
    	    				pd.show();
    	    	        }});

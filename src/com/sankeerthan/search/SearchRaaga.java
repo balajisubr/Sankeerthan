@@ -41,7 +41,6 @@ public class SearchRaaga extends SearchInfo  {
 		JSONArray bhajanJSON;
 		try {
 			bhajanJSON = jsonObject.getJSONArray("bhajan_names");
-			String bhajanName = bhajanJSON.toString();
 			for (int i=0; i<bhajanJSON.length(); i++) {
 				list.add(bhajanJSON.getString(i) );
 			} 

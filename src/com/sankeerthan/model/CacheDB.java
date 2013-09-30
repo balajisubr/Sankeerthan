@@ -4,13 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.sankeerthan.Sankeerthan;
-import com.sankeerthan.tabs.SearchTab;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -32,7 +29,6 @@ public class CacheDB {
 	private Cursor deityCursor;
 	private Cursor favoriteCursor;
 	private CacheDBHelper dbHelper;
-	private SQLiteDatabase db;
 	private static final String DATABASE_NAME = "BHAJANS";
 	private static final int DATABASE_VERSION = 1;
 	private static final String BHAJAN_TABLE_NAME = Sankeerthan.BHAJANS;
@@ -41,11 +37,6 @@ public class CacheDB {
 	private static final String FAV_TABLE_NAME = Sankeerthan.FAVORITES;
 	private static final String COLUMN_NAME = "name";
 	
-	private String selectBhajanQuery = "SELECT  * FROM " + BHAJAN_TABLE_NAME;
-	private String selectRaagaQuery = "SELECT  * FROM " + RAAGA_TABLE_NAME;
-	private String selectDeityQuery = "SELECT  * FROM " + DEITY_TABLE_NAME;
-	private String selectFavQuery = "SELECT  * FROM " + FAV_TABLE_NAME;
-
 	private static final String BHAJAN_TABLE_CREATE = "CREATE TABLE " 
 	+ BHAJAN_TABLE_NAME + " (" + COLUMN_NAME + " TEXT);";
 			    

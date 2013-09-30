@@ -6,8 +6,6 @@ import android.app.ActionBar.Tab;
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.os.Looper;
-import android.os.StrictMode;
 
 import com.sankeerthan.tabs.FAQFeedback;
 import com.sankeerthan.tabs.IntroductionTab;
@@ -19,11 +17,7 @@ import com.sankeerthan.tabs.ThoughtForDayTab;
 
 public class MainActivity extends Activity {
 		
-    @Override
     public void onCreate(Bundle savedInstanceState) {
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-
         super.onCreate(savedInstanceState);
         
         setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -69,13 +63,6 @@ public class MainActivity extends Activity {
                     this, "faq", FAQFeedback.class));
         actionBar.addTab(tab);        
     }
-    /*
-    public void onBackPressed()
-    {
-        super.onBackPressed();
-        this.getFragmentManager().findFragmentByTag("list");
-        
-    }
-    */
+   
 }
  

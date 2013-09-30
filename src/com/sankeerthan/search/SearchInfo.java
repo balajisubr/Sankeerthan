@@ -23,7 +23,6 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import com.sankeerthan.Sankeerthan;
-import com.sankeerthan.model.Bhajan;
 
 public abstract class SearchInfo {
 	protected final String URL = Sankeerthan.URL;
@@ -97,7 +96,7 @@ public abstract class SearchInfo {
 			serverErrors.add("No valid response from server! Please try again later. #20");
 		}
 
-		if(result!="") {
+		if(!result.isEmpty()) {
 			JSONTokener tokener = new JSONTokener(result.toString());
 			JSONObject jsonObject = new JSONObject(tokener);
 			this.errorMsg = jsonObject.optString("error");

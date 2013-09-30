@@ -8,20 +8,25 @@ import com.sankeerthan.R;
 import com.sankeerthan.model.LookUpData;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
+import android.widget.ProgressBar;
 
 public class IntroFlashActivity extends Activity {
 	
+	public ProgressBar bar;
 	static LinkedHashMap<String, ArrayList<String>> lookUpValues = new LinkedHashMap<String, ArrayList<String>>();
 
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        setContentView(R.layout.layout);
+        setContentView(R.layout.main_layout);
+        bar = (ProgressBar) this.findViewById(R.id.progressBar);
         LookUpData.setContext(this);
     	new FetchData().execute();
         
@@ -31,7 +36,7 @@ public class IntroFlashActivity extends Activity {
                 IntroFlashActivity.this.startActivity(mainIntent);
                 IntroFlashActivity.this.finish();
             }
-        }, 6000);
+        }, 3000);
     }
     
     
@@ -46,13 +51,61 @@ public class IntroFlashActivity extends Activity {
     }
     
     
-    class FetchData extends AsyncTask<Void, Void, Void>
-    {
+    class FetchData extends AsyncTask<Void, Void, Void>{
+       ProgressDialog pd = null;
+       
+       public void onPreExecute() {
+        	IntroFlashActivity.this.runOnUiThread(new Runnable() {
+    	        public void run() {
+    	            IntroFlashActivity.this.bar.setVisibility(View.VISIBLE);
+    	        	}}     	       
+        	);
+        }
+
+    
 		protected Void doInBackground(Void... params) {
-        	setLookUpValues(Sankeerthan.BHAJANS, LookUpData.getData(Sankeerthan.BHAJANS));
-        	setLookUpValues(Sankeerthan.RAAGAS, LookUpData.getData(Sankeerthan.RAAGAS));
-        	setLookUpValues(Sankeerthan.DEITIES, LookUpData.getData(Sankeerthan.DEITIES));
+			Runnable lookUpBhajans = new Runnable() {
+				public void run()
+				{
+					setLookUpValues(Sankeerthan.BHAJANS, LookUpData.getData(Sankeerthan.BHAJANS));
+				}
+			};
+			
+			Runnable lookUpRaagas = new Runnable() {
+				public void run()
+				{
+					setLookUpValues(Sankeerthan.RAAGAS, LookUpData.getData(Sankeerthan.RAAGAS));
+				}				
+			};
+			
+			Runnable lookUpDeities = new Runnable() {
+				public void run()
+				{
+		        	setLookUpValues(Sankeerthan.DEITIES, LookUpData.getData(Sankeerthan.DEITIES));
+
+				}				
+			};
+        	Thread t1 = new Thread(lookUpBhajans);
+        	Thread t2 = new Thread(lookUpRaagas);
+        	Thread t3 = new Thread(lookUpDeities);
+        	
+        	t1.start(); 
+        	t2.start();
+        	t3.start();
+        	
+        	try {
+				t1.join();
+	        	t2.join();
+	        	t3.join();
+			} catch (InterruptedException e) {
+				
+			}
+        	
 			return null;
+		}
+		
+		public void onPostExecute() {
+            IntroFlashActivity.this.bar.setVisibility(View.GONE);
 		}
     	
     }

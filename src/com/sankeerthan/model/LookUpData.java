@@ -7,6 +7,7 @@ import com.sankeerthan.Sankeerthan;
 import com.sankeerthan.lookup.LookUpInfo;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 public class LookUpData {
@@ -30,7 +31,7 @@ public class LookUpData {
 	   values.put(Sankeerthan.DEITIES, deityList);	
   	 }
 	
-	public static ArrayList<String> getData(String type) {
+	public synchronized static ArrayList<String> getData(String type) {
 		cacheDB = LookUpData.getCacheDB();  
 			if(values.get(type).size() > 0) {
 			    if(System.currentTimeMillis() - getLastLookedUpTime(type) > Sankeerthan.SERVER_DATA_REFRESH_PERIOD)
@@ -65,7 +66,6 @@ public class LookUpData {
 		  cacheDB.performOperation(Sankeerthan.INSERT, infoType, values.get(infoType));				  
 	  }
 			  
-	  ArrayList<String> bhajans = (ArrayList<String>) cacheDB.fetchData(infoType);
 	  updateLastLookedUpTime(infoType, System.currentTimeMillis());
 	  }  
   	
@@ -86,17 +86,19 @@ public class LookUpData {
   	
   	public synchronized static void updateLastLookedUpTime(String key, long timeInMsec)
   	{
+  		SharedPreferences settings = getContext().getSharedPreferences(key, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putLong(key, timeInMsec);
+        editor.commit();
   		System.out.println("updating last looked up time with "  + timeInMsec + "for" + key);
-  	    lookedUpTime.put(key, timeInMsec);
   	}
   	
   	public synchronized static long getLastLookedUpTime(String key)
-  	{
-  		if(lookedUpTime.get(key) != null)
-  			return lookedUpTime.get(key);
-  		else
-  			return System.currentTimeMillis();
-  		
+  	{   
+  		SharedPreferences settings = getContext().getSharedPreferences(key, 0);
+  		Long lookedUpTime = settings.getLong(key, System.currentTimeMillis());
+  		System.out.println("last looked up time for" + key + "is " + lookedUpTime);
+  		return lookedUpTime;
   	}
   
 }

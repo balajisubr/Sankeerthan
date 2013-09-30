@@ -1,7 +1,7 @@
 package com.sankeerthan;
 
 public final class Sankeerthan {
-    public final static String URL = "http://192.168.1.69:3000";
+    public final static String URL = "http://192.168.1.70:3000";
     public final static String BHAJANS = "bhajans";
     public final static String DEITIES = "deities";
     public final static String RAAGAS = "raagas";
