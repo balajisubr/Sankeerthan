@@ -3,6 +3,7 @@ package com.sankeerthan.search.display;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.sankeerthan.Sankeerthan;
 import com.sankeerthan.display.SankeerthanDialog;
 import com.sankeerthan.search.SearchBhajan;
 import com.sankeerthan.search.SearchDeity;
@@ -50,7 +51,7 @@ public class GenericDisplay {
    public void processServerErrors() {
        ((Activity) this.context).runOnUiThread(new Runnable() {
            public void run() {
-        	   AlertDialog alert = SankeerthanDialog.getAlertDialog(GenericDisplay.this.context, searchClass.serverErrors.get(0));
+        	   AlertDialog alert = SankeerthanDialog.getAlertDialog(GenericDisplay.this.context, Sankeerthan.formatServerErrors(searchClass.serverErrors));
         	  // Toast.makeText(GenericDisplay.this.context, searchClass.serverErrors.get(0), Toast.LENGTH_LONG).show();
         	   alert.show();
            }

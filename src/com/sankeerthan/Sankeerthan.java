@@ -1,5 +1,8 @@
 package com.sankeerthan;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 public final class Sankeerthan {
     public final static String URL = "http://192.168.1.70:3000";
     public final static String BHAJANS = "bhajans";
@@ -11,5 +14,17 @@ public final class Sankeerthan {
     public final static String DELETE = "DELETE";
     public final static long SERVER_DATA_REFRESH_PERIOD = 60000;
     public Sankeerthan(){}
+    
+    public static String formatServerErrors(ArrayList<String> errors){
+    	String consolidatedError = "";
+    	String error = "";
+    	Iterator<String> it = errors.iterator();
+    	while(it.hasNext())
+    	{
+    	    error = it.next();
+    	    consolidatedError +=  ' ' + error;
+    	}
+    	return consolidatedError;
+    }
     
 }

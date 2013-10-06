@@ -17,35 +17,32 @@
                 android:layout_width="fill_parent"
                 android:groupIndicator="@null" />   
           
-        
-        <SeekBar
+           <SeekBar
     android:id="@+id/seekBar"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="3dp" />
-
-<RelativeLayout
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="5dp"
-    android:gravity="center_horizontal"
-    android:orientation="horizontal" >
+    android:layout_margin="3dp" /> 
+     
 
-    <Button
+ <LinearLayout   
+     android:layout_width="fill_parent"
+     android:layout_height="wrap_content"
+     android:layout_marginTop="5dp" 
+         android:gravity="center_horizontal"
+    android:orientation="horizontal" >
+ <Button
         android:id="@+id/btn_play"
-        android:layout_width="match_parent"
+        android:layout_width="80dp"
         android:layout_height="wrap_content" 
         android:text="@string/play" />
         
-         <Button
+  <Button        
         android:id="@+id/btn_fav"
-        android:layout_width="match_parent"
-        android:layout_below="@+id/btn_play"       
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:text="@string/favorite" />
-        
-
-</RelativeLayout> 
+</LinearLayout>
+<!-- /RelativeLayout --> 
 
 <!--fragment
         android:id="@+id/player_fragment"

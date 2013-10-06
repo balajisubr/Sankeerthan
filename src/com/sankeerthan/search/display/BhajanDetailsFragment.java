@@ -36,8 +36,8 @@ import android.widget.SeekBar;
 @SuppressLint("ValidFragment")
 public class BhajanDetailsFragment extends ListFragment implements  OnTouchListener, OnCompletionListener, OnClickListener, OnBufferingUpdateListener {
   	//private final String url = AppConfig.URL + "/play/song.mp3";
-	private final String FAV = "Favorite";
-	private final String UNFAV = "Remove From Favorites";
+	private final String FAV = "Like";
+	private final String UNFAV = "Unlike";
     private final String[] keys = new String[]{"bhajan", "raaga", "deity", "lyrics", "meaning", "url"};
     
 	private String choice = "";
@@ -326,7 +326,7 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 	    ArrayList<Group> titles = new ArrayList<Group>();
 	    ArrayList<Child> content = new ArrayList<Child>();
 	    Group lyricsGroup = new Group();
-	    lyricsGroup.setName("  LYRICS: ");
+	    lyricsGroup.setName("  ►LYRICS: ");
 	    String[] lyrics = formatLyrics(details.get("lyrics"));
 	    for(int i = 0; i < lyrics.length; i++){
 	    	Child c = new Child();
@@ -338,7 +338,7 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
         content = new ArrayList<Child>();
 
 	    Group meaningGroup = new Group();
-	    meaningGroup.setName("  MEANING: ");
+	    meaningGroup.setName("  ►MEANING: ");
 	    Child meaning = new Child();
 	    meaning.setName(details.get("meaning"));
 	    meaning.setTag(null);

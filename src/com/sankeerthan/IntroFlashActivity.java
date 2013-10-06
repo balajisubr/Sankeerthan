@@ -36,7 +36,7 @@ public class IntroFlashActivity extends Activity {
                 IntroFlashActivity.this.startActivity(mainIntent);
                 IntroFlashActivity.this.finish();
             }
-        }, 3000);
+        }, 5000);
     }
     
     
@@ -95,8 +95,12 @@ public class IntroFlashActivity extends Activity {
         	
         	try {
 				t1.join();
+				System.out.println("Joining after t1");
 	        	t2.join();
+				System.out.println("Joining after t2");
 	        	t3.join();
+				System.out.println("Joining after t3");
+
 			} catch (InterruptedException e) {
 				
 			}

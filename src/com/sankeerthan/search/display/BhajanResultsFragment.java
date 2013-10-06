@@ -4,14 +4,22 @@ import java.util.ArrayList;
 
 
 import com.sankeerthan.R;
+import com.sankeerthan.Sankeerthan;
+import com.sankeerthan.display.SankeerthanDialog;
 import com.sankeerthan.model.Bhajan;
 import com.sankeerthan.model.LookUpData;
 import com.sankeerthan.search.SearchBhajan;
+import com.sankeerthan.tabs.FavoritesTab;
+import com.sankeerthan.tabs.SearchTab;
+import com.sankeerthan.tabs.TabsListener;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.FragmentTransaction;
 import android.app.ListFragment;
 import android.app.ProgressDialog;
+import android.app.ActionBar.Tab;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -154,9 +162,10 @@ public class BhajanResultsFragment extends ListFragment {
 	    return bhajans;
 	}
 	
-    class FetchBhajan extends AsyncTask<SearchBhajan, Void, Bundle>
+    class FetchBhajan extends AsyncTask<SearchBhajan, Void, SearchBhajan>
     {
     	ProgressDialog pd = null;
+    	Bundle bundle = new Bundle();
     	
 	    public void onPreExecute() {
 	        	getActivity().runOnUiThread(new Runnable() {
@@ -170,38 +179,75 @@ public class BhajanResultsFragment extends ListFragment {
 	    	        }});
 
 	        }
-		protected Bundle doInBackground(SearchBhajan... bhajan) {
-			bhajan[0].getData();
-			Bhajan result = bhajan[0].result;
+		protected SearchBhajan doInBackground(SearchBhajan... bhajan) {
+	        SearchBhajan searchBhajan = bhajan[0];
+			searchBhajan.getData();
+			return searchBhajan;
+		}
+		
+		public void onPostExecute(SearchBhajan searchBhajan)
+		{   		
+			String[] keys = new String[]{"bhajan", "raaga", "deity", "lyrics","meaning", "url"};
+			String serverError = "";
+			
+			Bhajan result = searchBhajan.result;
+						
+			if(searchBhajan.serverErrors.size() > 0) {
+				serverError = Sankeerthan.formatServerErrors(searchBhajan.serverErrors);
+			}
+			
+			if(result != null)
+			{
             bundle.putString("raaga", result.raaga);
             bundle.putString("lyrics", result.lyrics);
             bundle.putString("meaning", result.meaning);
             bundle.putString("deity", result.deity);
             bundle.putString("bhajan", result.name);
             bundle.putString("url", result.url);
-            return bundle;
-		}
-		
-		public void onPostExecute(final Bundle bundle)
-		{
-	        //Looper.prepare();
-	    	getActivity().runOnUiThread(new Runnable() {
-	    		public void run(){
-	                BhajanDetailsFragment fragment = new BhajanDetailsFragment(bundle);
-	    	    	android.app.FragmentManager fragmentManager = (getActivity()).getFragmentManager(); 
+			}
 
-	        FragmentTransaction ft = fragmentManager.beginTransaction();
-	        ft.addToBackStack("list").replace(android.R.id.content, fragment);//.addToBackStack( null );
-	        ft.commit();
-	        fragmentManager.executePendingTransactions();
-	    		}});
-	        if(pd != null){
-	        	pd.dismiss();
-	        }			
+			if(bundle.isEmpty()){
+	         	   AlertDialog alert = SankeerthanDialog.getAlertDialog(BhajanResultsFragment.this.getActivity(), serverError);
+	         	   alert.show();
+
+	     	//	Toast.makeText(FavoritesTab.this.getActivity()
+			//    		, "An error occured while fetching data. Please check connection or try again later."
+			//  		, Toast.LENGTH_LONG).show();
+	            if(pd != null){
+	        	    pd.dismiss();
+	            }			
+			return;
+			}
+			
+			if(serverError.length() > 0){
+         	   AlertDialog alert = SankeerthanDialog.getAlertDialog(BhajanResultsFragment.this.getActivity(), serverError);
+         	   alert.show();
+			 //Toast.makeText(FavoritesTab.this.getActivity(), serverError, Toast.LENGTH_LONG).show();
+	            if(pd != null){
+	        	    pd.dismiss();
+	            }			
+			return;
+			}
+				
+	        {
+	        	getActivity().runOnUiThread(new Runnable() {
+	        		public void run(){
+	        		BhajanDetailsFragment fragment = new BhajanDetailsFragment(bundle);
+	        		android.app.FragmentManager fragmentManager = (getActivity()).getFragmentManager();
+
+	        		FragmentTransaction ft = fragmentManager.beginTransaction();
+	        		ft.addToBackStack("list").replace(android.R.id.content, fragment);//.addToBackStack( null );
+	        		ft.commit();
+	        		fragmentManager.executePendingTransactions();
+	        		}});
+	        		if(pd != null){
+	        		pd.dismiss();
+	        		}	
+	        		}
+	        		}		
 		}
-		}
-    	
     }
+    
 
  
 

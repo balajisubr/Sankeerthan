@@ -3,6 +3,7 @@ package com.sankeerthan.tabs;
 import java.util.ArrayList;
 
 import com.sankeerthan.R;
+import com.sankeerthan.Sankeerthan;
 import com.sankeerthan.display.SankeerthanDialog;
 import com.sankeerthan.model.Bhajan;
 import com.sankeerthan.model.FavoriteDB;
@@ -101,8 +102,7 @@ public class FavoritesTab extends ListFragment{
 	    	Bundle bundle = new Bundle();
 			
 			if(searchBhajan.serverErrors.size() > 0) {
-				// To do : Concat the server errors.
-				serverError = searchBhajan.serverErrors.get(0);
+				serverError = Sankeerthan.formatServerErrors(searchBhajan.serverErrors);
 			}
 			
 			if(result != null)

@@ -49,14 +49,6 @@ public class SearchTab extends Fragment {
 		super.onCreate(savedInstanceState);
 		this.setContext(this.getActivity());
         LookUpData.setContext(this.getActivity());     
-		this.bhajanNames = IntroFlashActivity.getLookUpValues(Sankeerthan.BHAJANS);
-	    this.raagaNames = IntroFlashActivity.getLookUpValues(Sankeerthan.RAAGAS);
-		this.deityNames = IntroFlashActivity.getLookUpValues(Sankeerthan.DEITIES);
-		
-        if(bhajanNames != null && bhajanNames.size() > 0) {
-        	arrayResponse.clear();
-	        arrayResponse.addAll(bhajanNames);
-        }
 	}
 
 	@Override
@@ -66,9 +58,19 @@ public class SearchTab extends Fragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		/*
+		this.bhajanNames = IntroFlashActivity.getLookUpValues(Sankeerthan.BHAJANS);
+	    this.raagaNames = IntroFlashActivity.getLookUpValues(Sankeerthan.RAAGAS);
+		this.deityNames = IntroFlashActivity.getLookUpValues(Sankeerthan.DEITIES);
+		
+        if(bhajanNames != null && bhajanNames.size() > 0) {
+        	arrayResponse.clear();
+	        arrayResponse.addAll(bhajanNames);
+        }*/
+
 		View view = inflater.inflate(R.layout.activity_main, container, false);
 	   	this.view = view;
-	  
+	   
 	   	Button search = (Button) view.findViewById(R.id.button1);
 	   	search.setOnClickListener(new OnClickListener() {
 		public void onClick(View v) {

@@ -16,7 +16,7 @@ public class CustomWebView extends Fragment{
 	
 	protected String url = "http://google.com";
 	protected WebView webView;
-    protected boolean mIsWebViewAvailable;
+    protected boolean webViewAvailable;
 	
 	protected void setWebViewURL(String url){
 		this.url = url;
@@ -49,7 +49,7 @@ public class CustomWebView extends Fragment{
             webView.setWebViewClient(new InnerWebViewClient()); // forces it to open in app
             webView.loadUrl(getWebViewURL());
         
-            mIsWebViewAvailable = true;
+            webViewAvailable = true;
         }
         
         WebSettings settings = webView.getSettings();
@@ -62,29 +62,18 @@ public class CustomWebView extends Fragment{
         webView.onPause();
     }
 
-    /**
-     * Called when the fragment is no longer resumed. Pauses the WebView.
-     */
-    @Override
     public void onResume() {
         webView.onResume();
         super.onResume();
     }
 
-    /**
-     * Called when the WebView has been detached from the fragment.
-     * The WebView is no longer available after this time.
-     */
-    @Override
+   
     public void onDestroyView() {
-        mIsWebViewAvailable = false;
+        webViewAvailable = false;
         super.onDestroyView();
     }
 
-    /**
-     * Called when the fragment is no longer in use. Destroys the internal state of the WebView.
-     */
-    @Override
+  
     public void onDestroy() {
         if (webView != null) {
             webView.destroy();
@@ -93,16 +82,11 @@ public class CustomWebView extends Fragment{
         super.onDestroy();
     }
 
-    /**
-     * Gets the WebView.
-     */
     public WebView getWebView() {
-        return mIsWebViewAvailable ? webView : null;
+        return webViewAvailable ? webView : null;
     }
 
-    /* To ensure links open within the application */
     public class InnerWebViewClient extends WebViewClient {
-        @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             view.loadUrl(url);
             return true;
@@ -110,8 +94,8 @@ public class CustomWebView extends Fragment{
     }
     
     public void loadUrl(String url) {
-        if (mIsWebViewAvailable) getWebView().loadUrl(getWebViewURL());
-        else Log.w("ImprovedWebViewFragment", "WebView cannot be found. Check the view and fragment have been loaded.");
+        if (webViewAvailable) getWebView().loadUrl(getWebViewURL());
+        else Log.w("CustomerWebView", "WebView cannot be loaded");
     }
 
 }
