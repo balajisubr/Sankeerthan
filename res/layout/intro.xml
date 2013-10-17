@@ -7,9 +7,9 @@
         android:id="@+id/introText"
         android:text="@string/intro_text"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:textIsSelectable="true"
         android:layout_marginRight="0dp"
-        android:textColor="#ffffff"
-        android:textSize="16sp" />       
+        android:textColor="#A7A79B"
+        android:textSize="20sp" />       
   </LinearLayout>
