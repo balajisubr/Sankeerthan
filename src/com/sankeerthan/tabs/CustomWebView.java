@@ -14,7 +14,7 @@ import android.webkit.WebViewClient;
 
 public class CustomWebView extends Fragment {
 
-    public CustomerWebView() {
+    public CustomWebView() {
 
     }
 	protected String url = "http://google.com";
