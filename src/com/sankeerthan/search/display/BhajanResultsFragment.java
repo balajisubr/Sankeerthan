@@ -141,7 +141,7 @@ public class BhajanResultsFragment extends ListFragment {
     }
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-	    View view = inflater.inflate(R.layout.raaga_deity_list, container, false);
+	    View view = inflater.inflate(R.layout.bhajan_list, container, false);
 	    //setBhajans(bundle.getStringArray("bhajan"));
 		return view;
 	}

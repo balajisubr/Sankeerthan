@@ -101,7 +101,7 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 	}
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-	    View view = inflater.inflate(R.layout.list_bhajans, container, false);
+	    View view = inflater.inflate(R.layout.bhajan_details, container, false);
 	    
 		Bundle details = new Bundle();
 		if(getArguments() != null) {
