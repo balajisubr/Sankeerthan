@@ -36,13 +36,14 @@ public class LookUpData {
 			if(values.get(type).size() > 0) {
 			    if(System.currentTimeMillis() - getLastLookedUpTime(type) > Sankeerthan.SERVER_DATA_REFRESH_PERIOD)
 			    {   
-			    	System.out.println("last lookup: Fetching data from server for " + type);
+			    	System.out.println("LookUpData: Fetching data from server for " + type);
 			        fetchDataFromServer(type);
 			    }
 			}
 			else { 
 				if(cacheDB.fetchData(type).size() > 0) {
 					ArrayList<String> data = (ArrayList<String>) cacheDB.fetchData(type);
+			    	System.out.println("LookUpData: Fetching data from DB for " + type + "and size is" + data.size());
 					values.put(type, data);
 				}
 				else {
@@ -54,7 +55,7 @@ public class LookUpData {
 	
   
   public static void fetchDataFromServer(String infoType) {
-	  Log.d("LookUpData", "Fetching Data from server for" + infoType) ;
+	  System.out.println("LookUpData: Fetching Data from server for" + infoType) ;
 	  cacheDB = LookUpData.getCacheDB();
 	  lookUp = new LookUpInfo(infoType,"/lookup_all/");
 	  lookUp.lookupInfo();
@@ -90,14 +91,14 @@ public class LookUpData {
         SharedPreferences.Editor editor = settings.edit();
         editor.putLong(key, timeInMsec);
         editor.commit();
-  		System.out.println("updating last looked up time with "  + timeInMsec + "for" + key);
+  		System.out.println("LookUpData: updating last looked up time with "  + timeInMsec + "for" + key);
   	}
   	
   	public synchronized static long getLastLookedUpTime(String key)
   	{   
   		SharedPreferences settings = getContext().getSharedPreferences(key, 0);
   		Long lookedUpTime = settings.getLong(key, System.currentTimeMillis());
-  		System.out.println("last looked up time for" + key + "is " + lookedUpTime);
+  		System.out.println("LookUpData: last looked up time for" + key + "is " + lookedUpTime);
   		return lookedUpTime;
   	}
   
