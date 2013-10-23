@@ -1,6 +1,7 @@
 package com.sankeerthan.tabs;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 
 import android.os.AsyncTask;
@@ -24,7 +25,6 @@ import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
 
 import com.sankeerthan.Sankeerthan;
-import com.sankeerthan.IntroFlashActivity;
 import com.sankeerthan.R;
 import com.sankeerthan.display.*;
 import com.sankeerthan.model.LookUpData;
@@ -43,11 +43,16 @@ public class SearchTab extends Fragment {
 	AutoCompleteTextView commonSearchField;
 	ProgressDialog pd;
 	public Context context;
+	public static LinkedHashMap<String, ArrayList<String>> lookUpValues = new LinkedHashMap<String, ArrayList<String>>();
 	
-
+    public SearchTab() {
+    	
+    }
+	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.setContext(this.getActivity());
+		/*
         LookUpData.setContext(this.getActivity()); 
         this.bhajanNames = IntroFlashActivity.getLookUpValues(Sankeerthan.BHAJANS);
 	    this.raagaNames = IntroFlashActivity.getLookUpValues(Sankeerthan.RAAGAS);
@@ -57,19 +62,32 @@ public class SearchTab extends Fragment {
         	arrayResponse.clear();
 	        arrayResponse.addAll(bhajanNames);
         }
+        */
 	}
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-	}
+        LookUpData.setContext(this.getActivity());
+        new FetchData().execute();
+    	if(bhajanNames!=null) System.out.println("Joining after: The size of bhajanNames is " + bhajanNames.size());
+		
+      
+        
+		}
 
+	public void onResume()
+	{
+		super.onResume();
+
+	}
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		/*
 		*/
 
-		View view = inflater.inflate(R.layout.activity_main, container, false);
+		View view = inflater.inflate(R.layout.search_tab, container, false);
 	   	this.view = view;
 	   
 	   	Button search = (Button) view.findViewById(R.id.button1);
@@ -96,10 +114,10 @@ public class SearchTab extends Fragment {
 	   	});
 	   	commonSearchField = (AutoCompleteTextView) view.findViewById(R.id.editText1);
 	
-		if(arrayResponse != null && arrayResponse.size() > 0)	{
-	    	commonAdapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_dropdown_item_1line, arrayResponse);
-	    	commonSearchField.setAdapter(commonAdapter);
-	    }
+		//if(arrayResponse != null && arrayResponse.size() > 0)	{
+	    commonAdapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_dropdown_item_1line, arrayResponse);
+	    commonSearchField.setAdapter(commonAdapter);
+	    //}
 	     
 	    RadioButton raaga = (RadioButton) view.findViewById(R.id.raaga_radio);
 	    RadioButton bhajan = (RadioButton) view.findViewById(R.id.bhajan_radio);
@@ -168,6 +186,21 @@ public class SearchTab extends Fragment {
 	   	public Context getContext(){
 	   		return context;
 	   	}
+	   	
+	    public static void setLookUpValues(String type, ArrayList<String> values)
+	    {
+	    	System.out.println("Joining after: the length to set" + values.size() + "and type is" + type);
+	    	lookUpValues.put(type, values);
+	    }
+	    
+	    public static ArrayList<String> getLookUpValues(String type)
+	    {
+	    	System.out.println("Joining after:type in get is" + type);
+	    	ArrayList<String> result = lookUpValues.get(type);
+	    	if(result!=null) System.out.println("Joining after: the length to get" + result.size() );
+	    	return result;
+	    }
+
 	   	
 	    public void afterTextChanged(Editable s) {}
 	    public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -246,4 +279,97 @@ public class SearchTab extends Fragment {
    	    	    }});
 			}
         }
+    
+    class FetchData extends AsyncTask<Void, Void, Integer>{
+        ProgressDialog pd = null;
+        
+        public void onPreExecute() {
+         	getActivity().runOnUiThread(new Runnable() {
+                public void run() {
+	    				pd = new ProgressDialog(SearchTab.this.getContext());
+	    				pd.setTitle("Processing...");
+	    				pd.setMessage("Please wait.");
+	    				pd.setCancelable(false);
+	    				pd.setIndeterminate(true);
+	    				pd.show();
+	    	        }});
+         	}
+
+     
+ 		protected Integer doInBackground(Void... params) {
+ 			Runnable lookUpBhajans = new Runnable() {
+ 				public void run()
+ 				{
+ 					setLookUpValues(Sankeerthan.BHAJANS, LookUpData.getData(Sankeerthan.BHAJANS));
+ 				}
+ 			};
+ 			
+ 			Runnable lookUpRaagas = new Runnable() {
+ 				public void run()
+ 				{
+ 					setLookUpValues(Sankeerthan.RAAGAS, LookUpData.getData(Sankeerthan.RAAGAS));
+ 				}				
+ 			};
+ 			
+ 			Runnable lookUpDeities = new Runnable() {
+ 				public void run()
+ 				{
+ 		        	setLookUpValues(Sankeerthan.DEITIES, LookUpData.getData(Sankeerthan.DEITIES));
+
+ 				}				
+ 			};
+         	Thread t1 = new Thread(lookUpBhajans);
+         	Thread t2 = new Thread(lookUpRaagas);
+         	Thread t3 = new Thread(lookUpDeities);
+         	
+         	t1.start(); 
+         	t2.start();
+         	t3.start();
+         	
+         	try {
+ 				t1.join();
+ 				System.out.println("Joining after t1");
+ 	        	t2.join();
+ 				System.out.println("Joining after t2");
+ 	        	t3.join();
+ 				System.out.println("Joining after t3");
+ 				
+ 		        System.out.println("Joining after: Getting Bhajans!");
+ 		        SearchTab.this.bhajanNames = getLookUpValues(Sankeerthan.BHAJANS);
+ 		        System.out.println("Joining after: Getting Raagas!");
+ 			    SearchTab.this.raagaNames =  getLookUpValues(Sankeerthan.RAAGAS);
+ 		        System.out.println("Joining after: Getting Deities!");
+ 				SearchTab.this.deityNames =  getLookUpValues(Sankeerthan.DEITIES);
+ 				
+ 				
+ 				
+
+ 			} catch (InterruptedException e) {
+ 				
+ 			}
+         	
+ 			return 1;
+ 		}
+ 		
+ 		public void onPostExecute(Integer result) {
+ 			System.out.println("Joining after In the post execute");
+ 			getActivity().runOnUiThread(new Runnable(){
+ 				public void run(){
+ 		 			System.out.println("Joining after In the post execute 1");
+ 					  if(bhajanNames != null && bhajanNames.size() > 0) {
+ 	 			        	arrayResponse.clear();
+ 	 				        arrayResponse.addAll(bhajanNames);
+ 	 				        commonAdapter = new ArrayAdapter<String>(SearchTab.this.getActivity(), android.R.layout.simple_dropdown_item_1line, arrayResponse);
+ 	 				        View view = SearchTab.this.getView();
+ 	 					   	commonSearchField = (AutoCompleteTextView) view.findViewById(R.id.editText1);
+ 	 					    commonSearchField.setAdapter(commonAdapter);
+ 	 			        }
+	    				if(pd !=null) 
+                             pd.dismiss();
+ 				}
+ 			});
+ 		}
+     	
+     }
+
    	}
