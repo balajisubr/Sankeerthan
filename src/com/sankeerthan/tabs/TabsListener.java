@@ -32,19 +32,22 @@ public class TabsListener<T extends Fragment> implements ActionBar.TabListener {
             ft.add(android.R.id.content, mFragment, mTag);
         } else {
             ft.attach(mFragment);
+           // ft.addToBackStack("search");
         }
     }
 
 	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
         if (mFragment != null) {
-           ft.detach(mFragment);
-        	//ft.remove(mFragment);
+        	ft.detach(mFragment);
         }
+        
+        
     }
 
 	public void onTabReselected(Tab tab, FragmentTransaction ft) {
     	ft.attach(mFragment);
     }
+	
 
 
 }

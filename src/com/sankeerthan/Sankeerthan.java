@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public final class Sankeerthan {
-    public final static String URL = "http://192.168.1.70:3000";
+    public final static String URL = "http://192.168.1.69:3000";
     public final static String BHAJANS = "bhajans";
     public final static String DEITIES = "deities";
     public final static String RAAGAS = "raagas";
@@ -12,7 +12,7 @@ public final class Sankeerthan {
     public final static String FAVORITES = "favorites";
     public final static String INSERT = "INSERT";
     public final static String DELETE = "DELETE";
-    public final static long SERVER_DATA_REFRESH_PERIOD = 60000;
+    public final static long SERVER_DATA_REFRESH_PERIOD = 600000;
     public Sankeerthan(){}
     
     public static String formatServerErrors(ArrayList<String> errors){

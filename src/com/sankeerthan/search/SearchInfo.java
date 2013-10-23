@@ -114,7 +114,7 @@ public abstract class SearchInfo {
   
     protected HttpGet setupClient() throws URISyntaxException {
     	HttpParams params = client.getParams();
-    	HttpConnectionParams.setConnectionTimeout(params, 12000); 
+    	HttpConnectionParams.setConnectionTimeout(params, 5000); 
     	String url = URL + subURL + key + ".json";
     	URI uri = new URI(url.replace(" ", "%20"));
     	HttpGet request = new HttpGet(uri.toString());

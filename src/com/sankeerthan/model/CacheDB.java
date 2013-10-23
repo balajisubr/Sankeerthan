@@ -87,7 +87,7 @@ public class CacheDB {
    @SuppressLint("NewApi")
    
    public void performOperation(String Operation, String table, ArrayList<String> array1) {
-	   System.out.println("Performing operation" + Operation + "for" + table);
+	   System.out.println("cachedb: Performing operation" + Operation + "for" + table);
 	   SQLiteDatabase db = dbHelper.getWriteDb();
 
 	   String INSERT = "insert into "   
@@ -170,6 +170,7 @@ public class CacheDB {
 		   list = parseCursor(favoriteCursor);
 	   }
 	//     db.close();
+	   System.out.println("CacheDB : The size of the list from db is " + list.size());
 	   return list;
    }
 
