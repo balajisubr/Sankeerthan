@@ -13,6 +13,8 @@ import com.sankeerthan.search.display.BhajanDetailsFragment;
 import android.app.ActionBar.Tab;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.app.ListFragment;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
@@ -56,7 +58,7 @@ public class FavoritesTab extends ListFragment{
 	}
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.raaga_deity_list, container, false);	
+		View view = inflater.inflate(R.layout.bhajan_list, container, false);	
 		return view;
 	}
 	
@@ -119,9 +121,6 @@ public class FavoritesTab extends ListFragment{
 	         	   AlertDialog alert = SankeerthanDialog.getAlertDialog(FavoritesTab.this.getActivity(), serverError);
 	         	   alert.show();
 
-	     	//	Toast.makeText(FavoritesTab.this.getActivity()
-			//    		, "An error occured while fetching data. Please check connection or try again later."
-			//  		, Toast.LENGTH_LONG).show();
 	            if(pd != null){
 	        	    pd.dismiss();
 	            }			
@@ -131,7 +130,6 @@ public class FavoritesTab extends ListFragment{
 			if(serverError.length() > 0){
          	   AlertDialog alert = SankeerthanDialog.getAlertDialog(FavoritesTab.this.getActivity(), serverError);
          	   alert.show();
-			 //Toast.makeText(FavoritesTab.this.getActivity(), serverError, Toast.LENGTH_LONG).show();
 	            if(pd != null){
 	        	    pd.dismiss();
 	            }			
@@ -139,12 +137,14 @@ public class FavoritesTab extends ListFragment{
 			}
 				
 	        {
-			Activity activity = FavoritesTab.this.getActivity();
-			Tab tab= activity.getActionBar().getTabAt(1);
-			//Looper.prepare();
-			tab.setTabListener(new TabsListener<BhajanDetailsFragment>(
-					activity, "Bhajan Details", BhajanDetailsFragment.class, bundle));
-			activity.getActionBar().setSelectedNavigationItem(1);
+	        	
+		    Activity activity = FavoritesTab.this.getActivity();
+			activity.getActionBar().   setSelectedNavigationItem(1);
+		
+	        FragmentManager fragmentManager = activity.getFragmentManager();
+	        FragmentTransaction ft = fragmentManager.beginTransaction();
+	        ft.replace(android.R.id.content, new BhajanDetailsFragment(bundle));
+	        ft.commit();
 	        }
 	        if(pd != null){
 	        	pd.dismiss();
