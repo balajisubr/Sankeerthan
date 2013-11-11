@@ -70,10 +70,7 @@ public class SearchTab extends Fragment {
 		super.onActivityCreated(savedInstanceState);
         LookUpData.setContext(this.getActivity());
         new FetchData().execute();
-    	if(bhajanNames!=null) System.out.println("Joining after: The size of bhajanNames is " + bhajanNames.size());
-		
-      
-        
+    	if(bhajanNames!=null) System.out.println("Joining after: The size of bhajanNames is " + bhajanNames.size()); 
 		}
 
 	public void onResume()
@@ -125,20 +122,17 @@ public class SearchTab extends Fragment {
 	       
 	    OnClickListener l1 = new OnClickListener() {
 	    public void onClick(View v) {
-	    	commonSearchField.setText("");
-	    	updateData("raagas");
+	    	new FetchChoiceData().execute(new String[]{"raagas"});
 	    }};
 	    		
 	    OnClickListener l2 = new OnClickListener(){
 	    public void onClick(View v) {
-	    	commonSearchField.setText("");
-	    	updateData("bhajans");   
+	    	new FetchChoiceData().execute(new String[]{"bhajans"});
 	  	}};
 	  	   
 	  	OnClickListener l3 = new OnClickListener(){
 	  	public void onClick(View v) {
-	  	   	commonSearchField.setText("");
-	  	   	updateData("deities");
+	    	new FetchChoiceData().execute(new String[]{"deities"});
 	  	}};
 	  	  		
 	  	raaga.setOnClickListener(l1);
@@ -287,7 +281,7 @@ public class SearchTab extends Fragment {
          	getActivity().runOnUiThread(new Runnable() {
                 public void run() {
 	    				pd = new ProgressDialog(SearchTab.this.getContext());
-	    				pd.setTitle("Processing...");
+	    				pd.setTitle("Loading...");
 	    				pd.setMessage("Please wait.");
 	    				pd.setCancelable(false);
 	    				pd.setIndeterminate(true);
@@ -340,6 +334,7 @@ public class SearchTab extends Fragment {
  			    SearchTab.this.raagaNames =  getLookUpValues(Sankeerthan.RAAGAS);
  		        System.out.println("Joining after: Getting Deities!");
  				SearchTab.this.deityNames =  getLookUpValues(Sankeerthan.DEITIES);
+ 		
  				
  				
  				
@@ -364,6 +359,47 @@ public class SearchTab extends Fragment {
  	 					   	commonSearchField = (AutoCompleteTextView) view.findViewById(R.id.editText1);
  	 					    commonSearchField.setAdapter(commonAdapter);
  	 			        }
+	    				if(pd !=null) 
+                             pd.dismiss();
+ 				}
+ 			});
+ 		}
+     	
+     }
+    
+    
+    class FetchChoiceData extends AsyncTask<String, Void, Integer>{
+        ProgressDialog pd = null;
+        String param = "";
+        
+        public void onPreExecute() {
+         	getActivity().runOnUiThread(new Runnable() {
+                public void run() {
+	    				pd = new ProgressDialog(SearchTab.this.getContext());
+	    				pd.setTitle("Loading...");
+	    				pd.setMessage("Please wait.");
+	    				pd.setCancelable(false);
+	    				pd.setIndeterminate(true);
+	    				pd.show();
+	    	        }});
+         	}
+
+     
+ 		protected Integer doInBackground(String... params) {
+ 		    param = params[0];
+ 			getActivity().runOnUiThread(new Runnable(){
+ 				public void run(){
+ 			    	commonSearchField.setText("");
+ 			    	updateData(FetchChoiceData.this.param);         	
+ 				}
+ 			});
+
+ 			return 1;
+ 		}
+ 		
+ 		public void onPostExecute(Integer result) {
+ 			getActivity().runOnUiThread(new Runnable(){
+ 				public void run(){
 	    				if(pd !=null) 
                              pd.dismiss();
  				}
