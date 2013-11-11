@@ -1,6 +1,5 @@
 package com.sankeerthan;
 
-
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
@@ -28,7 +27,6 @@ public class IntroFlashActivity extends Activity {
         setContentView(R.layout.flash);
         bar = (ProgressBar) this.findViewById(R.id.progressBar);
         LookUpData.setContext(this);
-    //	new FetchData().execute();
         
         new Handler().postDelayed(new Runnable(){
             public void run() {
@@ -36,82 +34,6 @@ public class IntroFlashActivity extends Activity {
                 IntroFlashActivity.this.startActivity(mainIntent);
                 IntroFlashActivity.this.finish();
             }
-        }, 5000);
-    }
-    
-    
-    public static void setLookUpValues(String type, ArrayList<String> values)
-    {
-    	lookUpValues.put(type, values);
-    }
-    
-    public static ArrayList<String> getLookUpValues(String type)
-    {
-    	return lookUpValues.get(type);
-    }
-    
-    
-    class FetchData extends AsyncTask<Void, Void, Void>{
-       ProgressDialog pd = null;
-       
-       public void onPreExecute() {
-        	IntroFlashActivity.this.runOnUiThread(new Runnable() {
-    	        public void run() {
-    	            IntroFlashActivity.this.bar.setVisibility(View.VISIBLE);
-    	        	}}     	       
-        	);
-        }
-
-    
-		protected Void doInBackground(Void... params) {
-			Runnable lookUpBhajans = new Runnable() {
-				public void run()
-				{
-					setLookUpValues(Sankeerthan.BHAJANS, LookUpData.getData(Sankeerthan.BHAJANS));
-				}
-			};
-			
-			Runnable lookUpRaagas = new Runnable() {
-				public void run()
-				{
-					setLookUpValues(Sankeerthan.RAAGAS, LookUpData.getData(Sankeerthan.RAAGAS));
-				}				
-			};
-			
-			Runnable lookUpDeities = new Runnable() {
-				public void run()
-				{
-		        	setLookUpValues(Sankeerthan.DEITIES, LookUpData.getData(Sankeerthan.DEITIES));
-
-				}				
-			};
-        	Thread t1 = new Thread(lookUpBhajans);
-        	Thread t2 = new Thread(lookUpRaagas);
-        	Thread t3 = new Thread(lookUpDeities);
-        	
-        	t1.start(); 
-        	t2.start();
-        	t3.start();
-        	
-        	try {
-				t1.join();
-				System.out.println("Joining after t1");
-	        	t2.join();
-				System.out.println("Joining after t2");
-	        	t3.join();
-				System.out.println("Joining after t3");
-
-			} catch (InterruptedException e) {
-				
-			}
-        	
-			return null;
-		}
-		
-		public void onPostExecute() {
-            IntroFlashActivity.this.bar.setVisibility(View.GONE);
-		}
-    	
-    }
-    
+        }, 2000);
+    } 
 }
