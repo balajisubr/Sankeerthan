@@ -2,10 +2,12 @@ package com.sankeerthan.tabs;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.concurrent.ExecutionException;
 
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.ProgressDialog;
@@ -69,7 +71,6 @@ public class SearchTab extends Fragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
         LookUpData.setContext(this.getActivity());
-        new FetchData().execute();
     	if(bhajanNames!=null) System.out.println("Joining after: The size of bhajanNames is " + bhajanNames.size()); 
 		}
 
@@ -79,11 +80,15 @@ public class SearchTab extends Fragment {
 
 	}
 	
+	public void onStart()
+	{
+		new FetchData().execute();
+		super.onStart();
+	}
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		/*
-		*/
-
+		System.out.println("Joining after : In the oncreateview");
 		View view = inflater.inflate(R.layout.search_tab, container, false);
 	   	this.view = view;
 	   
@@ -212,7 +217,7 @@ public class SearchTab extends Fragment {
    	    	        public void run() {
    	    				pd = new ProgressDialog(SearchTab.this.getContext());
    	    				pd.setTitle("Processing...");
-   	    				pd.setMessage("Please wait.");
+   	    				pd.setMessage("Search Progress.");
    	    				pd.setCancelable(false);
    	    				pd.setIndeterminate(true);
    	    				pd.show();
@@ -276,13 +281,13 @@ public class SearchTab extends Fragment {
     
     class FetchData extends AsyncTask<Void, Void, Integer>{
         ProgressDialog pd = null;
-        
+        Activity act = getActivity();
         public void onPreExecute() {
-         	getActivity().runOnUiThread(new Runnable() {
+         	act.runOnUiThread(new Runnable() {
                 public void run() {
 	    				pd = new ProgressDialog(SearchTab.this.getContext());
 	    				pd.setTitle("Loading...");
-	    				pd.setMessage("Please wait.");
+	    				pd.setMessage("Fetching Data.");
 	    				pd.setCancelable(false);
 	    				pd.setIndeterminate(true);
 	    				pd.show();
@@ -334,12 +339,7 @@ public class SearchTab extends Fragment {
  			    SearchTab.this.raagaNames =  getLookUpValues(Sankeerthan.RAAGAS);
  		        System.out.println("Joining after: Getting Deities!");
  				SearchTab.this.deityNames =  getLookUpValues(Sankeerthan.DEITIES);
- 		
- 				
- 				
- 				
-
- 			} catch (InterruptedException e) {
+ 		} catch (InterruptedException e) {
  				
  			}
          	
@@ -348,16 +348,19 @@ public class SearchTab extends Fragment {
  		
  		public void onPostExecute(Integer result) {
  			System.out.println("Joining after In the post execute");
- 			getActivity().runOnUiThread(new Runnable(){
+ 			act.runOnUiThread(new Runnable(){
  				public void run(){
  		 			System.out.println("Joining after In the post execute 1");
  					  if(bhajanNames != null && bhajanNames.size() > 0) {
  	 			        	arrayResponse.clear();
  	 				        arrayResponse.addAll(bhajanNames);
- 	 				        commonAdapter = new ArrayAdapter<String>(SearchTab.this.getActivity(), android.R.layout.simple_dropdown_item_1line, arrayResponse);
+ 	 				        commonAdapter = new ArrayAdapter<String>(act, android.R.layout.simple_dropdown_item_1line, arrayResponse);
  	 				        View view = SearchTab.this.getView();
- 	 					   	commonSearchField = (AutoCompleteTextView) view.findViewById(R.id.editText1);
- 	 					    commonSearchField.setAdapter(commonAdapter);
+ 	 				        if(view != null) {
+ 	 					   	   commonSearchField = (AutoCompleteTextView) view.findViewById(R.id.editText1);
+ 	 					       if(commonSearchField != null)
+ 	 					    	   commonSearchField.setAdapter(commonAdapter);
+ 	 				        }
  	 			        }
 	    				if(pd !=null) 
                              pd.dismiss();

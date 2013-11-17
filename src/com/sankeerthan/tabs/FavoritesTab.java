@@ -19,6 +19,7 @@ import android.app.ListFragment;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,7 +59,7 @@ public class FavoritesTab extends ListFragment{
 	}
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.bhajan_list, container, false);	
+		View view = inflater.inflate(R.layout.fav_tab, container, false);	
 		return view;
 	}
 	
@@ -73,7 +74,7 @@ public class FavoritesTab extends ListFragment{
 	    	        public void run() {
 	    				pd = new ProgressDialog(FavoritesTab.this.getActivity());
 	    				pd.setTitle("Processing...");
-	    				pd.setMessage("Please wait.");
+	    				pd.setMessage("Fetching Bhajan details.");
 	    				pd.setCancelable(false);
 	    				pd.setIndeterminate(true);
 	    				pd.show();
@@ -101,26 +102,25 @@ public class FavoritesTab extends ListFragment{
 			
 			Bhajan result = searchBhajan.result;
 			
-	    	Bundle bundle = new Bundle();
+	    	final Bundle bundle = new Bundle();
 			
 			if(searchBhajan.serverErrors.size() > 0) {
 				serverError = Sankeerthan.formatServerErrors(searchBhajan.serverErrors);
 			}
 			
-			if(result != null)
-			{
-            bundle.putString("raaga", result.raaga);
-            bundle.putString("lyrics", result.lyrics);
-            bundle.putString("meaning", result.meaning);
-            bundle.putString("deity", result.deity);
-            bundle.putString("bhajan", result.name);
-            bundle.putString("url", result.url);
+			if(result != null){
+			   bundle.putString("raaga", result.raaga);
+               bundle.putString("lyrics", result.lyrics);
+               bundle.putString("meaning", result.meaning);
+               bundle.putString("deity", result.deity);
+               bundle.putString("bhajan", result.name);
+               bundle.putString("url", result.url);
 			}
 
 			if(bundle.isEmpty()){
-	         	   AlertDialog alert = SankeerthanDialog.getAlertDialog(FavoritesTab.this.getActivity(), serverError);
-	         	   alert.show();
-
+	            AlertDialog alert = SankeerthanDialog.getAlertDialog(FavoritesTab.this.getActivity(), serverError);
+	            alert.show();
+	            
 	            if(pd != null){
 	        	    pd.dismiss();
 	            }			
@@ -138,21 +138,23 @@ public class FavoritesTab extends ListFragment{
 				
 	        {
 	        	
-		    Activity activity = FavoritesTab.this.getActivity();
-			activity.getActionBar().   setSelectedNavigationItem(1);
-		
-	        FragmentManager fragmentManager = activity.getFragmentManager();
-	        FragmentTransaction ft = fragmentManager.beginTransaction();
-	        ft.replace(android.R.id.content, new BhajanDetailsFragment(bundle));
-	        ft.commit();
+		    Handler handler = new Handler();
+		    handler.post(new Runnable(){
+
+			public void run() {
+				// TODO Auto-generated method stub
+			    Activity activity = FavoritesTab.this.getActivity();
+				activity.getActionBar().   setSelectedNavigationItem(1);			        FragmentManager fragmentManager = activity.getFragmentManager();
+			    FragmentTransaction ft = fragmentManager.beginTransaction();
+			    ft.replace(((ViewGroup)(getView().getParent())).getId(), new BhajanDetailsFragment(bundle));
+			    ft.commit();		
+			}
+		    	
+		    });
+		    
+			
 	        }
 	        if(pd != null){
 	        	pd.dismiss();
 	        }			
-		}
-		
-		
-		
-		}
-
-}
+		}}}

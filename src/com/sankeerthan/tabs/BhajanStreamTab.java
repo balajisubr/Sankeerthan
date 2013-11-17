@@ -11,7 +11,7 @@ public class BhajanStreamTab extends CustomWebView {
     
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        setWebViewURL("http://media.radiosai.org/www/Bhajan.html");
+        setWebViewURL("http://www.radiosai.org/mobile/radiosai.html");
         return super.onCreateView(inflater, container, savedInstanceState);
         }
     }
