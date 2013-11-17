@@ -38,9 +38,15 @@
         
   <Button        
         android:id="@+id/btn_fav"
-        android:layout_width="130dp"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:text="@string/favorite" />
+  
+  <Button        
+        android:id="@+id/btn_search"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:text="@string/search" />
 </LinearLayout>       
 </LinearLayout>
 
