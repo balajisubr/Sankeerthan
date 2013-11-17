@@ -16,6 +16,7 @@ import com.sankeerthan.tabs.TabsListener;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ListFragment;
 import android.app.ProgressDialog;
@@ -23,9 +24,11 @@ import android.app.ActionBar.Tab;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -143,6 +146,16 @@ public class BhajanResultsFragment extends ListFragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 	    View view = inflater.inflate(R.layout.bhajan_list, container, false);
 	    //setBhajans(bundle.getStringArray("bhajan"));
+	    Button searchBtn = (Button) view.findViewById(R.id.btn_search);
+	    searchBtn.setOnClickListener(new OnClickListener(){
+
+			public void onClick(View arg0) {
+              FragmentManager manager = BhajanResultsFragment.this.getFragmentManager();
+              FragmentTransaction ft = manager.beginTransaction();
+              ft.replace(android.R.id.content, new SearchTab());
+              ft.commit();
+			}  	
+	    });
 		return view;
 	}
 	
@@ -236,7 +249,7 @@ public class BhajanResultsFragment extends ListFragment {
 	        		android.app.FragmentManager fragmentManager = (getActivity()).getFragmentManager();
 
 	        		FragmentTransaction ft = fragmentManager.beginTransaction();
-	        		ft.addToBackStack("list").replace(android.R.id.content, fragment);//.addToBackStack( null );
+	        		ft.replace(android.R.id.content, fragment).addToBackStack( "list" );
 	        		ft.commit();
 	        		fragmentManager.executePendingTransactions();
 	        		}});

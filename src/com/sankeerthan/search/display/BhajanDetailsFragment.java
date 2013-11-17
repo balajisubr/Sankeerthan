@@ -3,6 +3,7 @@ package com.sankeerthan.search.display;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Iterator;
+import java.util.Locale;
 import java.util.Map.Entry;
 
 import com.sankeerthan.R;
@@ -10,6 +11,7 @@ import com.sankeerthan.R.id;
 import com.sankeerthan.R.layout;
 import com.sankeerthan.display.expand.*;
 import com.sankeerthan.model.FavoriteDB;
+import com.sankeerthan.tabs.SearchTab;
 
 import android.annotation.SuppressLint;
 import android.media.MediaPlayer;
@@ -18,7 +20,9 @@ import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.app.ActionBar.Tab;
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ListFragment;
 import android.util.Log;
@@ -67,7 +71,7 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
     	handler = new Handler();
         BhajanDetailsFragment.setHandler(handler);
         this.bundle = bundle;
-        setDetails(bundle);       
+        setDetails(bundle);  
 	 }
 	
 	public void setDetails(Bundle bundle)
@@ -144,6 +148,18 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 	    public void onClick(View v) {
 			onClick1();
 		}});
+	    
+	    Button searchBtn = (Button) view.findViewById(R.id.btn_search);
+	    searchBtn.setOnClickListener(new OnClickListener(){
+
+			public void onClick(View arg0) {
+              FragmentManager manager = BhajanDetailsFragment.this.getFragmentManager();
+              FragmentTransaction ft = manager.beginTransaction();
+              ft.replace(android.R.id.content, new SearchTab());
+              ft.commit();
+			}  	
+	    });
+
 		return view;
 	}
 	
@@ -315,7 +331,7 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 	    	 value = defaultValue;
 	     else
 	    	 value = entry.getValue();
-		 String detail = entry.getKey().toUpperCase() + ": " + value + "\n";
+		 String detail = entry.getKey().toUpperCase(Locale.US) + ": " + value + "\n";
 		 arDetails.add(detail);
 		}
 		return arDetails;
