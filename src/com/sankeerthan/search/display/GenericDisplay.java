@@ -40,14 +40,18 @@ public class GenericDisplay {
 	
    public void processErrorsOrDisplay() {
 	   getSearchClass();
-	   if(searchClass != null && searchClass.serverErrors.size() > 0) {
-		   processServerErrors(); 
-		   return;
-       }
-	   processResultErrorsorDisplay();
+	   Activity act = (Activity) this.context;
+	   act.runOnUiThread(new Runnable() {
+		   public void run(){
+			   if(searchClass != null && searchClass.serverErrors.size() > 0) {
+				   processServerErrors(); 
+				   return;
+		       }
+			   processResultErrorsorDisplay();		   
+		   }
+	   } ); 
   }
    
-
    public void processServerErrors() {
        ((Activity) this.context).runOnUiThread(new Runnable() {
            public void run() {
@@ -105,17 +109,17 @@ public class GenericDisplay {
 	public void navigateToDisplayActivity(Bundle bundle) {
 		android.app.FragmentManager fragmentManager = ((Activity)context).getFragmentManager(); 
         FragmentTransaction ft = fragmentManager.beginTransaction();
-    	Looper.prepare();
+    	//Looper.prepare();
 		switch (classId) {
         case 1:
             System.out.println("Here before creating fragment");
             BhajanDetailsFragment fragment = new BhajanDetailsFragment(bundle);
             System.out.println("Here before going to fragment");
-            ft.replace(android.R.id.content, fragment).addToBackStack( "search" );
+            ft.replace(android.R.id.content, fragment);//.addToBackStack( null );
             break;
         case 2: case 3:      
         	BhajanResultsFragment fragment1 = new BhajanResultsFragment(bundle);
-            ft.replace(android.R.id.content, fragment1).addToBackStack( "search" );
+            ft.replace(android.R.id.content, fragment1);//.addToBackStack( null );
             break;
         default: 
         	break;
