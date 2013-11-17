@@ -29,6 +29,7 @@ public abstract class SearchInfo {
 	protected final String URL = Sankeerthan.URL;
 	protected HashMap<String, String> dataHash = new HashMap<String,String>();
 	public String key = "";
+	protected String buffer = "";
 	protected String subURL = "";
 	protected String responseString = "";
 	protected HttpClient client = null;
@@ -47,7 +48,27 @@ public abstract class SearchInfo {
 		
 	}
 	
-	protected String fetchData() throws ClientProtocolException, IOException, ConnectException {
+	protected String fetchData()
+	{
+		Thread t = new Thread(){
+			public void run()
+			{
+				SearchInfo.this.buffer = fetchDataInThread();
+			}
+		};
+		t.start();
+		try {
+			t.join();
+			return buffer;
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+		}
+		finally {
+			return buffer;
+		}
+		}
+	
+	protected String fetchDataInThread() {
 		try {
 			HttpGet request = setupClient();
 			HttpResponse response = client.execute(request);
@@ -85,6 +106,12 @@ public abstract class SearchInfo {
 		} catch (URISyntaxException e) {
 		e.printStackTrace();
 		return "";
+		} catch (ClientProtocolException e1) {
+			// TODO Auto-generated catch block
+			return "";
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			return "";
 		}  
 	}
   

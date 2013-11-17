@@ -31,7 +31,7 @@ public class SearchDeity extends SearchInfo {
 			}	  
 		}
   
-	public String fetchData() throws ClientProtocolException, IOException {
+	public String fetchData() {
 		return super.fetchData(); 
 	}
   
