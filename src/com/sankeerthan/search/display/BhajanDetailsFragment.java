@@ -79,7 +79,7 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 		 for(String s: keys) {
 	         String value = bundle.getString(s);
 	         if( value == null || (value != null && (value.length()==0 || value.isEmpty()))) 
-	        	 value = "No info for" + s;
+	        	 value = "No info for " + s;
 	         bhajanDetails.put(s, value);
 	     }
 

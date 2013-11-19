@@ -71,7 +71,6 @@ public class SearchTab extends Fragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
         LookUpData.setContext(this.getActivity());
-    	if(bhajanNames!=null) System.out.println("Joining after: The size of bhajanNames is " + bhajanNames.size()); 
 		}
 
 	public void onResume()
@@ -88,7 +87,6 @@ public class SearchTab extends Fragment {
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		System.out.println("Joining after : In the oncreateview");
 		View view = inflater.inflate(R.layout.search_tab, container, false);
 	   	this.view = view;
 	   
@@ -250,7 +248,7 @@ public class SearchTab extends Fragment {
             	   raagaDisplay.processErrorsOrDisplay();
             	   break;
                case R.id.bhajan_radio:
-            	   searchBhajan = new SearchBhajan(text.getText().toString());
+            	   searchBhajan = new SearchBhajan(text.getText().toString(), false);
                	   searchBhajan.getData();
                	   GenericDisplay bhajanDisplay = new GenericDisplay(searchBhajan, SearchTab.this);
                	   bhajanDisplay.processErrorsOrDisplay();

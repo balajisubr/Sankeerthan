@@ -59,13 +59,10 @@ public abstract class SearchInfo {
 		t.start();
 		try {
 			t.join();
-			return buffer;
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
-		}
-		finally {
-			return buffer;
-		}
+		}	
+		  return buffer;
 		}
 	
 	protected String fetchDataInThread() {
@@ -123,7 +120,6 @@ public abstract class SearchInfo {
 		catch (NullPointerException e){
 			serverErrors.add("No valid response from server! Please try again later. #20");
 		}
-
 		if(!result.isEmpty()) {
 			JSONTokener tokener = new JSONTokener(result.toString());
 			JSONObject jsonObject = new JSONObject(tokener);
@@ -136,7 +132,6 @@ public abstract class SearchInfo {
 	
     protected void extractData(JSONObject jsonObject)
     {
-       	
     }
   
     protected HttpGet setupClient() throws URISyntaxException {

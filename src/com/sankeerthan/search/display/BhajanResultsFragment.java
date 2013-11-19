@@ -66,78 +66,12 @@ public class BhajanResultsFragment extends ListFragment {
 	    	Bundle bundle = new Bundle();
 	        SearchBhajan searchBhajan = new SearchBhajan();
 			try {
-				searchBhajan = new SearchBhajan(name);
+				searchBhajan = new SearchBhajan(name, false);
 			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}/*
-			catch (ClientProtocolException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				*/
-			
-
-	        /*
-			try {
-				Bhajan result = searchBhajan.result;
-				System.out.println("The raaga is " + result.raaga);
-				System.out.println("The lyrics is" + result.lyrics);			
-				System.out.println("The meaning is" + result.meaning);
-	            bundle.putString("raaga", result.raaga);
-	            bundle.putString("lyrics", result.lyrics);
-	            bundle.putString("meaning", result.meaning);
-	            bundle.putString("deity", result.deity);
-	            bundle.putString("bhajan", result.name);
-	            bundle.putString("url", result.url);
-
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			} catch (ClientProtocolException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-*/
 			new FetchBhajan().execute(new SearchBhajan[]{searchBhajan});
-			/*
-        	getActivity().runOnUiThread(new Runnable() {
-    	        public void run() {
-    				pd = new ProgressDialog(BhajanResultsFragment.this.getActivity());
-    				pd.setTitle("Processing...");
-    				pd.setMessage("Please wait.");
-    				pd.setCancelable(true);
-    				pd.setIndeterminate(true);
-    				pd.show();
-    	        }});
-        	
-        	*/
-	        /*
-            BhajanDetailsFragment fragment = new BhajanDetailsFragment(bundle);
-	    	android.app.FragmentManager fragmentManager = (getActivity()).getFragmentManager(); 
-	        FragmentTransaction ft = fragmentManager.beginTransaction();
-	        ft.replace(android.R.id.content, fragment).addToBackStack( "search" );
-	        //fragmentManager.addOnBackStackChangedListener(null);
-	        ft.commit();
-	        fragmentManager.executePendingTransactions();
-	        pd.dismiss();
-	        */
-	             
-	        //
-
-		     /*   
-		        Intent intent = new Intent(BhajanResultsActivity.this,ODisplayBhajanDetails.class);
-		        Bundle myData = new Bundle();
-		        myData.putString("raaga", result.raaga);
-		        myData.putString("lyrics", result.lyrics);
-		        myData.putString("meaning", result.meaning);
-		        myData.putString("deity", result.deity);
-		        intent.putExtras(myData);
-		        view.getContext().startActivity(intent);				
-			 */
+		
 			}
 		});
 		setListAdapter(adapter);
@@ -165,7 +99,6 @@ public class BhajanResultsFragment extends ListFragment {
 		for(i=0;i<bhajans.length;i++) {
 			 this.bhajans.add(bhajans[i]);	 
 		}
-		System.out.println("The length of Bhajans in set bhajans is" + this.bhajans.size());
 	}
 	
 	public ArrayList<String> getBhajans() {
@@ -223,9 +156,6 @@ public class BhajanResultsFragment extends ListFragment {
 	         	   AlertDialog alert = SankeerthanDialog.getAlertDialog(BhajanResultsFragment.this.getActivity(), serverError);
 	         	   alert.show();
 
-	     	//	Toast.makeText(FavoritesTab.this.getActivity()
-			//    		, "An error occured while fetching data. Please check connection or try again later."
-			//  		, Toast.LENGTH_LONG).show();
 	            if(pd != null){
 	        	    pd.dismiss();
 	            }			
@@ -235,7 +165,6 @@ public class BhajanResultsFragment extends ListFragment {
 			if(serverError.length() > 0){
          	   AlertDialog alert = SankeerthanDialog.getAlertDialog(BhajanResultsFragment.this.getActivity(), serverError);
          	   alert.show();
-			 //Toast.makeText(FavoritesTab.this.getActivity(), serverError, Toast.LENGTH_LONG).show();
 	            if(pd != null){
 	        	    pd.dismiss();
 	            }			

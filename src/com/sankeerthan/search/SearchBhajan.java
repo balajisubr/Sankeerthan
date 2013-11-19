@@ -12,9 +12,11 @@ public class SearchBhajan extends SearchInfo  {
 	public Bhajan result = null;
 	private static String subURL = "/find_bhajans/";
 	private String key = "";
-	public SearchBhajan(String key) throws InterruptedException {
+	public SearchBhajan(String key, boolean initialize) throws InterruptedException {
 		super(key, subURL);
 		this.key = key;
+		if(initialize)
+		    result = new Bhajan();
 	}
 	
 	public SearchBhajan(){

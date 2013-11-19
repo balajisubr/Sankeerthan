@@ -85,23 +85,22 @@ public class FavoritesTab extends ListFragment{
 	        SearchBhajan searchBhajan = new SearchBhajan();
 			try {
 				 if(!name[0].equals("No Favorites")){
-				     searchBhajan = new SearchBhajan(name[0]);
+				     searchBhajan = new SearchBhajan(name[0], false);
 			 	     searchBhajan.getData();
 				 }
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-            
 			return searchBhajan;
 		}
 		
 		public void onPostExecute(SearchBhajan searchBhajan)
-		{   		
+		{   
 			String[] keys = new String[]{"bhajan", "raaga", "deity", "lyrics","meaning", "url"};
 			String serverError = "";
 			
 			Bhajan result = searchBhajan.result;
-			
+
 	    	final Bundle bundle = new Bundle();
 			
 			if(searchBhajan.serverErrors.size() > 0) {
@@ -118,7 +117,7 @@ public class FavoritesTab extends ListFragment{
 			}
 
 			if(bundle.isEmpty()){
-	            AlertDialog alert = SankeerthanDialog.getAlertDialog(FavoritesTab.this.getActivity(), serverError);
+	            AlertDialog alert = SankeerthanDialog.getAlertDialog(FavoritesTab.this.getActivity(), "The bhajan may not exist anymore. Please delete it.");
 	            alert.show();
 	            
 	            if(pd != null){
