@@ -150,6 +150,8 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 	    searchBtn.setOnClickListener(new OnClickListener(){
 
 			public void onClick(View arg0) {
+			  if(mediaPlayer != null )
+				  mediaPlayer.stop();
               FragmentManager manager = BhajanDetailsFragment.this.getFragmentManager();
               FragmentTransaction ft = manager.beginTransaction();
               ft.replace(android.R.id.content, new SearchTab());

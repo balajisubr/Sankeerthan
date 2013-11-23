@@ -34,6 +34,6 @@ public class IntroFlashActivity extends Activity {
                 IntroFlashActivity.this.startActivity(mainIntent);
                 IntroFlashActivity.this.finish();
             }
-        }, 2000);
+        }, 1500);
     } 
 }
