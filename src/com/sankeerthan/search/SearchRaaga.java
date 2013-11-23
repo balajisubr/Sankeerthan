@@ -18,7 +18,6 @@ public class SearchRaaga extends SearchInfo  {
 		String serverResult;
 		try {
 			serverResult = this.fetchData();
-			System.out.println("REsult in getdata is " + serverResult);
 			parseData(serverResult);
 		} catch (ClientProtocolException e) {
 			this.serverErrors.add("There was an error! Please try again later! #8");

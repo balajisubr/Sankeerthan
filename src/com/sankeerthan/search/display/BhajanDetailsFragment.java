@@ -125,7 +125,6 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 
 		btn_play = (Button) view.findViewById(R.id.btn_play);
 		btn_play.setOnClickListener(this);
-		//btn_play.setBackgroundResource(R.drawable.button_play);
 	    seekBar = (SeekBar)view.findViewById(R.id.seekBar);
 		seekBar.setOnTouchListener(this);
 		mediaPlayer = new MediaPlayer();
@@ -137,11 +136,9 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 	    this.setFavText(btn_fav.getText().toString());
 	    if(count == 0) {
             btn_fav.setText(R.string.favorite);
-            //btn_fav.setBackgroundResource(R.drawable.favorite);
 	    }
 	    else {
             btn_fav.setText(R.string.unfavorite);
-            //btn_fav.setBackgroundResource(R.drawable.unfavorite);
 	    }
 	    btn_fav.setOnClickListener(new OnClickListener()
 	   	{
@@ -175,13 +172,10 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
         if(buttonText.equals(FAV)) {
             FavoriteDB.addBhajan(this.getBhajanName());
             favButton.setText(UNFAV);
-           // btn_fav.setBackgroundResource(R.drawable.unfavorite);
-
         }
         else {
         	FavoriteDB.removeBhajan(this.getBhajanName());
         	favButton.setText(FAV);
-           // btn_fav.setBackgroundResource(R.drawable.favorite);
 
         }
 	}
@@ -227,7 +221,6 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 		 case R.id.btn_play:
 			 if(mediaPlayer.isPlaying()){
 				 btn_play.setText(R.string.play);
-				 //btn_play.setBackgroundResource(R.drawable.button_play);
 				 pauseAudio();
 				 length=mediaPlayer.getCurrentPosition();
 			 }
@@ -239,12 +232,7 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 				//mediaPlayer.seekTo((lengthOfAudio / 100) * tmpSeekBar.getProgress() );
 			 playAudio();
 			 btn_play.setText(R.string.pause);
-			// btn_play.setBackgroundResource(R.drawable.button_pause);
-			 }
-			 else {
-				 System.out.println("Here as mediaPlayer is null");	
-			 }
-			 }
+			 }}
 			 break;
 		 default:
 			 break;
@@ -255,22 +243,12 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 	
 	public void onDestroy() {
 		mediaPlayer.stop();	
-	//	Looper.myLooper().quit();
-	//	setHandler(null);
-	//	android.app.FragmentManager fragmentManager = (getActivity()).getFragmentManager();
-	//	Fragment frag = fragmentManager.findFragmentByTag("list");
-    //    FragmentTransaction ft = fragmentManager.beginTransaction();
-	//	ft.show(frag);
-	//	ft.commit();
 		super.onDestroy();
 	}
 	
 	public void onDetach()
 	{
-	//	android.app.FragmentManager fragmentManager = (getActivity()).getFragmentManager();
-	//	fragmentManager.popBackStack();
-		super.onDetach();
-		
+		super.onDetach();		
 	}
 
 	private void pauseAudio() {
@@ -374,8 +352,6 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 	{
 		if(handler == null)
 		{
-			//Looper.prepare();
-			//Looper.loop();
 			handler = new Handler();
 			setHandler(handler);
 		}

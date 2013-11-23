@@ -54,17 +54,6 @@ public class SearchTab extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.setContext(this.getActivity());
-		/*
-        LookUpData.setContext(this.getActivity()); 
-        this.bhajanNames = IntroFlashActivity.getLookUpValues(Sankeerthan.BHAJANS);
-	    this.raagaNames = IntroFlashActivity.getLookUpValues(Sankeerthan.RAAGAS);
-		this.deityNames = IntroFlashActivity.getLookUpValues(Sankeerthan.DEITIES);
-		
-        if(bhajanNames != null && bhajanNames.size() > 0) {
-        	arrayResponse.clear();
-	        arrayResponse.addAll(bhajanNames);
-        }
-        */
 	}
 
 	@Override
@@ -186,15 +175,12 @@ public class SearchTab extends Fragment {
 	   	
 	    public static void setLookUpValues(String type, ArrayList<String> values)
 	    {
-	    	System.out.println("Joining after: the length to set" + values.size() + "and type is" + type);
 	    	lookUpValues.put(type, values);
 	    }
 	    
 	    public static ArrayList<String> getLookUpValues(String type)
 	    {
-	    	System.out.println("Joining after:type in get is" + type);
 	    	ArrayList<String> result = lookUpValues.get(type);
-	    	if(result!=null) System.out.println("Joining after: the length to get" + result.size() );
 	    	return result;
 	    }
 
@@ -224,30 +210,29 @@ public class SearchTab extends Fragment {
    	        }
     	
     	    public Void doInBackground(Void... params) {
-    	   		//View view = this.getView();
     	  		{
     		    EditText text = (EditText) getView().findViewById(R.id.editText1);
     	   		RadioGroup radio_group = (RadioGroup) getView().findViewById(R.id.radioGroup1);
     	   		int checked_radio_id = radio_group.getCheckedRadioButtonId();
                   	   		
-             SearchDeity searchDeity = null;
-             SearchRaaga searchRaaga = null;
-             SearchBhajan searchBhajan = null;
-             try {
-    	   	 switch(checked_radio_id){
-               case R.id.deity_radio:
+                SearchDeity searchDeity = null;
+                SearchRaaga searchRaaga = null;
+                SearchBhajan searchBhajan = null;
+                try {
+    	   	    switch(checked_radio_id){
+                   case R.id.deity_radio:
     			   searchDeity = new SearchDeity(text.getText().toString());
            	  	   searchDeity.getData();
            	  	   GenericDisplay deityDisplay = new GenericDisplay(searchDeity, SearchTab.this);
            	  	   deityDisplay.processErrorsOrDisplay();
              	   break;
-               case R.id.raaga_radio:
+                   case R.id.raaga_radio:
             	   searchRaaga = new SearchRaaga(text.getText().toString());
             	   searchRaaga.getData();
             	   GenericDisplay raagaDisplay = new GenericDisplay(searchRaaga, SearchTab.this);
             	   raagaDisplay.processErrorsOrDisplay();
             	   break;
-               case R.id.bhajan_radio:
+                   case R.id.bhajan_radio:
             	   searchBhajan = new SearchBhajan(text.getText().toString(), false);
                	   searchBhajan.getData();
                	   GenericDisplay bhajanDisplay = new GenericDisplay(searchBhajan, SearchTab.this);
@@ -325,17 +310,11 @@ public class SearchTab extends Fragment {
          	
          	try {
  				t1.join();
- 				System.out.println("Joining after t1");
  	        	t2.join();
- 				System.out.println("Joining after t2");
  	        	t3.join();
- 				System.out.println("Joining after t3");
  				
- 		        System.out.println("Joining after: Getting Bhajans!");
  		        SearchTab.this.bhajanNames = getLookUpValues(Sankeerthan.BHAJANS);
- 		        System.out.println("Joining after: Getting Raagas!");
  			    SearchTab.this.raagaNames =  getLookUpValues(Sankeerthan.RAAGAS);
- 		        System.out.println("Joining after: Getting Deities!");
  				SearchTab.this.deityNames =  getLookUpValues(Sankeerthan.DEITIES);
  		} catch (InterruptedException e) {
  				
@@ -348,7 +327,6 @@ public class SearchTab extends Fragment {
  			System.out.println("Joining after In the post execute");
  			act.runOnUiThread(new Runnable(){
  				public void run(){
- 		 			System.out.println("Joining after In the post execute 1");
  					  if(bhajanNames != null && bhajanNames.size() > 0) {
  	 			        	arrayResponse.clear();
  	 				        arrayResponse.addAll(bhajanNames);

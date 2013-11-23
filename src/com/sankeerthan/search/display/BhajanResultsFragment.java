@@ -79,7 +79,6 @@ public class BhajanResultsFragment extends ListFragment {
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 	    View view = inflater.inflate(R.layout.bhajan_list, container, false);
-	    //setBhajans(bundle.getStringArray("bhajan"));
 	    Button searchBtn = (Button) view.findViewById(R.id.btn_search);
 	    searchBtn.setOnClickListener(new OnClickListener(){
 

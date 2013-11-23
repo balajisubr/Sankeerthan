@@ -9,7 +9,6 @@ public class FavoriteDB {
 	public static CacheDB cacheDB = null;
 	public static CacheDB getCacheDB() {
 		if(cacheDB == null) {
-           System.out.println("cachedb is null");  
 		   cacheDB = new CacheDB(getContext());
         }
 		return cacheDB;

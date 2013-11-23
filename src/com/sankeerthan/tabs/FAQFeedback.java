@@ -76,6 +76,4 @@ public class FAQFeedback extends Fragment{
         return questions;
 	}
 
-
-
 }

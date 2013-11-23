@@ -60,7 +60,6 @@ public abstract class SearchInfo {
 		try {
 			t.join();
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 		}	
 		  return buffer;
 		}

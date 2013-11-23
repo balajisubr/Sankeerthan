@@ -56,7 +56,6 @@ public class GenericDisplay {
        ((Activity) this.context).runOnUiThread(new Runnable() {
            public void run() {
         	   AlertDialog alert = SankeerthanDialog.getAlertDialog(GenericDisplay.this.context, Sankeerthan.formatServerErrors(searchClass.serverErrors));
-        	  // Toast.makeText(GenericDisplay.this.context, searchClass.serverErrors.get(0), Toast.LENGTH_LONG).show();
         	   alert.show();
            }
         });
