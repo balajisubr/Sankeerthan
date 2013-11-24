@@ -39,9 +39,9 @@ public class SearchTab extends Fragment {
 	public ArrayAdapter<String> commonAdapter;
 	public ArrayList<String> data=new ArrayList<String>();
 	ArrayList<String> arrayResponse=new ArrayList<String>();
-	ArrayList<String> bhajanNames;
-	ArrayList<String> raagaNames;	
-	ArrayList<String> deityNames;
+	ArrayList<String> bhajanNames = new ArrayList<String>(400);
+	ArrayList<String> raagaNames  = new ArrayList<String>(400);	
+	ArrayList<String> deityNames  = new ArrayList<String>(20);
 	AutoCompleteTextView commonSearchField;
 	ProgressDialog pd;
 	public Context context;
