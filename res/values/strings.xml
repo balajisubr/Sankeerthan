@@ -13,6 +13,7 @@
     <string name="favorite">Like</string>
     <string name="unfavorite">Unlike</string>
     <string name="main_no_items">No orders to display</string>
+    <string name="click_on_fav">Click on a Bhajan below to view its details.</string>
     <string name="intro_text"> Sankeerthan (or \'good music\') gives you the ability to search for bhajans. You can search by the name of the bhajan or the specific deity on which the Bhajan is based. Another criteria to search is \'raaga\' which are standard Indian melodic modes. You can also mark your favorite Bhajans and listen to them at any time. Please note that you must be connected to Internet to listen to any Bhajan, view its lyrics, meaning etc. You can also listen to RadioSai Bhajan Stream or view Thought for the Day. Please send feedback/suggestions to Sankeerthan.App@gmail.com. Aum Sai Ram</string>
         <color name="Black">#000000</color>
     <color name="ExpandChildBackground">#CEFAC6</color>

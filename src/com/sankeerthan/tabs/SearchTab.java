@@ -26,6 +26,9 @@ import android.widget.Toast;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
 
+import com.google.ads.AdSize;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.sankeerthan.Sankeerthan;
 import com.sankeerthan.R;
 import com.sankeerthan.display.*;
@@ -78,7 +81,16 @@ public class SearchTab extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.search_tab, container, false);
 	   	this.view = view;
-	   
+	   	
+	    AdView adView = (AdView) view.findViewById(R.id.adView);
+	    //adView.setAdSize(com.google.android.gms.ads.AdSize.BANNER);
+	    AdRequest adRequest = new AdRequest.Builder()
+	    .addTestDevice("C44657E689703A7181A73E789923CF83")
+	    .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)       // Emulator
+	    .build();
+	    
+	    adView.loadAd(adRequest);
+
 	   	Button search = (Button) view.findViewById(R.id.button1);
 	   	search.setOnClickListener(new OnClickListener() {
 		public void onClick(View v) {

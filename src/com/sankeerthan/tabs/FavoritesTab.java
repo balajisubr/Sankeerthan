@@ -2,6 +2,8 @@ package com.sankeerthan.tabs;
 
 import java.util.ArrayList;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.sankeerthan.R;
 import com.sankeerthan.Sankeerthan;
 import com.sankeerthan.display.SankeerthanDialog;
@@ -43,6 +45,11 @@ public class FavoritesTab extends ListFragment{
 		super.onActivityCreated(savedInstanceState);
 		FavoriteDB.setContext(this.getActivity());
 		bhajans = FavoriteDB.fetchBhajans();
+	    int i = 0;
+	    for(i=0;i<30;i++)
+	    {
+	    	bhajans.add("Fav");
+	    }
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), R.layout.row,bhajans);
 		ListView listView = getListView();
 		listView.setOnItemClickListener(new OnItemClickListener() {
@@ -60,6 +67,14 @@ public class FavoritesTab extends ListFragment{
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fav_tab, container, false);	
+		 AdView adView = (AdView) view.findViewById(R.id.adView);
+		    //adView.setAdSize(com.google.android.gms.ads.AdSize.BANNER);
+		    AdRequest adRequest = new AdRequest.Builder()
+		    .addTestDevice("C44657E689703A7181A73E789923CF83")
+		    .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)       // Emulator
+		    .build();
+		    
+		    adView.loadAd(adRequest);
 		return view;
 	}
 	
