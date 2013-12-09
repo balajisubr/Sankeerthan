@@ -43,7 +43,7 @@ public class FAQFeedback extends Fragment{
     	QnA.put("►How does the Bhajan Stream work? ","As you might have seen, the Bhajan Stream is from Radiosai. To listen, you must be connected to Internet or cellular data. Once the page loads and streaming starts, you can do other things on Sankeerthan or your phone.");
     	QnA.put("►Where are the Bhajans and data collected from? ","We make every effort to bring every possible Bhajan we can to you with details like meaning, raaga, deity etc. Some Bhajans are from Radiosai. Some are from the collections of creators of Sankeerthan. Raaga information are from the creators of Sankeerthan and Radiosai.");
     	QnA.put("►I have a correction to suggest in the lyrics, meaning, Raaga or deity of a Bhajan. What should I do ? ","Please mail Sankeerthan.App@gmail.com . We will consider your request.");
-    	QnA.put("►I would like to contribute a Bhajan to Sankeerthan. What should I do ? ","If you have any info and would like to contribute, please email us all details including the mp3 file at Sankeerthan.App@gmail.com. We will try our best to honor your request.");
+    	QnA.put("►I would like to contribute a Bhajan to Sankeerthan. What should I do ? ","If you have any info and would like to contribute, please email us all details including the mp3 file at Sankeerthan.Bhajan@gmail.com. We will try our best to honor your request.");
     	QnA.put("►Is there a Facebook page for Sankeerthan?", "Yes! We have a page at facebook.com/SankeerthanApp ! Please add it to your favorites to be informed of latest updates");
 
 	    
