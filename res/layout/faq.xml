@@ -1,14 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@color/ExpandChildBackground"
->        
+>
+
+    <TextView
+    android:id="@+id/facebook_text"
+    android:text="@string/facebook_text"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+     android:autoLink="web"
+     android:linksClickable="true"
+ /> 
+ 
+<TextView
+    android:id="@+id/facebook_page"
+    android:text="@string/facebook"
+    android:layout_below="@+id/facebook_text"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+     android:autoLink="web"
+     android:linksClickable="true"
+ />   
+
          <ExpandableListView
                 android:id="@+id/ExpList"
-                android:layout_height="fill_parent"
+                                    android:layout_below="@+id/facebook_page"
+                
+                android:layout_height="wrap_content"
                 android:layout_width="fill_parent"
                 android:groupIndicator="@null" />
-</LinearLayout>            
+</RelativeLayout>            
+
