@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#CEFAC6">
+       
+    <Button
+        android:id="@+id/btn_bhajan_stream"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/bhajan" />
+
+     <Button
+        android:id="@+id/btn_discourse_stream"
+        android:layout_below="@id/btn_bhajan_stream"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/discourse" />
+     
+      <Button
+        android:id="@+id/btn_telugu_stream"
+        android:layout_below="@id/btn_discourse_stream"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/telugu" />
+      
+       <Button 
+        android:id="@+id/btn_afri_stream"
+        android:layout_below="@+id/btn_telugu_stream"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/afri" />
+       
+        <Button
+        android:id="@+id/btn_asia_stream"
+        android:layout_below="@+id/btn_afri_stream"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/asia" />
+        
+         <Button
+        android:id="@+id/btn_ameri_stream"
+        android:layout_below="@+id/btn_asia_stream"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/ameri" />    
+        
+         <TextView
+        android:id="@+id/text1"
+        android:layout_below="@+id/btn_ameri_stream"
+        android:text="@string/stream_note"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"     
+    />
+       
+</RelativeLayout>
