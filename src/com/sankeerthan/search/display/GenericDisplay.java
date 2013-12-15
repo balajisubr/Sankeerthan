@@ -111,9 +111,7 @@ public class GenericDisplay {
     	//Looper.prepare();
 		switch (classId) {
         case 1:
-            System.out.println("Here before creating fragment");
             BhajanDetailsFragment fragment = new BhajanDetailsFragment(bundle);
-            System.out.println("Here before going to fragment");
             ft.replace(android.R.id.content, fragment);//.addToBackStack( null );
             break;
         case 2: case 3:      
@@ -128,13 +126,11 @@ public class GenericDisplay {
 	}
 	
 	public void navigateToErrorActivity(final String errorMessage) {
-		System.out.println("Error in navaigate to eror activity");
 		Activity act = (Activity) this.context;
        	act.runOnUiThread(new Runnable() {
    	        public void run() {
           	   AlertDialog alert = SankeerthanDialog.getAlertDialog(context, errorMessage);
           	   alert.show();
-   	        //Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show();
    	    }});
 	}
 	

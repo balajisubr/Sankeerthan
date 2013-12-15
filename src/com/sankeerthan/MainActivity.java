@@ -12,6 +12,7 @@ import com.sankeerthan.tabs.IntroductionTab;
 import com.sankeerthan.tabs.BhajanStreamTab;
 import com.sankeerthan.tabs.FavoritesTab;
 import com.sankeerthan.tabs.SearchTab;
+import com.sankeerthan.tabs.Streams;
 import com.sankeerthan.tabs.TabsListener;
 import com.sankeerthan.tabs.ThoughtForDayTab;
 
@@ -47,8 +48,8 @@ public class MainActivity extends Activity {
         
         tab = actionBar.newTab()
         		.setText("RadioSai Bhajan Stream")
-        		.setTabListener(new TabsListener<BhajanStreamTab>(
-                    this, "stream", BhajanStreamTab.class));
+        		.setTabListener(new TabsListener<Streams>(
+                    this, "stream", Streams.class));
         actionBar.addTab(tab);
         
         tab = actionBar.newTab()

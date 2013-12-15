@@ -45,8 +45,6 @@ public class FavoritesTab extends ListFragment{
 		super.onActivityCreated(savedInstanceState);
 		FavoriteDB.setContext(this.getActivity());
 		bhajans = FavoriteDB.fetchBhajans();
-        for(int i=0;i < 30;i++) 
-        	bhajans.add("Bhajan " + i);
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), R.layout.row,bhajans);
 		ListView listView = getListView();
 		listView.setOnItemClickListener(new OnItemClickListener() {
@@ -159,11 +157,8 @@ public class FavoritesTab extends ListFragment{
 			    FragmentTransaction ft = fragmentManager.beginTransaction();
 			    ft.replace(((ViewGroup)(getView().getParent())).getId(), new BhajanDetailsFragment(bundle));
 			    ft.commit();		
-			}
-		    	
+			}		    	
 		    });
-		    
-			
 	        }
 	        if(pd != null){
 	        	pd.dismiss();

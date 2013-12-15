@@ -213,7 +213,7 @@ public class SearchTab extends Fragment {
    	    	        public void run() {
    	    				pd = new ProgressDialog(SearchTab.this.getContext());
    	    				pd.setTitle("Processing...");
-   	    				pd.setMessage("Search Progress.");
+   	    				pd.setMessage("Search in Progress.");
    	    				pd.setCancelable(false);
    	    				pd.setIndeterminate(true);
    	    				pd.show();
@@ -282,7 +282,7 @@ public class SearchTab extends Fragment {
                 public void run() {
 	    				pd = new ProgressDialog(SearchTab.this.getContext());
 	    				pd.setTitle("Loading...");
-	    				pd.setMessage("Fetching Data.");
+	    				pd.setMessage("Please Wait.");
 	    				pd.setCancelable(false);
 	    				pd.setIndeterminate(true);
 	    				pd.show();
@@ -336,7 +336,6 @@ public class SearchTab extends Fragment {
  		}
  		
  		public void onPostExecute(Integer result) {
- 			System.out.println("Joining after In the post execute");
  			act.runOnUiThread(new Runnable(){
  				public void run(){
  					  if(bhajanNames != null && bhajanNames.size() > 0) {

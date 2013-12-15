@@ -12,8 +12,17 @@
     <string name="pause">Pause</string>
     <string name="favorite">Like</string>
     <string name="unfavorite">Unlike</string>
+    <string name="bhajan">Bhajan Stream</string>
+    <string name="discourse">Discourse Stream</string>    
+    <string name="telugu">Telugu Stream</string>
+    <string name="asia">Asian Stream</string>
+    <string name="afri">Africa Stream</string>
+    <string name="ameri">American Stream</string>
     <string name="main_no_items">No orders to display</string>
+    <string name="stream_note">Note: Once you click on a stream, it might take upto 20 seconds to buffer. Please wait till data is buffered.</string>
     <string name="click_on_fav">Click on a Bhajan below to view its details.</string>
+    <string name="list_desc">Listed below are the Bhajans according to your selected criteria. Click on them to view lyrics, meaning, deity, raaga and also to play.</string>
+    <string name="fav_desc">Listed below are you favorite Bhajans. To remove them from your favorites, go to the Bhajan details and click on Unlike.</string>
     <string name="intro_text"> Sankeerthan (or \'good music\') gives you the ability to search for bhajans. You can search by the name of the bhajan or the specific deity on which the Bhajan is based. Another criteria to search is \'raaga\' which are standard Indian melodic modes. You can also mark your favorite Bhajans and listen to them at any time. Please note that you must be connected to Internet to listen to any Bhajan, view its lyrics, meaning etc. You can also listen to RadioSai Bhajan Stream or view Thought for the Day. Please send feedback/suggestions to Sankeerthan.Bhajan@gmail.com. Aum Sai Ram</string>
     <string name="facebook">facebook.com/SankeerthanApp</string>
     <string name="facebook_text">Like our Facebook page to get latest tips and updates:</string>
