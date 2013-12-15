@@ -1,5 +1,6 @@
 package com.sankeerthan.search.display;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Iterator;
@@ -52,7 +53,6 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 	private SeekBar seekBar;
 	private MediaPlayer mediaPlayer;
 	private int lengthOfAudio = 0;
-	private int length = 0;
 	private String bhajanName = "";
     private static Handler handler = null;
 	private final Runnable r = new Runnable() {	
@@ -66,7 +66,6 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 	}
 	
 	public BhajanDetailsFragment(Bundle bundle) {
-		System.out.println("In the constructor of details fragment");
     	//Looper.loop();
     	handler = new Handler();
         BhajanDetailsFragment.setHandler(handler);
@@ -127,9 +126,6 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 		btn_play.setOnClickListener(this);
 	    seekBar = (SeekBar)view.findViewById(R.id.seekBar);
 		seekBar.setOnTouchListener(this);
-		mediaPlayer = new MediaPlayer();
-		mediaPlayer.setOnBufferingUpdateListener(this);
-		mediaPlayer.setOnCompletionListener(this);
 	    btn_fav = (Button) view.findViewById(R.id.btn_fav);
         FavoriteDB.setContext(this.getActivity());
         int count = FavoriteDB.selectBhajan(getBhajanName());
@@ -191,12 +187,9 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 	}
 
 	public boolean onTouch(View v, MotionEvent event) {
-		if (mediaPlayer.isPlaying()) {
 			SeekBar tmpSeekBar = (SeekBar) v;
 			mediaPlayer.seekTo((lengthOfAudio / 100) * tmpSeekBar.getProgress() );
-			System.out.println("lengthofAudio is" + lengthOfAudio);
-		}
-		return false;
+    		return false;
 	}
 
 
@@ -208,39 +201,36 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 	}
 	
 	public void onClick(View view) {
-    	try {
-			mediaPlayer.setDataSource(bhajanDetails.get("url"));
-			mediaPlayer.prepare();
-			lengthOfAudio = mediaPlayer.getDuration();
-		 } 
-    	 catch (Exception e) {
-		 }
-    	
-		 seekBar.setProgress((int)(((float)mediaPlayer.getCurrentPosition() / lengthOfAudio) * 100));
-		 getHandler().postDelayed(r, 1000);
-		 SeekBar tmpSeekBar = (SeekBar) view.findViewById(R.id.seekBar);
-		 switch (view.getId()) {
-		 case R.id.btn_play:
-			 if(mediaPlayer.isPlaying()){
+    		Button playButton = (Button)view;
+    		if(playButton.getText().toString().equals("Play")) {
+    		    if(mediaPlayer == null) {
+    		        mediaPlayer = new MediaPlayer();
+    		        mediaPlayer.setOnBufferingUpdateListener(this);
+    		        mediaPlayer.setOnCompletionListener(this);
+    		        try {
+						mediaPlayer.setDataSource(bhajanDetails.get("url"));
+	    			    mediaPlayer.prepare();
+					} catch (IllegalArgumentException e) {
+						e.printStackTrace();
+					} catch (SecurityException e) {
+						e.printStackTrace();
+					} catch (IllegalStateException e) {
+						e.printStackTrace();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+    			    lengthOfAudio = mediaPlayer.getDuration();
+    		    }
+                playAudio();  
+                playButton.setText(R.string.pause);
+		   }
+    		else {
+   			 if(mediaPlayer.isPlaying()){
 				 btn_play.setText(R.string.play);
 				 pauseAudio();
-				 length=mediaPlayer.getCurrentPosition();
-			 }
-		 	 else {
-			 if(mediaPlayer!=null) {
-				 if(tmpSeekBar == null) {
-					 tmpSeekBar = (SeekBar) view.findViewById(R.id.seekBar);
-			 }
-				//mediaPlayer.seekTo((lengthOfAudio / 100) * tmpSeekBar.getProgress() );
-			 playAudio();
-			 btn_play.setText(R.string.pause);
-			 }}
-			 break;
-		 default:
-			 break;
-		 }
-		
-		 updateSeekProgress();
+			  }
+   			 }    			
+     updateSeekProgress();
 	}
 	
 	public void onDestroy() {
