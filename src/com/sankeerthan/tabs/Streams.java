@@ -142,7 +142,7 @@ import android.widget.SeekBar;
 	    	}}
 		
 		public void onDestroy() {
-			mediaPlayer.stop();	
+			if(mediaPlayer !=null) mediaPlayer.stop();	
 			super.onDestroy();
 		}
 		

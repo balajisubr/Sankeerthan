@@ -244,7 +244,7 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 	}
 	
 	public void onDestroy() {
-		mediaPlayer.stop();	
+		if(mediaPlayer != null) mediaPlayer.stop();	
 		super.onDestroy();
 	}
 	
