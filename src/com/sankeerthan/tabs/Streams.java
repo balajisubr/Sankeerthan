@@ -14,6 +14,7 @@ import com.sankeerthan.model.FavoriteDB;
 import com.sankeerthan.tabs.SearchTab;
 
 import android.annotation.SuppressLint;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnBufferingUpdateListener;
 import android.media.MediaPlayer.OnCompletionListener;
@@ -125,13 +126,14 @@ import android.widget.SeekBar;
 	    	     currentStream = view.getId();
 	    	     currentButton = streamButton.getText().toString();
 	    	     try {
-					mediaPlayer.setDataSource(url);
-					String tmp = streamButton.getText().toString();
-					streamButton.setText("Fetching " + tmp);
-					mediaPlayer.prepare();
-					streamButton.setText("Playing " + tmp);
-				} catch (IllegalArgumentException e) {
-					e.printStackTrace();
+	    	    	 mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC); 
+					 mediaPlayer.setDataSource(url);
+					 String tmp = streamButton.getText().toString();
+					 streamButton.setText("Fetching " + tmp);
+					 mediaPlayer.prepare();
+					 streamButton.setText("Playing " + tmp);
+				}catch (IllegalArgumentException e) {
+				 	e.printStackTrace();
 				} catch (SecurityException e) {
 					e.printStackTrace();
 				} catch (IllegalStateException e) {
