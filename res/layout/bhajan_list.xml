@@ -7,9 +7,17 @@
     android:layout_height="fill_parent"
     android:background="#CEFAC6">
    
-     <com.google.android.gms.ads.AdView android:id="@+id/adView"
+    <TextView
+        android:id="@+id/text2"
+        android:text="@string/list_desc"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"     
+    />
+    
+    <com.google.android.gms.ads.AdView android:id="@+id/adView"
                          android:layout_width="wrap_content"
                          android:layout_height="wrap_content"
+                         android:layout_below="@+id/text2"
                          ads:adUnitId="ca-app-pub-4360034453907355/2264488829"
                          ads:adSize="BANNER"                         
                          />
