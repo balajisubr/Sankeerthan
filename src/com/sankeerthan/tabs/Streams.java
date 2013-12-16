@@ -1,6 +1,7 @@
 package com.sankeerthan.tabs;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Iterator;
 import java.util.Locale;
@@ -48,6 +49,8 @@ import android.widget.SeekBar;
 		private MediaPlayer mediaPlayer;
 		private int currentStream=0;
 		private String currentButton="";
+		private HashMap<Integer, Boolean> activeStreamMap = new HashMap<Integer, Boolean>();
+
 
 	
 		public void onCreate(Bundle savedInstanceState) {
@@ -82,7 +85,16 @@ import android.widget.SeekBar;
 			asia_stream.setOnClickListener(this);
 			afri_stream.setOnClickListener(this);
 			ameri_stream.setOnClickListener(this);
-			
+			Iterator<Entry<Integer, Boolean>> it = activeStreamMap.entrySet().iterator();
+			while(it.hasNext())
+			{
+				 Entry<Integer, Boolean> entry =(Entry<Integer, Boolean>) it.next();
+				 if(entry.getValue() == true){
+					 Button b = (Button) view.findViewById(entry.getKey());
+                     b.setText("Playing " + b.getText().toString());
+				 }
+				
+			}
 			return view;
 			
 		}
@@ -97,6 +109,7 @@ import android.widget.SeekBar;
 			        if(mediaPlayer.isPlaying() ||
 			        		streamButton.getText().toString().matches("Playing.*")){
 				        streamButton.setText(currentButton);
+				        activeStreamMap.put(currentStream, false);
 				        pauseAudio();
 			        }
 		 	    else {
@@ -124,6 +137,7 @@ import android.widget.SeekBar;
 	    	     }
 	    	     resetOtherButtons();
 	    	     currentStream = view.getId();
+	    	     activeStreamMap.put(currentStream, true);
 	    	     currentButton = streamButton.getText().toString();
 	    	     try {
 	    	    	 mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC); 
@@ -167,6 +181,7 @@ import android.widget.SeekBar;
 			else {	 
 			     View view = getView();
 		         Button button = (Button) view.findViewById(currentStream);
+		         activeStreamMap.put(currentStream, false);
 		         button.setText(currentButton);
 			}
         }
