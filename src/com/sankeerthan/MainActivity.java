@@ -9,7 +9,6 @@ import android.os.Bundle;
 
 import com.sankeerthan.tabs.FAQFeedback;
 import com.sankeerthan.tabs.IntroductionTab;
-import com.sankeerthan.tabs.BhajanStreamTab;
 import com.sankeerthan.tabs.FavoritesTab;
 import com.sankeerthan.tabs.SearchTab;
 import com.sankeerthan.tabs.Streams;
