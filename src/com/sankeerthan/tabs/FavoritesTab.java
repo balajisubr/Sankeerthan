@@ -19,6 +19,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ListFragment;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -27,6 +28,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -153,9 +155,20 @@ public class FavoritesTab extends ListFragment{
 			public void run() {
 				// TODO Auto-generated method stub
 			    Activity activity = FavoritesTab.this.getActivity();
-				activity.getActionBar().   setSelectedNavigationItem(1);			        FragmentManager fragmentManager = activity.getFragmentManager();
+				activity.getActionBar().   setSelectedNavigationItem(1);			        
+				FragmentManager fragmentManager = activity.getFragmentManager();
 			    FragmentTransaction ft = fragmentManager.beginTransaction();
-			    ft.replace(((ViewGroup)(getView().getParent())).getId(), new BhajanDetailsFragment(bundle));
+			    View parentView = (View) getView().getParent();
+			    Button btn_play = (Button) parentView.findViewById(R.id.btn_play);
+			    if(btn_play!=null) {
+			    	if(btn_play.getText().toString().equals("Pause")) {
+			    		SankeerthanDialog.getAlertDialog
+			    		    (FavoritesTab.this.getActivity(), "Please pause the playing Bhajan before clicking on one of your favorites.").show();
+			    		return;
+			    	}
+			    }
+			    		
+			    ft.replace(((ViewGroup)(parentView)).getId(), new BhajanDetailsFragment(bundle));
 			    ft.commit();		
 			}		    	
 		    });

@@ -53,7 +53,7 @@ public class MainActivity extends Activity {
         actionBar.addTab(tab);
         
         tab = actionBar.newTab()
-        		.setText("RadioSai Thought for the Day")
+        		.setText("RadioSai's Sai Inspires")
         		.setTabListener(new TabsListener<ThoughtForDayTab>(
                     this, "thought", ThoughtForDayTab.class));
         actionBar.addTab(tab);    
