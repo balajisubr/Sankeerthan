@@ -4,6 +4,8 @@
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 
@@ -63,6 +65,20 @@ public class MainActivity extends Activity {
                     this, "faq", FAQFeedback.class));
         actionBar.addTab(tab);        
     }
+    
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+               .setMessage("Are you sure you want to exit Sankeerthan?")
+               .setCancelable(false)
+               .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                   public void onClick(DialogInterface dialog, int id) {
+                        MainActivity.this.finish();
+                   }
+               })
+               .setNegativeButton("No", null)
+               .show();
+    }
+
    
 }
  
