@@ -9,6 +9,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import android.os.Bundle;
 import android.text.format.DateFormat;
@@ -20,7 +21,8 @@ public class ThoughtForDayTab extends CustomWebView {
        String url = "";
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        Calendar cal = Calendar.getInstance();
+    	Locale current = getResources().getConfiguration().locale;
+        Calendar cal = Calendar.getInstance(current);
         String year = Integer.toString(cal.get(Calendar.YEAR));
         String month = Integer.toString(cal.get(Calendar.MONTH)+1);
         String day = Integer.toString(cal.get(Calendar.DAY_OF_MONTH)+1);
