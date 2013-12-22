@@ -18,7 +18,7 @@
                          android:layout_below="@+id/text1"
                          android:layout_width="wrap_content"
                          android:layout_height="wrap_content"
-                         ads:adUnitId="ca-app-pub-4360034453907355/3741222024"
+                         ads:adUnitId="ca-app-pub-6367763273676349/1619336315"
                          ads:adSize="BANNER"                         
                          />
      

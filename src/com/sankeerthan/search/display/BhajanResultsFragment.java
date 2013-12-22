@@ -84,7 +84,8 @@ public class BhajanResultsFragment extends ListFragment {
 	    AdView adView = (AdView) view.findViewById(R.id.adView);
 	    //adView.setAdSize(com.google.android.gms.ads.AdSize.BANNER);
 	    AdRequest adRequest = new AdRequest.Builder()
-	    .addTestDevice("C44657E689703A7181A73E789923CF83")
+	    .addTestDevice("C44657E689703A7181A73E789923CF83")	    
+	    .addTestDevice("565026B667D3010DF7C8542C4E201853")
 	    .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)       // Emulator
 	    .build();
 	    
