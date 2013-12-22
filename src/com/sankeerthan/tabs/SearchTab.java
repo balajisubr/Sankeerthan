@@ -103,7 +103,7 @@ public class SearchTab extends Fragment {
 	   			Toast.makeText(SearchTab.this.getContext(), error_message, Toast.LENGTH_SHORT).show();
 	   		}
 	   		else{
-	   			String regex = "[a-zA-Z\\s]+";
+	   			String regex = "[()a-zA-Z\\s-]+";
 	   			if(!text1.getText().toString().matches(regex)){
 		   			Toast.makeText(SearchTab.this.getContext(), "Please enter valid information.", Toast.LENGTH_SHORT).show();
 	   			}
