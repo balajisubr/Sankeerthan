@@ -3,9 +3,9 @@
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
     <string name="title_activity_main">Sankeerthan</string>
-    <string name="search_raaga">Search By Raaga(E.g Kalyani, Bhairavi)</string>
-    <string name="search_bhajan">Search By Name(E.g. Prema Muditha)</string>
-    <string name="search_deity">Search By Deity(E.g. Krishna, Jesus)</string>
+    <string name="search_raaga">Search By Raaga(E.g Kalyani, Mohanam)</string>
+    <string name="search_bhajan">Search By Name(E.g. Akhanda Jyothi Jalao)</string>
+    <string name="search_deity">Search By Deity(E.g. Sathya Sai, Rama, Sarva Dharma)</string>
     <string name="search">Search</string>
     <string name="back_to_search_page">"Back to Search Page"</string>
     <string name="play">Play</string>
