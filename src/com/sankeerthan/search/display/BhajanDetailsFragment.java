@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map.Entry;
 
+import com.sankeerthan.MainActivity;
 import com.sankeerthan.R;
 import com.sankeerthan.R.id;
 import com.sankeerthan.R.layout;
@@ -22,10 +23,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.app.ActionBar.Tab;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ListFragment;
+import android.content.DialogInterface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -146,17 +149,34 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 	    searchBtn.setOnClickListener(new OnClickListener(){
 
 			public void onClick(View arg0) {
-			  if(mediaPlayer != null )
-				  mediaPlayer.stop();
-              FragmentManager manager = BhajanDetailsFragment.this.getFragmentManager();
-              FragmentTransaction ft = manager.beginTransaction();
-              ft.replace(android.R.id.content, new SearchTab());
-              ft.commit();
+				String message = "Are you sure?";
+				Button b = (Button) BhajanDetailsFragment.this.getView().findViewById(R.id.btn_play);
+                if(b.getText().toString().equals("Pause"))
+                	message = "This will stop the Bhajan. Are you sure?";
+                else 
+                	message = "Are you sure you want to exit to search page?";
+				new AlertDialog.Builder(BhajanDetailsFragment.this.getActivity())
+			    .setMessage(message)
+			    .setCancelable(false)
+			    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+			        public void onClick(DialogInterface dialog, int id) {
+						  if(mediaPlayer != null )
+							  mediaPlayer.stop();
+			              FragmentManager manager = BhajanDetailsFragment.this.getFragmentManager();
+			              FragmentTransaction ft = manager.beginTransaction();
+			              ft.replace(android.R.id.content, new SearchTab());
+			              ft.commit();   	
+			        }
+			    })
+			    .setNegativeButton("No", null)
+			    .show();
 			}  	
 	    });
 
 		return view;
 	}
+	
+	
 	
 	
 	public void onClick1() {
