@@ -24,12 +24,21 @@
     android:layout_height="wrap_content"
      android:autoLink="web"
      android:linksClickable="true"
- />   
+ /> 
+ 
+<TextView
+    android:id="@+id/twitter_page"
+    android:text="@string/twitter"
+    android:layout_below="@+id/facebook_page"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+     android:autoLink="web"
+     android:linksClickable="true"
+ /> 
 
          <ExpandableListView
                 android:id="@+id/ExpList"
-                                    android:layout_below="@+id/facebook_page"
-                
+                android:layout_below="@+id/twitter_page"
                 android:layout_height="wrap_content"
                 android:layout_width="fill_parent"
                 android:groupIndicator="@null" />
