@@ -83,9 +83,7 @@ public class CacheDB {
 	        return	writeDb;
 	    }
 	}
-  
-   @SuppressLint("NewApi")
-   
+     
    public void performOperation(String Operation, String table, ArrayList<String> array1) {
 	   SQLiteDatabase db = dbHelper.getWriteDb();
 

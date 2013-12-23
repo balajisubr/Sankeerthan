@@ -8,7 +8,6 @@ import com.sankeerthan.lookup.LookUpInfo;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 public class LookUpData {
 	public static Context context = null;

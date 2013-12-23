@@ -9,20 +9,15 @@ import com.sankeerthan.R;
 import com.sankeerthan.Sankeerthan;
 import com.sankeerthan.display.SankeerthanDialog;
 import com.sankeerthan.model.Bhajan;
-import com.sankeerthan.model.LookUpData;
 import com.sankeerthan.search.SearchBhajan;
-import com.sankeerthan.tabs.FavoritesTab;
 import com.sankeerthan.tabs.SearchTab;
-import com.sankeerthan.tabs.TabsListener;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ListFragment;
 import android.app.ProgressDialog;
-import android.app.ActionBar.Tab;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -65,7 +60,6 @@ public class BhajanResultsFragment extends ListFragment {
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 			String name = ((TextView) view).getText().toString();
 			if(name.equals("No Data found")) return;
-	    	Bundle bundle = new Bundle();
 	        SearchBhajan searchBhajan = new SearchBhajan();
 			try {
 				searchBhajan = new SearchBhajan(name, false);
@@ -143,7 +137,6 @@ public class BhajanResultsFragment extends ListFragment {
 		
 		public void onPostExecute(SearchBhajan searchBhajan)
 		{   		
-			String[] keys = new String[]{"bhajan", "raaga", "deity", "lyrics","meaning", "url"};
 			String serverError = "";
 			
 			Bhajan result = searchBhajan.result;

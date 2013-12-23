@@ -8,7 +8,7 @@ public class SankeerthanDialog {
 	public static AlertDialog getAlertDialog(Context context, String message) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(context);
 		builder.setMessage(message)
-		       .setCancelable(false)
+		       .setCancelable(true)
 			   .setPositiveButton("OK", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog,int id) {
 					}

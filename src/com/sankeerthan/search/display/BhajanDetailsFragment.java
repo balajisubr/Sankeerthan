@@ -7,10 +7,7 @@ import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map.Entry;
 
-import com.sankeerthan.MainActivity;
 import com.sankeerthan.R;
-import com.sankeerthan.R.id;
-import com.sankeerthan.R.layout;
 import com.sankeerthan.display.expand.*;
 import com.sankeerthan.model.FavoriteDB;
 import com.sankeerthan.tabs.SearchTab;
@@ -21,15 +18,11 @@ import android.media.MediaPlayer.OnBufferingUpdateListener;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
-import android.app.ActionBar.Tab;
 import android.app.AlertDialog;
-import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ListFragment;
 import android.content.DialogInterface;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -157,7 +150,7 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
                 	message = "Are you sure you want to exit to search page?";
 				new AlertDialog.Builder(BhajanDetailsFragment.this.getActivity())
 			    .setMessage(message)
-			    .setCancelable(false)
+			    .setCancelable(true)
 			    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 			        public void onClick(DialogInterface dialog, int id) {
 						  if(mediaPlayer != null )

@@ -1,73 +1,36 @@
 package com.sankeerthan.tabs;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Iterator;
-import java.util.Locale;
 import java.util.Map.Entry;
 
 import com.sankeerthan.R;
-import com.sankeerthan.R.id;
-import com.sankeerthan.R.layout;
-import com.sankeerthan.display.expand.*;
-import com.sankeerthan.model.FavoriteDB;
-import com.sankeerthan.tabs.SearchTab;
 
-import android.annotation.SuppressLint;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnBufferingUpdateListener;
-import android.media.MediaPlayer.OnCompletionListener;
 import android.media.MediaPlayer.OnPreparedListener;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.app.ActionBar.Tab;
 import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.app.ListFragment;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ExpandableListView;
-import android.widget.SeekBar;
 
 
-	@SuppressLint("ValidFragment")
 	public class Streams extends Fragment implements OnClickListener, OnBufferingUpdateListener, OnPreparedListener {
-	  	//private final String url = AppConfig.URL + "/play/song.mp3";	    
-	    private Button btn_play;
-		private SeekBar seekBar;
 		private MediaPlayer mediaPlayer;
 		private int currentStream=0;
 		private String currentButton="";
 		private HashMap<Integer, Boolean> activeStreamMap = new HashMap<Integer, Boolean>();
 
-
-	
 		public void onCreate(Bundle savedInstanceState) {
-			//Bundle details = this.getArguments();
-			//setDetails(details);
 			super.onCreate(savedInstanceState);
 		}
 		
 		public void onActivityCreated(Bundle savedInstanceState) {
 			super.onActivityCreated(savedInstanceState);
-			//Looper.prepare();
-			//Looper.loop();
-			//handler = new Handler();
-			//Bundle details = this.getArguments();
-			//setDetails(details);
-			//ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), R.layout.row,this.getBhajanDetails());
-			//setListAdapter(adapter);
 		}
 		
 		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

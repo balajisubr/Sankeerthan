@@ -2,8 +2,6 @@ package com.sankeerthan.tabs;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.concurrent.ExecutionException;
-
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -26,7 +24,6 @@ import android.widget.Toast;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
 
-import com.google.ads.AdSize;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.sankeerthan.Sankeerthan;

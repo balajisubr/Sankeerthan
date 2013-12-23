@@ -7,13 +7,10 @@ import com.sankeerthan.R;
 import com.sankeerthan.model.LookUpData;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.View;
 import android.widget.ProgressBar;
 
 public class IntroFlashActivity extends Activity {

@@ -12,14 +12,12 @@ import com.sankeerthan.model.FavoriteDB;
 import com.sankeerthan.search.SearchBhajan;
 import com.sankeerthan.search.display.BhajanDetailsFragment;
 
-import android.app.ActionBar.Tab;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ListFragment;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -34,7 +32,6 @@ import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class FavoritesTab extends ListFragment{
-	private final String[] keys = new String[]{"bhajan", "raaga", "deity", "lyrics","meaning", "url"};
     ArrayList<String> bhajans = new ArrayList<String>();
 
 	public FavoritesTab(){
@@ -109,7 +106,6 @@ public class FavoritesTab extends ListFragment{
 		
 		public void onPostExecute(SearchBhajan searchBhajan)
 		{   
-			String[] keys = new String[]{"bhajan", "raaga", "deity", "lyrics","meaning", "url"};
 			String serverError = "";
 			
 			Bhajan result = searchBhajan.result;
