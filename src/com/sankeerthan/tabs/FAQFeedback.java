@@ -35,7 +35,6 @@ public class FAQFeedback extends Fragment{
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 	    View view = inflater.inflate(R.layout.faq, container, false);
 	    
-    	QnA.put("►Is Sankeerthan the app of Radiosai?", "No, Sankeerthan is not related to Radiosai in any way.");
     	QnA.put("►What is raaga? ","Raagas are standard Indian melodic modes. Unless mentioned, all raagas in Sankeerthan refer to Carnatic raagas. Hindustani Raagas are indicated by (H)");
     	QnA.put("►I am only able to see the names of Bhajans, Raagas and Deities but when I select any of those and search, I get an error. What’s wrong? ","To be able to list all the details of a Bhajan or to list all Bhajans by Raaga or Deity, you must have access to Internet or cellular data. ");
     	QnA.put("►Can I view list of Bhajans, Raagas or Deities available when offline? ","You need an Internet connection the first time and must be on the search page to initially populate the list of Bhajans, Raagas and Deities. After that, that data is stored on your phone memory and you can view the lists anytime even when there is no Internet or cellular data. We also try to update the list every 24 hours. To receive each update, you must connect to the Internet again and restart the app.");
