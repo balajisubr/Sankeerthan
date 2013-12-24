@@ -14,15 +14,16 @@ import android.view.ViewGroup;
 
 public class ThoughtForDayTab extends CustomWebView {
        String url = "";
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+       public View onCreateView(LayoutInflater inflater, ViewGroup container,
+           Bundle savedInstanceState) {
+    	   
     	Locale current = getResources().getConfiguration().locale;
         Calendar cal = Calendar.getInstance(current);
         String year = Integer.toString(cal.get(Calendar.YEAR));
         String month = Integer.toString(cal.get(Calendar.MONTH)+1);
-        String day = Integer.toString(cal.get(Calendar.DAY_OF_MONTH)+1);
+        String day = Integer.toString(cal.get(Calendar.DAY_OF_MONTH));
         
-         url = "http://media.radiosai.org/sai_inspires/"  + year + "/SI_" +  year + month + day + ".htm";
+        url = "http://media.radiosai.org/sai_inspires/"  + year + "/SI_" +  year + month + day + ".htm";
                 
         Thread t = new Thread(new HTTPStatusVerify());
         t.start();
@@ -31,7 +32,7 @@ public class ThoughtForDayTab extends CustomWebView {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-
+        
         setWebViewURL(url);
         return super.onCreateView(inflater, container, savedInstanceState);
         }
