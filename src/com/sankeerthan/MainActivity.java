@@ -10,6 +10,7 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 
 import com.sankeerthan.tabs.FAQFeedback;
+import com.sankeerthan.tabs.FeedbackTab;
 import com.sankeerthan.tabs.IntroductionTab;
 import com.sankeerthan.tabs.FavoritesTab;
 import com.sankeerthan.tabs.SearchTab;
@@ -64,6 +65,11 @@ public class MainActivity extends Activity {
         		.setTabListener(new TabsListener<FAQFeedback>(
                     this, "faq", FAQFeedback.class));
         actionBar.addTab(tab);        
+        tab = actionBar.newTab()
+        		.setText("Feedback section")
+        		.setTabListener(new TabsListener<FeedbackTab>(
+                    this, "faq", FeedbackTab.class));
+        actionBar.addTab(tab);
     }
     
     public void onBackPressed() {
