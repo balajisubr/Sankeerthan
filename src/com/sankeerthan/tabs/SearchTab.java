@@ -78,7 +78,7 @@ public class SearchTab extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.search_tab, container, false);
 	   	this.view = view;
-	   	/*
+	   	
 	    AdView adView = (AdView) view.findViewById(R.id.adView);
 	    //adView.setAdSize(com.google.android.gms.ads.AdSize.BANNER);
 	    AdRequest adRequest = new AdRequest.Builder()
@@ -88,7 +88,7 @@ public class SearchTab extends Fragment {
 	    .build();
 	    
 	    adView.loadAd(adRequest);
-*/
+
 	   	Button search = (Button) view.findViewById(R.id.button1);
 	   	search.setOnClickListener(new OnClickListener() {
 		public void onClick(View v) {

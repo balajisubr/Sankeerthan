@@ -61,7 +61,7 @@ public class FavoritesTab extends ListFragment{
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fav_tab, container, false);
-		/*
+		
 		 AdView adView = (AdView) view.findViewById(R.id.adView);
 		    //adView.setAdSize(com.google.android.gms.ads.AdSize.BANNER);
 		    AdRequest adRequest = new AdRequest.Builder()
@@ -70,7 +70,7 @@ public class FavoritesTab extends ListFragment{
 		    .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)       // Emulator
 		    .build();
 		    
-		    adView.loadAd(adRequest);*/
+		    adView.loadAd(adRequest);
 		return view;
 	}
 	
