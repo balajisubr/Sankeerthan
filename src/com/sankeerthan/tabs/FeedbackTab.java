@@ -2,34 +2,46 @@ package com.sankeerthan.tabs;
 
 import java.util.regex.Pattern;
 
+
 import com.sankeerthan.R;
 import com.sankeerthan.display.SankeerthanDialog;
+import com.sankeerthan.email.GmailSender;
 
 import android.app.Fragment;
-import android.content.Intent;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 public class FeedbackTab extends Fragment{
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState){
 		View view = inflater.inflate(R.layout.feedback, container, false);
+		EditText feedback = (EditText) view.findViewById(R.id.feedback);
 		Button btn_submit = (Button) view.findViewById(R.id.btn_submit);
 		btn_submit.setOnClickListener(new OnClickListener()
 		{
 			public void onClick(View view){
 				View view1 = getView();
+				InputMethodManager mgr = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+
 				EditText name = (EditText) view1.findViewById(R.id.name);
 				EditText email = (EditText) view1.findViewById(R.id.email);
 				EditText feedback = (EditText) view1.findViewById(R.id.feedback);
 				EditText location = (EditText) view1.findViewById(R.id.country);
 				
+				mgr.hideSoftInputFromWindow(name.getWindowToken(), 0);
+				mgr.hideSoftInputFromWindow(email.getWindowToken(), 0);
+				mgr.hideSoftInputFromWindow(feedback.getWindowToken(), 0);
+				mgr.hideSoftInputFromWindow(location.getWindowToken(), 0);
+
 				String nameString = name.getText().toString();
 				String emailString = email.getText().toString();
 				String feedbackString = feedback.getText().toString();
@@ -37,6 +49,7 @@ public class FeedbackTab extends Fragment{
 
 				if(locationString == null || locationString.isEmpty()) 
 					locationString = "No Country";
+				
 				if(nameString.isEmpty() || 
 				   emailString.isEmpty() ||
 				   feedbackString.isEmpty())
@@ -58,24 +71,62 @@ public class FeedbackTab extends Fragment{
 					SankeerthanDialog.getAlertDialog(FeedbackTab.this.getActivity(), "Please enter a valid name").show();
 				    return;
 				}
-				Intent emailIntent = new Intent(android.content.Intent.ACTION_SENDTO);
-
+				
 				String receiver = "sankeerthan.bhajan@gmail.com";
-				String subject  = "Sankeerthan Feedback from " + nameString + " " + email + "Location: " + location;
+				String subject  = "Sankeerthan Feedback from " + nameString + " " + emailString + " Location: " + locationString;
 				String body     = feedbackString;
 
-				emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, receiver);
-				emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, subject);
-				emailIntent.setType("text/plain");
-				emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, body);
-				startActivity(emailIntent);
+                try {
+                	new SendMail().execute(new String[]{subject, body, emailString, receiver});
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}   
 				
-				Toast.makeText(getActivity(), "Feedback successfully sent!", Toast.LENGTH_LONG).show();
 			}
 		});
 		return view;
 	}
 	
-	
+    class SendMail extends AsyncTask<String, Void, Void> {
+        ProgressDialog pd = null;
+        String param = "";
+        
+        public void onPreExecute() {
+         	getActivity().runOnUiThread(new Runnable() {
+                public void run() {
+	    				pd = new ProgressDialog(FeedbackTab.this.getActivity());
+	    				pd.setTitle("Sending Email...");
+	    				pd.setMessage("Please wait.");
+	    				pd.setCancelable(false);
+	    				pd.setIndeterminate(true);
+	    				pd.show();
+	    	        }});
+         	}
+
+     
+ 		protected Void doInBackground(String... params) {
+			GmailSender sender = new GmailSender("sankeerthan.bhajan@gmail.com", "satsivsun11");
+ 		    try {
+				sender.sendMail(params[0], params[1], params[2], params[3]);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+ 			
+			return null;
+
+ 		}
+ 		
+ 		public void onPostExecute(Void a) {
+ 			getActivity().runOnUiThread(new Runnable(){
+ 				public void run(){
+	    				if(pd != null) 
+                             pd.dismiss();
+	    				SankeerthanDialog.getAlertDialog(FeedbackTab.this.getActivity(), "Thanks for your valuable feedback!").show();
+ 				}
+ 			});
+ 		}     	
+     }
 
 }

@@ -43,6 +43,7 @@
         android:textSize="18sp"
         android:gravity="left"
         android:hint="@string/hint_name" 
+        android:inputType="text"
         android:imeOptions="actionDone" />
 
   <EditText
@@ -64,6 +65,7 @@
         android:textSize="18sp"
         android:gravity="left"
         android:hint="@string/hint_country" 
+        android:inputType="text"
         android:imeOptions="actionDone" />
   
    <EditText
@@ -74,6 +76,7 @@
         android:textSize="18sp"
         android:gravity="left"
         android:hint="@string/hint_feedback" 
+        android:inputType="text"
         android:imeOptions="actionDone"/>
    
     <Button
