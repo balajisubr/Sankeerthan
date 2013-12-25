@@ -66,7 +66,7 @@ public class MainActivity extends Activity {
                     this, "faq", FAQFeedback.class));
         actionBar.addTab(tab);        
         tab = actionBar.newTab()
-        		.setText("Feedback section")
+        		.setText("Feedback")
         		.setTabListener(new TabsListener<FeedbackTab>(
                     this, "faq", FeedbackTab.class));
         actionBar.addTab(tab);
