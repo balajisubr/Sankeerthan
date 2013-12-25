@@ -11,7 +11,8 @@
         android:id="@+id/text1"
         android:text="@string/fav_desc"
         android:layout_width="fill_parent"
-        android:layout_height="60dp"     
+        android:layout_height="wrap_content"   
+        android:textSize="18sp"  
     />
      
      <com.google.android.gms.ads.AdView android:id="@+id/adView"
@@ -26,13 +27,15 @@
         android:id="@+id/text2"
         android:text="@string/click_on_fav"
         android:layout_width="fill_parent"
-        android:layout_height="40dp"     
+        android:layout_height="wrap_content"     
         android:layout_below="@+id/adView"   
+        android:textSize="18sp"
     />
      
    
     
     <ListView
+        android:layout_marginTop="20dp"
         android:id="@android:id/list"
         android:layout_below="@+id/text2"
         android:layout_width="fill_parent"
