@@ -369,5 +369,57 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 		BhajanDetailsFragment.handler = handler;
 	}
 	
-	
+	 class PreparePlayer extends AsyncTask<Void, Void, Void> {
+	        ProgressDialog pd = null;
+	        String param = "";
+	        
+	        public void onPreExecute() {
+	         	//getActivity().runOnUiThread(new Runnable() {
+	               // public void run() {
+		    				pd = new ProgressDialog(BhajanDetailsFragment.this.getActivity());
+		    				pd.setTitle("Loading Audio..");
+		    				pd.setMessage("Please wait.");
+		    				pd.setCancelable(false);
+		    				pd.setIndeterminate(true);
+		    				pd.show();
+		    	  //      }});
+	         	}
+
+	     
+	 		protected Void doInBackground(Void... params) {
+				try {
+					mediaPlayer.setDataSource(bhajanDetails.get("url"));
+				    mediaPlayer.prepare();
+    			    lengthOfAudio = mediaPlayer.getDuration();
+                    playAudio();  
+
+				} catch (IllegalArgumentException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SecurityException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IllegalStateException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+                return null;
+
+	 		}
+	 		
+	 		public void onPostExecute(Void a) {
+	 			//getActivity().runOnUiThread(new Runnable(){
+	 				//public void run(){
+		    				if(pd != null) 
+	                             pd.dismiss();
+		    				Button playButton = (Button) getView().findViewById(R.id.btn_play);
+		    				playButton.setText(R.string.pause);
+		    				//updateSeekProgress();
+	 				}
+	 			//});
+	 		//}	
+	     }
 }

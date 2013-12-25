@@ -124,6 +124,11 @@ public class FeedbackTab extends Fragment{
 	    				if(pd != null) 
                              pd.dismiss();
 	    				SankeerthanDialog.getAlertDialog(FeedbackTab.this.getActivity(), "Thanks for your valuable feedback!").show();
+	    				View view1 = getView();
+	    				EditText name = (EditText) view1.findViewById(R.id.name); name.setText("");
+	    				EditText email = (EditText) view1.findViewById(R.id.email); email.setText("");
+	    				EditText feedback = (EditText) view1.findViewById(R.id.feedback); feedback.setText("");
+	    				EditText location = (EditText) view1.findViewById(R.id.country); location.setText("");
  				}
  			});
  		}     	

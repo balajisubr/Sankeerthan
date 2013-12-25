@@ -78,7 +78,7 @@ public class SearchTab extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.search_tab, container, false);
 	   	this.view = view;
-	   	
+	   	/*
 	    AdView adView = (AdView) view.findViewById(R.id.adView);
 	    //adView.setAdSize(com.google.android.gms.ads.AdSize.BANNER);
 	    AdRequest adRequest = new AdRequest.Builder()
@@ -88,7 +88,7 @@ public class SearchTab extends Fragment {
 	    .build();
 	    
 	    adView.loadAd(adRequest);
-
+*/
 	   	Button search = (Button) view.findViewById(R.id.button1);
 	   	search.setOnClickListener(new OnClickListener() {
 		public void onClick(View v) {
@@ -100,7 +100,7 @@ public class SearchTab extends Fragment {
 	   			Toast.makeText(SearchTab.this.getContext(), error_message, Toast.LENGTH_SHORT).show();
 	   		}
 	   		else{
-	   			String regex = "[()a-zA-Z\\s-]+";
+	   			String regex = "[()a-zA-Z/\\s-]+";
 	   			if(!text1.getText().toString().matches(regex)){
 		   			Toast.makeText(SearchTab.this.getContext(), "Please enter valid information.", Toast.LENGTH_SHORT).show();
 	   			}

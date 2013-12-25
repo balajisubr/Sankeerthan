@@ -5,13 +5,16 @@ import java.util.Iterator;
 import java.util.Map.Entry;
 
 import com.sankeerthan.R;
+import com.sankeerthan.search.display.BhajanDetailsFragment;
 
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnBufferingUpdateListener;
 import android.media.MediaPlayer.OnPreparedListener;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.app.ProgressDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +27,8 @@ import android.widget.Button;
 		private int currentStream=0;
 		private String currentButton="";
 		private HashMap<Integer, Boolean> activeStreamMap = new HashMap<Integer, Boolean>();
+		Button streamButton;
+
 
 		public void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
@@ -63,7 +68,6 @@ import android.widget.Button;
 		}
 				
 		public void onClick(View view) {
-			Button streamButton;
 	    	streamButton = (Button)view;
 
 	    	if(mediaPlayer!=null && 
@@ -83,7 +87,6 @@ import android.widget.Button;
 	    	     if(mediaPlayer == null) {
 	    	     mediaPlayer = new MediaPlayer();
 	    	     mediaPlayer.setOnPreparedListener(this);
-	    	     //mediaPlayer.setOnBufferingUpdateListener(this);
 	       	     }
 	    	     else { 
 	    	    	 mediaPlayer.stop();
@@ -103,19 +106,12 @@ import android.widget.Button;
 	    	     activeStreamMap.put(currentStream, true);
 	    	     currentButton = streamButton.getText().toString();
 	    	     try {
-	    	    	 mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC); 
-					 mediaPlayer.setDataSource(url);
-					 String tmp = streamButton.getText().toString();
-					 streamButton.setText("Fetching " + tmp);
-					 mediaPlayer.prepare();
-					 streamButton.setText("Playing " + tmp);
+	    	     new PreparePlayer().execute(url); 	 
 				}catch (IllegalArgumentException e) {
 				 	e.printStackTrace();
 				} catch (SecurityException e) {
 					e.printStackTrace();
 				} catch (IllegalStateException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
 					e.printStackTrace();
 				}
 	    	}}
@@ -149,12 +145,51 @@ import android.widget.Button;
 			}
         }
 
-		public void onBufferingUpdate(MediaPlayer mp, int percent) {
-			if(percent == 50)
-		  	    playAudio();
-		}
+		
+		 class PreparePlayer extends AsyncTask<String, Void, Void> {
+		        ProgressDialog pd = null;
+		        String param = "";
+		        
+		        public void onPreExecute() {
+			    			pd = new ProgressDialog(Streams.this.getActivity());
+			    			pd.setTitle("Loading Audio..");
+			    			pd.setMessage("Please wait.");
+			    			pd.setCancelable(false);
+			    			pd.setIndeterminate(true);
+			    			pd.show();
+		        }
 
-		public void onPrepared(MediaPlayer arg0) {
-            playAudio();
-		}
+		     
+		 		protected Void doInBackground(String... urls) {
+					try {
+						String url = urls[0];
+	                    
+   	    	    	    mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC); 
+						mediaPlayer.setDataSource(url);
+						mediaPlayer.prepare();
+				        playAudio();
+						
+					} catch (IllegalArgumentException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (SecurityException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IllegalStateException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+	                return null;
+
+		 		}
+		 		
+		 		public void onPostExecute(Void a) {
+			    		if(pd != null) 
+		                    pd.dismiss();
+			    			streamButton.setText("Playing " + streamButton.getText().toString());
+		 				}
+		     }
 	}
