@@ -8,20 +8,25 @@ import java.util.Locale;
 import java.util.Map.Entry;
 
 import com.sankeerthan.R;
+import com.sankeerthan.display.SankeerthanDialog;
 import com.sankeerthan.display.expand.*;
+import com.sankeerthan.email.GmailSender;
 import com.sankeerthan.model.FavoriteDB;
+import com.sankeerthan.tabs.FeedbackTab;
 import com.sankeerthan.tabs.SearchTab;
 
 import android.annotation.SuppressLint;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnBufferingUpdateListener;
 import android.media.MediaPlayer.OnCompletionListener;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ListFragment;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -51,6 +56,8 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 	private int lengthOfAudio = 0;
 	private String bhajanName = "";
     private static Handler handler = null;
+	ProgressDialog pd = null;
+
 	private final Runnable r = new Runnable() {	
     public void run() {
         updateSeekProgress();					
@@ -220,29 +227,20 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
     		        mediaPlayer = new MediaPlayer();
     		        mediaPlayer.setOnBufferingUpdateListener(this);
     		        mediaPlayer.setOnCompletionListener(this);
-    		        try {
-						mediaPlayer.setDataSource(bhajanDetails.get("url"));
-	    			    mediaPlayer.prepare();
-					} catch (IllegalArgumentException e) {
-						e.printStackTrace();
-					} catch (SecurityException e) {
-						e.printStackTrace();
-					} catch (IllegalStateException e) {
-						e.printStackTrace();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-    			    lengthOfAudio = mediaPlayer.getDuration();
+    		        new PreparePlayer().execute();
+		        }
+    		    else
+    		    {   playAudio();
+    		    	btn_play.setText(R.string.pause);
     		    }
-                playAudio();  
-                playButton.setText(R.string.pause);
-		   }
+    		}
     		else {
    			 if(mediaPlayer.isPlaying()){
 				 btn_play.setText(R.string.play);
 				 pauseAudio();
 			  }
-   			 }    			
+   			 }  
+    		
      updateSeekProgress();
 	}
 	
@@ -369,5 +367,57 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 		BhajanDetailsFragment.handler = handler;
 	}
 	
+	 class PreparePlayer extends AsyncTask<Void, Void, Void> {
+	        ProgressDialog pd = null;
+	        String param = "";
+	        
+	        public void onPreExecute() {
+	         	getActivity().runOnUiThread(new Runnable() {
+	                public void run() {
+		    				pd = new ProgressDialog(BhajanDetailsFragment.this.getActivity());
+		    				pd.setTitle("Loading Audio..");
+		    				pd.setMessage("Please wait.");
+		    				pd.setCancelable(false);
+		    				pd.setIndeterminate(true);
+		    				pd.show();
+		    	        }});
+	         	}
+
+	     
+	 		protected Void doInBackground(Void... params) {
+				try {
+					mediaPlayer.setDataSource(bhajanDetails.get("url"));
+				    mediaPlayer.prepare();
+    			    lengthOfAudio = mediaPlayer.getDuration();
+                    playAudio();  
+
+				} catch (IllegalArgumentException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SecurityException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IllegalStateException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+                return null;
+
+	 		}
+	 		
+	 		public void onPostExecute(Void a) {
+	 			getActivity().runOnUiThread(new Runnable(){
+	 				public void run(){
+		    				if(pd != null) 
+	                             pd.dismiss();
+		    				Button playButton = (Button) getView().findViewById(R.id.btn_play);
+		    				playButton.setText(R.string.pause);
+	 				}
+	 			});
+	 		}	
+	     }
 	
 }
