@@ -151,7 +151,7 @@ import android.widget.Button;
 		        
 		        public void onPreExecute() {
 			    			pd = new ProgressDialog(Streams.this.getActivity());
-			    			pd.setTitle("Loading Audio..");
+			    			pd.setTitle("Loading Stream..");
 			    			pd.setMessage("Please wait.");
 			    			pd.setCancelable(false);
 			    			pd.setIndeterminate(true);
@@ -189,6 +189,6 @@ import android.widget.Button;
 			    		if(pd != null) 
 		                    pd.dismiss();
 			    			streamButton.setText("Playing " + streamButton.getText().toString());
-		 				}
+		 		}
 		     }
 	}

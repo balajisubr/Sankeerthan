@@ -415,6 +415,7 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 	                             pd.dismiss();
 		    				Button playButton = (Button) getView().findViewById(R.id.btn_play);
 		    				playButton.setText(R.string.pause);
+		    				updateSeekProgress();
 	 				}
 	 			});
 	 		}	
