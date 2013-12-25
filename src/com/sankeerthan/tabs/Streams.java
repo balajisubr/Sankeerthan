@@ -22,7 +22,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 
-	public class Streams extends Fragment implements OnClickListener, OnBufferingUpdateListener, OnPreparedListener {
+	public class Streams extends Fragment implements OnClickListener {
 		private MediaPlayer mediaPlayer;
 		private int currentStream=0;
 		private String currentButton="";
@@ -86,7 +86,6 @@ import android.widget.Button;
 	    	 else { 
 	    	     if(mediaPlayer == null) {
 	    	     mediaPlayer = new MediaPlayer();
-	    	     mediaPlayer.setOnPreparedListener(this);
 	       	     }
 	    	     else { 
 	    	    	 mediaPlayer.stop();
