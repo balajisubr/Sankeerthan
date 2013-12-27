@@ -117,7 +117,7 @@ public class FeedbackTab extends Fragment{
 
      
  		protected Void doInBackground(String... params) {
-			GmailSender sender = new GmailSender("sankeerthan.bhajan@gmail.com", "satsivsun11");
+			GmailSender sender = new GmailSender("dsankeerthan@gmail.com", "Bus900as{12#");
  		    try {
 				sender.sendMail(params[0], params[1], params[2], params[3]);
 			} catch (Exception e) {
