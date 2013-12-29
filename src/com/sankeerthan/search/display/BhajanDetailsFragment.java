@@ -204,6 +204,7 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 
 	public void onCompletion(MediaPlayer mp) {
 		btn_play.setText(R.string.play);
+		seekBar.setProgress(0);
 	}
 
 	public boolean onTouch(View v, MotionEvent event) {
@@ -230,7 +231,8 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
     		        new PreparePlayer().execute();
 		        }
     		    else
-    		    {   playAudio();
+    		    {   
+    		    	playAudio();
     		    	btn_play.setText(R.string.pause);
     		    }
     		}
