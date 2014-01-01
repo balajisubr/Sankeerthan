@@ -11,11 +11,8 @@ import java.util.Map.Entry;
 
 import com.sankeerthan.MainActivity;
 import com.sankeerthan.R;
-import com.sankeerthan.display.SankeerthanDialog;
 import com.sankeerthan.display.expand.*;
-import com.sankeerthan.email.GmailSender;
 import com.sankeerthan.model.FavoriteDB;
-import com.sankeerthan.tabs.FeedbackTab;
 import com.sankeerthan.tabs.SearchTab;
 
 import android.annotation.SuppressLint;
@@ -31,7 +28,6 @@ import android.app.FragmentTransaction;
 import android.app.ListFragment;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -122,24 +118,14 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 		    setDetails(details);
 		}
 		LinkedHashMap<String, String> bhajanDetails = getBhajanDetails();
-		Log.e("BEFORE BHAJAN DETAILS ", "NULL");
 		if(bhajanDetails.size() == 0){
-			Log.e("BHAJAN DETAILS ", "NULL");
 			if(savedInstanceState != null)
 			{
-				Log.e("SAVED INSTANCE ", "NOT NULL");
 				Map<String, String> detailsMap = (Map<String, String>) savedInstanceState.getSerializable("bhajanDetails");
 				bhajanDetails.putAll(detailsMap); 
-			}
-			else{
-				Log.e("SAVED INSTANCE ", "IS NULL");
-			}
+			}			
 		}
-		 for(String s: keys) {
-	         String str = bhajanDetails.get(s);
-	         if(str == null) str = "Empty";
-	         Log.e(s, str);
-	     }
+		
 		ArrayList<String> tmp= this.formatListItems(bhajanDetails);
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), R.layout.row,tmp);
 		setListAdapter(adapter);
@@ -393,7 +379,6 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 	}
 	
 	public void onSaveInstanceState(Bundle outState){
-		Log.e("SAVING", "SAVING BHAJAN DETAILS");
 		MainActivity act = (MainActivity) this.getActivity();
 		act.activeFragment = "details";
 		outState.putSerializable("bhajanDetails", (Serializable) getBhajanDetails());

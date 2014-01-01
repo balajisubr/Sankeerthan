@@ -65,9 +65,6 @@ public class BhajanResultsFragment extends ListFragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), R.layout.row,getBhajans());
-		if(this.bhajans == null){
-			Log.e("NULL","ADAPTER ITEMS");
-		}
 		ListView listView = getListView();
 		listView.setTextFilterEnabled(true);
  
@@ -135,7 +132,6 @@ public class BhajanResultsFragment extends ListFragment {
 	
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
-		Log.e("BHAJAN SIZE", Integer.toString(getBhajans().size()));
 		outState.putStringArrayList("bhajans", getBhajans());
 		MainActivity act = (MainActivity) this.getActivity();
 		act.activeFragment = "list";
