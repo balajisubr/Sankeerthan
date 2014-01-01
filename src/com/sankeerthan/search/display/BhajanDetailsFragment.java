@@ -1,12 +1,15 @@
 package com.sankeerthan.search.display;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Iterator;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Map.Entry;
 
+import com.sankeerthan.MainActivity;
 import com.sankeerthan.R;
 import com.sankeerthan.display.SankeerthanDialog;
 import com.sankeerthan.display.expand.*;
@@ -28,6 +31,7 @@ import android.app.FragmentTransaction;
 import android.app.ListFragment;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -56,6 +60,7 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 	private int lengthOfAudio = 0;
 	private String bhajanName = "";
     private static Handler handler = null;
+    private String bhajanDetailsString ="bhajanDetails"; 
 	ProgressDialog pd = null;
 
 	private final Runnable r = new Runnable() {	
@@ -116,12 +121,30 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 	        details = this.getArguments();
 		    setDetails(details);
 		}
-		
-		ArrayList<String> tmp= this.formatListItems(getBhajanDetails());
+		LinkedHashMap<String, String> bhajanDetails = getBhajanDetails();
+		Log.e("BEFORE BHAJAN DETAILS ", "NULL");
+		if(bhajanDetails.size() == 0){
+			Log.e("BHAJAN DETAILS ", "NULL");
+			if(savedInstanceState != null)
+			{
+				Log.e("SAVED INSTANCE ", "NOT NULL");
+				Map<String, String> detailsMap = (Map<String, String>) savedInstanceState.getSerializable("bhajanDetails");
+				bhajanDetails.putAll(detailsMap); 
+			}
+			else{
+				Log.e("SAVED INSTANCE ", "IS NULL");
+			}
+		}
+		 for(String s: keys) {
+	         String str = bhajanDetails.get(s);
+	         if(str == null) str = "Empty";
+	         Log.e(s, str);
+	     }
+		ArrayList<String> tmp= this.formatListItems(bhajanDetails);
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), R.layout.row,tmp);
 		setListAdapter(adapter);
         ExpandableListView expandList = (ExpandableListView) view.findViewById(R.id.ExpList);
-        ArrayList<Group> expandListItems = setStandardGroups(getBhajanDetails());
+        ArrayList<Group> expandListItems = setStandardGroups(bhajanDetails);
         ExpandListAdapter expandListAdapter = new ExpandListAdapter(this.getActivity(), expandListItems);
         expandList.setAdapter(expandListAdapter);
 
@@ -367,6 +390,15 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 	public static void setHandler(Handler handler)
 	{
 		BhajanDetailsFragment.handler = handler;
+	}
+	
+	public void onSaveInstanceState(Bundle outState){
+		Log.e("SAVING", "SAVING BHAJAN DETAILS");
+		MainActivity act = (MainActivity) this.getActivity();
+		act.activeFragment = "details";
+		outState.putSerializable("bhajanDetails", (Serializable) getBhajanDetails());
+		super.onSaveInstanceState(outState);
+
 	}
 	
 	 class PreparePlayer extends AsyncTask<Void, Void, Void> {

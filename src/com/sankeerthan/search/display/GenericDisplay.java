@@ -10,6 +10,7 @@ import com.sankeerthan.search.SearchDeity;
 import com.sankeerthan.search.SearchInfo;
 import com.sankeerthan.search.SearchRaaga;
 import com.sankeerthan.tabs.SearchTab;
+import com.sankeerthan.MainActivity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -107,14 +108,21 @@ public class GenericDisplay {
 	public void navigateToDisplayActivity(Bundle bundle) {
 		android.app.FragmentManager fragmentManager = ((Activity)context).getFragmentManager(); 
         FragmentTransaction ft = fragmentManager.beginTransaction();
+        MainActivity act = (MainActivity) context;
     	//Looper.prepare();
 		switch (classId) {
         case 1:
             BhajanDetailsFragment fragment = new BhajanDetailsFragment(bundle);
+            act.searchTabFragments += 1;
+            //act.lastFragment = fragment;
+            //act.activeFragment = "details";
             ft.replace(android.R.id.content, fragment);//.addToBackStack( null );
             break;
         case 2: case 3:      
         	BhajanResultsFragment fragment1 = new BhajanResultsFragment(bundle);
+            act.searchTabFragments += 1;
+            //act.lastFragment = fragment1;
+            //act.activeFragment ="list";
             ft.replace(android.R.id.content, fragment1);//.addToBackStack( null );
             break;
         default: 

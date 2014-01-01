@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.sankeerthan.MainActivity;
 import com.sankeerthan.R;
 import com.sankeerthan.Sankeerthan;
 import com.sankeerthan.display.SankeerthanDialog;
@@ -71,6 +72,7 @@ public class FavoritesTab extends ListFragment{
 		    .build();
 		    
 		    adView.loadAd(adRequest);
+            
 		return view;
 	}
 	
@@ -153,7 +155,8 @@ public class FavoritesTab extends ListFragment{
 			public void run() {
 				// TODO Auto-generated method stub
 			    Activity activity = FavoritesTab.this.getActivity();
-				activity.getActionBar().   setSelectedNavigationItem(1);			        
+				activity.getActionBar().   setSelectedNavigationItem(1);
+				MainActivity act = (MainActivity) activity;
 				FragmentManager fragmentManager = activity.getFragmentManager();
 			    FragmentTransaction ft = fragmentManager.beginTransaction();
 			    View parentView = (View) getView().getParent();
@@ -165,8 +168,10 @@ public class FavoritesTab extends ListFragment{
 			    		return;
 			    	}
 			    }
-			    		
-			    ft.replace(((ViewGroup)(parentView)).getId(), new BhajanDetailsFragment(bundle));
+			    BhajanDetailsFragment frag = new BhajanDetailsFragment(bundle);
+			    //act.lastFragment = frag;
+				act.searchTabFragments += 1;	
+			    ft.replace(((ViewGroup)(parentView)).getId(), frag);
 			    ft.commit();		
 			}		    	
 		    });

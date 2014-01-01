@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.sankeerthan.MainActivity;
 import com.sankeerthan.R;
 import com.sankeerthan.Sankeerthan;
 import com.sankeerthan.display.SankeerthanDialog;
@@ -19,6 +20,7 @@ import android.app.FragmentTransaction;
 import android.app.ListFragment;
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -46,13 +48,26 @@ public class BhajanResultsFragment extends ListFragment {
 	}
 
 	public void onCreate(Bundle savedInstanceState) {
-	    setBhajans(bundle.getStringArray("bhajan"));
+		String[] bhajans = null;
+		if(bundle != null) { 
+			bhajans = bundle.getStringArray("bhajan");
+		}
+		if(bhajans == null) {
+			ArrayList<String> bundleBhajans = savedInstanceState.getStringArrayList("bhajans");
+			this.bhajans = bundleBhajans;
+		}
+		else{
+		    setBhajans(bhajans);
+		}
 		super.onCreate(savedInstanceState);
 	}
 	
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), R.layout.row,this.getBhajans());
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), R.layout.row,getBhajans());
+		if(this.bhajans == null){
+			Log.e("NULL","ADAPTER ITEMS");
+		}
 		ListView listView = getListView();
 		listView.setTextFilterEnabled(true);
  
@@ -75,7 +90,7 @@ public class BhajanResultsFragment extends ListFragment {
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 	    View view = inflater.inflate(R.layout.bhajan_list, container, false);
-	    
+	   
 	    AdView adView = (AdView) view.findViewById(R.id.adView);
 	    //adView.setAdSize(com.google.android.gms.ads.AdSize.BANNER);
 	    AdRequest adRequest = new AdRequest.Builder()
@@ -91,8 +106,12 @@ public class BhajanResultsFragment extends ListFragment {
 
 			public void onClick(View arg0) {
               FragmentManager manager = BhajanResultsFragment.this.getFragmentManager();
+              MainActivity act = (MainActivity) BhajanResultsFragment.this.getActivity();
+              SearchTab frag = new SearchTab();
+              act.searchTabFragments += 1;
+              //act.lastFragment = frag;
               FragmentTransaction ft = manager.beginTransaction();
-              ft.replace(android.R.id.content, new SearchTab());
+              ft.replace(android.R.id.content, frag);
               ft.commit();
 			}  	
 	    });
@@ -112,6 +131,14 @@ public class BhajanResultsFragment extends ListFragment {
 	        bhajans.add("No Data found");
 		}
 	    return bhajans;
+	}
+	
+	public void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		Log.e("BHAJAN SIZE", Integer.toString(getBhajans().size()));
+		outState.putStringArrayList("bhajans", getBhajans());
+		MainActivity act = (MainActivity) this.getActivity();
+		act.activeFragment = "list";
 	}
 	
     class FetchBhajan extends AsyncTask<SearchBhajan, Void, SearchBhajan>
@@ -179,7 +206,10 @@ public class BhajanResultsFragment extends ListFragment {
 	        {
 	        	getActivity().runOnUiThread(new Runnable() {
 	        		public void run(){
+	                MainActivity act = (MainActivity) BhajanResultsFragment.this.getActivity();
 	        		BhajanDetailsFragment fragment = new BhajanDetailsFragment(bundle);
+	        		act.searchTabFragments += 1;
+	        		//act.activeFragment = "details";
 	        		android.app.FragmentManager fragmentManager = (getActivity()).getFragmentManager();
 
 	        		FragmentTransaction ft = fragmentManager.beginTransaction();

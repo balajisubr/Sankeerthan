@@ -1,10 +1,14 @@
 
  package com.sankeerthan;
 
+import java.io.Serializable;
+import java.util.Stack;
+
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -20,6 +24,9 @@ import com.sankeerthan.tabs.ThoughtForDayTab;
 
 public class MainActivity extends Activity {
 		
+	public int searchTabFragments= 0;
+	public Fragment lastFragment;
+	public String activeFragment = "";
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
@@ -84,7 +91,20 @@ public class MainActivity extends Activity {
                .setNegativeButton("No", null)
                .show();
     }
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+    	super.onRestoreInstanceState(savedInstanceState);
+    	String bundleString = savedInstanceState.getString("activeFragment");
+    	if(bundleString != null)
+    	    activeFragment = bundleString; 
+     }
+    
+    protected void onSaveInstanceState(Bundle outState) {
+    	super.onSaveInstanceState(outState);
+    	outState.putString("activeFragment", activeFragment);
+    }
 
    
 }
  
+
