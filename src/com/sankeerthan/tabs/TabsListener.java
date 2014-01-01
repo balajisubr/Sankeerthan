@@ -1,4 +1,6 @@
 package com.sankeerthan.tabs;
+import com.sankeerthan.MainActivity;
+
 import android.app.ActionBar.Tab;
 import android.app.Activity;
 import android.app.Fragment;
@@ -25,23 +27,27 @@ public class TabsListener<T extends Fragment> implements ActionBar.TabListener {
         mClass = clz;
         mbundle = bundle;
     }
-
+    
 	public void onTabSelected(Tab tab, FragmentTransaction ft) {
         if (mFragment == null) {
             mFragment = Fragment.instantiate(mActivity, mClass.getName(), mbundle);
             ft.add(android.R.id.content, mFragment, mTag);
         } else {
+        	MainActivity act = (MainActivity) mFragment.getActivity();
+        	if(act !=null)
+        	if((mTag.equals("search") && 
+        			(act !=null &&
+        			act.searchTabFragments == 0)) || 
+        			!mTag.equals("search"))
             ft.attach(mFragment);
-           // ft.addToBackStack("search");
+            // ft.addToBackStack("search");
         }
-    }
-
+    } 	
+    
 	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
         if (mFragment != null) {
         	ft.detach(mFragment);
         }
-        
-        
     }
 
 	public void onTabReselected(Tab tab, FragmentTransaction ft) {
