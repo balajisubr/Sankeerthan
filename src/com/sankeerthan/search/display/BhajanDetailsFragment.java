@@ -218,7 +218,15 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 
 	public boolean onTouch(View v, MotionEvent event) {
 			SeekBar tmpSeekBar = (SeekBar) v;
+			if(mediaPlayer!=null){
+			try{
 			mediaPlayer.seekTo((lengthOfAudio / 100) * tmpSeekBar.getProgress() );
+			}
+			catch(NullPointerException e)
+			{
+				mediaPlayer.seekTo(0);
+			}
+			}
     		return false;
 	}
 
