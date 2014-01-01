@@ -1,9 +1,6 @@
 
  package com.sankeerthan;
 
-import java.io.Serializable;
-import java.util.Stack;
-
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.Activity;
