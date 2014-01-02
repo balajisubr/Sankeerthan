@@ -27,7 +27,10 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ListFragment;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.telephony.PhoneStateListener;
+import android.telephony.TelephonyManager;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -58,7 +61,9 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
     private static Handler handler = null;
     private String bhajanDetailsString ="bhajanDetails"; 
 	ProgressDialog pd = null;
-
+	PhoneStateListener phoneStateListener;
+	TelephonyManager mgr;
+	
 	private final Runnable r = new Runnable() {	
     public void run() {
         updateSeekProgress();					
@@ -74,7 +79,25 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
     	handler = new Handler();
         BhajanDetailsFragment.setHandler(handler);
         this.bundle = bundle;
-        setDetails(bundle);  
+        setDetails(bundle);
+        phoneStateListener = new PhoneStateListener() {
+    	    public void onCallStateChanged(int state, String incomingNumber) {
+    	        if (state == TelephonyManager.CALL_STATE_RINGING) {
+    	            mediaPlayer.pause();
+    	        } else if(state == TelephonyManager.CALL_STATE_IDLE) {
+    	        	{
+    	        		if(!mediaPlayer.isPlaying()){
+    	        			mediaPlayer.start();
+    	        			BhajanDetailsFragment.this.updateSeekProgress();
+    	        		}
+    	        	}
+    	        } else if(state == TelephonyManager.CALL_STATE_OFFHOOK) {
+    	            mediaPlayer.pause();
+    	        }
+    	        super.onCallStateChanged(state, incomingNumber);
+    	    }
+    	};
+
 	 }
 	
 	public void setDetails(Bundle bundle)
@@ -91,6 +114,7 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 	}
 	
 	public void onCreate(Bundle savedInstanceState) {
+		mgr = (TelephonyManager) ((Context)getActivity()).getSystemService(Context.TELEPHONY_SERVICE);
 		//Bundle details = this.getArguments();
 		//setDetails(details);
 		super.onCreate(savedInstanceState);
@@ -214,6 +238,9 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 	public void onCompletion(MediaPlayer mp) {
 		btn_play.setText(R.string.play);
 		seekBar.setProgress(0);
+		if(mgr != null) {
+		    mgr.listen(phoneStateListener, PhoneStateListener.LISTEN_NONE);
+		}
 	}
 
 	public boolean onTouch(View v, MotionEvent event) {
@@ -274,10 +301,21 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 	}
 
 	private void pauseAudio() {
+		if(mgr != null) {
+		    mgr.listen(phoneStateListener, PhoneStateListener.LISTEN_NONE);
+		}
 		mediaPlayer.pause();
 	}
 
 	private void playAudio() {
+		getActivity().runOnUiThread(new Runnable() {
+			public void run(){
+				if(mgr != null) {
+				    mgr.listen(phoneStateListener, PhoneStateListener.LISTEN_CALL_STATE);
+				}
+
+			}
+		});
 		mediaPlayer.start();
 	}
 	

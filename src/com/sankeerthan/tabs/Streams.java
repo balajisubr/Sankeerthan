@@ -5,16 +5,16 @@ import java.util.Iterator;
 import java.util.Map.Entry;
 
 import com.sankeerthan.R;
-import com.sankeerthan.search.display.BhajanDetailsFragment;
 
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.media.MediaPlayer.OnBufferingUpdateListener;
-import android.media.MediaPlayer.OnPreparedListener;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.telephony.PhoneStateListener;
+import android.telephony.TelephonyManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,9 +28,27 @@ import android.widget.Button;
 		private String currentButton="";
 		private HashMap<Integer, Boolean> activeStreamMap = new HashMap<Integer, Boolean>();
 		Button streamButton;
-
+		PhoneStateListener phoneStateListener;
+		TelephonyManager mgr;
 
 		public void onCreate(Bundle savedInstanceState) {
+	        phoneStateListener = new PhoneStateListener() {
+	    	    public void onCallStateChanged(int state, String incomingNumber) {
+	    	        if (state == TelephonyManager.CALL_STATE_RINGING) {
+	    	            mediaPlayer.pause();
+	    	        } else if(state == TelephonyManager.CALL_STATE_IDLE) {
+	    	        	{
+	    	        		if(!mediaPlayer.isPlaying()){
+	    	        			mediaPlayer.start();
+	    	        		}
+	    	        	}
+	    	        } else if(state == TelephonyManager.CALL_STATE_OFFHOOK) {
+	    	            mediaPlayer.pause();
+	    	        }
+	    	        super.onCallStateChanged(state, incomingNumber);
+	    	    }
+	    	};
+	    	mgr = (TelephonyManager) ((Context)getActivity()).getSystemService(Context.TELEPHONY_SERVICE);
 			super.onCreate(savedInstanceState);
 		}
 		
@@ -130,6 +148,14 @@ import android.widget.Button;
 		}
 
 		private void playAudio() {
+			getActivity().runOnUiThread(new Runnable() {
+				public void run(){
+					if(mgr != null) {
+					    mgr.listen(phoneStateListener, PhoneStateListener.LISTEN_CALL_STATE);
+					}
+
+				}
+			});
 			mediaPlayer.start();
 		}
 		
@@ -143,7 +169,7 @@ import android.widget.Button;
 		         button.setText(currentButton);
 			}
         }
-
+		
 		
 		 class PreparePlayer extends AsyncTask<String, Void, Void> {
 		        ProgressDialog pd = null;
