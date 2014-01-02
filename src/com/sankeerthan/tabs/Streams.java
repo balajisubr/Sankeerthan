@@ -71,11 +71,18 @@ import android.widget.Button;
 			asia_stream.setOnClickListener(this);
 			afri_stream.setOnClickListener(this);
 			ameri_stream.setOnClickListener(this);
+			/*
+			if(savedInstanceState != null){
+				if(savedInstanceState.getSerializable("activeStreams")!=null){
+					activeStreamMap = (HashMap<Integer, Boolean>) savedInstanceState.getSerializable("activeStreams");
+				}
+			}
+			*/
 			Iterator<Entry<Integer, Boolean>> it = activeStreamMap.entrySet().iterator();
 			while(it.hasNext())
 			{
 				 Entry<Integer, Boolean> entry =(Entry<Integer, Boolean>) it.next();
-				 if(entry.getValue() == true){
+				 if(entry.getValue() == true && mediaPlayer.isPlaying()){
 					 Button b = (Button) view.findViewById(entry.getKey());
                      b.setText("Playing " + b.getText().toString());
 				 }
@@ -94,7 +101,7 @@ import android.widget.Button;
 			        if(mediaPlayer.isPlaying() ||
 			        		streamButton.getText().toString().matches("Playing.*")){
 				        streamButton.setText(currentButton);
-				        activeStreamMap.put(currentStream, false);
+				        //activeStreamMap.put(currentStream, false);
 				        pauseAudio();
 			        }
 		 	    else {
@@ -169,6 +176,11 @@ import android.widget.Button;
 		         button.setText(currentButton);
 			}
         }
+		/*
+		public void onSaveInstanceState(Bundle outState){
+			super.onSaveInstanceState(outState);
+			outState.putSerializable("activeStreams", activeStreamMap);
+		}*/
 		
 		
 		 class PreparePlayer extends AsyncTask<String, Void, Void> {
