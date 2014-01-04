@@ -20,8 +20,8 @@ public class ThoughtForDayTab extends CustomWebView {
     	Locale current = getResources().getConfiguration().locale;
         Calendar cal = Calendar.getInstance(current);
         String year = Integer.toString(cal.get(Calendar.YEAR));
-        String month = Integer.toString(cal.get(Calendar.MONTH)+1);
-        String day = Integer.toString(cal.get(Calendar.DAY_OF_MONTH));
+        String month = Integer.toString(cal.get(Calendar.MONTH)+1); if(month.length() == 1) month = "0" + month;
+        String day = Integer.toString(cal.get(Calendar.DAY_OF_MONTH)); if(day.length() == 1) day = "0" + day;
         
         url = "http://media.radiosai.org/sai_inspires/"  + year + "/SI_" +  year + month + day + ".htm";
                 

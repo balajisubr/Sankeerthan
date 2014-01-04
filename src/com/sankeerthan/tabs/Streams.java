@@ -191,7 +191,7 @@ import android.widget.Button;
 			    			pd = new ProgressDialog(Streams.this.getActivity());
 			    			pd.setTitle("Loading Stream..");
 			    			pd.setMessage("Please wait.");
-			    			pd.setCancelable(false);
+			    			pd.setCancelable(true);
 			    			pd.setIndeterminate(true);
 			    			pd.show();
 		        }
