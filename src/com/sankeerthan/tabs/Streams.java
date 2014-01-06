@@ -117,14 +117,20 @@ import android.widget.Button;
 	    	    	 mediaPlayer.reset();
 	    	     }
 	    	     String url = "";
-	    	     switch (view.getId()) { 
-	    	     case R.id.btn_afri_stream:  url = "http://stream.radiosai.net:8004/"; break;
-	    	     case R.id.btn_asia_stream:  url = "http://stream.radiosai.net:8002/"; break; 
-	    	     case R.id.btn_ameri_stream: url = "http://stream.radiosai.net:8006/"; break; 
-	    	     case R.id.btn_bhajan_stream:url = "http://stream.radiosai.net:8000/"; break; 
-	    	     case R.id.btn_telugu_stream:url = "http://stream.radiosai.net:8020/"; break;
-	    	     case R.id.btn_discourse_stream:	url = "http://stream.radiosai.net:8008/"; break;
-	    	     }
+	    	     int id = view.getId();
+				if (id == R.id.btn_afri_stream) {
+					url = "http://stream.radiosai.net:8004/";
+				} else if (id == R.id.btn_asia_stream) {
+					url = "http://stream.radiosai.net:8002/";
+				} else if (id == R.id.btn_ameri_stream) {
+					url = "http://stream.radiosai.net:8006/";
+				} else if (id == R.id.btn_bhajan_stream) {
+					url = "http://stream.radiosai.net:8000/";
+				} else if (id == R.id.btn_telugu_stream) {
+					url = "http://stream.radiosai.net:8020/";
+				} else if (id == R.id.btn_discourse_stream) {
+					url = "http://stream.radiosai.net:8008/";
+				}
 	    	     resetOtherButtons();
 	    	     currentStream = view.getId();
 	    	     activeStreamMap.put(currentStream, true);

@@ -229,26 +229,22 @@ public class SearchTab extends Fragment {
                 SearchRaaga searchRaaga = null;
                 SearchBhajan searchBhajan = null;
                 try {
-    	   	    switch(checked_radio_id){
-                   case R.id.deity_radio:
-    			   searchDeity = new SearchDeity(text.getText().toString());
-           	  	   searchDeity.getData();
-           	  	   GenericDisplay deityDisplay = new GenericDisplay(searchDeity, SearchTab.this);
-           	  	   deityDisplay.processErrorsOrDisplay();
-             	   break;
-                   case R.id.raaga_radio:
-            	   searchRaaga = new SearchRaaga(text.getText().toString());
-            	   searchRaaga.getData();
-            	   GenericDisplay raagaDisplay = new GenericDisplay(searchRaaga, SearchTab.this);
-            	   raagaDisplay.processErrorsOrDisplay();
-            	   break;
-                   case R.id.bhajan_radio:
-            	   searchBhajan = new SearchBhajan(text.getText().toString(), false);
-               	   searchBhajan.getData();
-               	   GenericDisplay bhajanDisplay = new GenericDisplay(searchBhajan, SearchTab.this);
-               	   bhajanDisplay.processErrorsOrDisplay();
-               	   break;
-    	   	 }}
+    	   	    if (checked_radio_id == R.id.deity_radio) {
+					searchDeity = new SearchDeity(text.getText().toString());
+					searchDeity.getData();
+					GenericDisplay deityDisplay = new GenericDisplay(searchDeity, SearchTab.this);
+					deityDisplay.processErrorsOrDisplay();
+				} else if (checked_radio_id == R.id.raaga_radio) {
+					searchRaaga = new SearchRaaga(text.getText().toString());
+					searchRaaga.getData();
+					GenericDisplay raagaDisplay = new GenericDisplay(searchRaaga, SearchTab.this);
+					raagaDisplay.processErrorsOrDisplay();
+				} else if (checked_radio_id == R.id.bhajan_radio) {
+					searchBhajan = new SearchBhajan(text.getText().toString(), false);
+					searchBhajan.getData();
+					GenericDisplay bhajanDisplay = new GenericDisplay(searchBhajan, SearchTab.this);
+					bhajanDisplay.processErrorsOrDisplay();
+				}}
                catch (InterruptedException e) {
             	   pd.dismiss();
             	   AlertDialog alert = SankeerthanDialog.getAlertDialog(context, "An error occurred! Please contact us.");
