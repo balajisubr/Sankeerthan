@@ -16,6 +16,7 @@
        android:theme="@style/AppTheme" 
        android:label="@string/app_name" >
         <activity
+            android:launchMode="singleInstance"
             android:name="com.sankeerthan.IntroFlashActivity"
             android:label="@string/title_activity_main" >
             <intent-filter>

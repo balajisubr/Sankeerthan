@@ -26,6 +26,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"    
         android:ems="10"
+        android:hint="@string/search_hint"
         android:completionThreshold="1"
         android:imeOptions="actionDone"
         android:inputType="text" />

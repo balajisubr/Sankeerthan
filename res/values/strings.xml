@@ -19,7 +19,7 @@
     <string name="afri">Africa Stream</string>
     <string name="ameri">American Stream</string>
     <string name="main_no_items">No orders to display</string>
-    <string name="stream_note">Note: Once you click on a stream, it might take up to 20 seconds to buffer. Please wait till data is buffered.</string>
+    <string name="stream_note">Note: Once you click on a stream, it might take up to 20 seconds to buffer. Please wait till data is buffered. Also, click on the currently playing stream to pause playing it.</string>
     <string name="click_on_fav"> Note that you must be connected to the Internet or cellular data to view Bhajan details like lyrics, raaga, deity, meaning and to play it. </string>
     <string name="click_on_list"> Note that you must be connected to the Internet or cellular data to view Bhajan details. You may also go back to Search Page by clicking the button in this page. </string>
     <string name="list_desc">Listed below are the Bhajans according to your selected criteria. Scroll the list below and view Bhajan Details like raaga, deity, lyrics, meaning and to play the Bhajan. </string>
@@ -32,6 +32,7 @@
     <string name="hint_feedback">Please enter your feedback (Required)</string>
     <string name="hint_country">Please enter your location/country (Optional)</string>
     <string name="submit">Submit</string>
+    <string name="search_hint">Enter bhajan info</string>
     <string name="facebook_text">Like our Facebook page and follow our Twitter page to get latest tips and updates:</string>
     
     <color name="Black">#000000</color>

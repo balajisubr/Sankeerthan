@@ -10,6 +10,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;   
 
 import android.os.StrictMode;
+import android.util.Log;
 
 import java.io.ByteArrayInputStream;   
 import java.io.IOException;   
@@ -63,7 +64,7 @@ public class GmailSender extends javax.mail.Authenticator {
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipients));   
         Transport.send(message);   
         }catch(Exception e){
-
+             Log.e("ERROR","sending email");
         }
     }   
 
