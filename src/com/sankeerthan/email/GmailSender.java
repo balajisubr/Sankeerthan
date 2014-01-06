@@ -64,7 +64,7 @@ public class GmailSender extends javax.mail.Authenticator {
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipients));   
         Transport.send(message);   
         }catch(Exception e){
-             Log.e("ERROR","sending email");
+             Log.e("ERROR SENDING EMAIL",e.getMessage());
         }
     }   
 
