@@ -58,15 +58,7 @@
             android:text="@string/search_deity" />
     </RadioGroup>
     
-  <com.google.android.gms.ads.AdView android:id="@+id/adView"
-                         android:layout_width="wrap_content"
-                         android:layout_below="@+id/button1"
-                         android:layout_marginTop="15dp"
-                         android:layout_height="wrap_content"
-                         ads:adUnitId="ca-app-pub-6367763273676349/7665869915"
-                         android:layout_alignParentBottom="true"
-                         ads:adSize="BANNER"                         
-                         />
+
                          <!-- android:layout_marginTop="50dp" -->
  
 </RelativeLayout>

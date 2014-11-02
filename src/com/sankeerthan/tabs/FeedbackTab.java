@@ -3,11 +3,11 @@ package com.sankeerthan.tabs;
 import java.util.regex.Pattern;
 
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
+//import com.google.android.gms.ads.AdRequest;
+//import com.google.android.gms.ads.AdView;
 import com.sankeerthan.R;
 import com.sankeerthan.display.SankeerthanDialog;
-import com.sankeerthan.email.GmailSender;
+//import com.sankeerthan.email.GmailSender;
 
 import android.app.Fragment;
 import android.app.ProgressDialog;
@@ -27,15 +27,15 @@ public class FeedbackTab extends Fragment{
             Bundle savedInstanceState){
 		View view = inflater.inflate(R.layout.feedback, container, false);
 		EditText feedback = (EditText) view.findViewById(R.id.feedback);
-		AdView adView = (AdView) view.findViewById(R.id.adView);
+		//AdView adView = (AdView) view.findViewById(R.id.adView);
 	    //adView.setAdSize(com.google.android.gms.ads.AdSize.BANNER);
-	    AdRequest adRequest = new AdRequest.Builder()
-	    .addTestDevice("C44657E689703A7181A73E789923CF83")
-	    .addTestDevice("565026B667D3010DF7C8542C4E201853")
-	    .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)       // Emulator
-	    .build();
+	    //AdRequest adRequest = new AdRequest.Builder()
+	    //.addTestDevice("C44657E689703A7181A73E789923CF83")
+	    //.addTestDevice("565026B667D3010DF7C8542C4E201853")
+	    //.addTestDevice(AdRequest.DEVICE_ID_EMULATOR)       // Emulator
+	    //.build();
 	    
-	    adView.loadAd(adRequest);
+	    //adView.loadAd(adRequest);
 		Button btn_submit = (Button) view.findViewById(R.id.btn_submit);
 		btn_submit.setOnClickListener(new OnClickListener()
 		{
@@ -107,7 +107,7 @@ public class FeedbackTab extends Fragment{
          	getActivity().runOnUiThread(new Runnable() {
                 public void run() {
 	    				pd = new ProgressDialog(FeedbackTab.this.getActivity());
-	    				pd.setTitle("Sending Email...");
+	    				pd.setTitle("Sending Feedback...");
 	    				pd.setMessage("Please wait.");
 	    				pd.setCancelable(false);
 	    				pd.setIndeterminate(true);
@@ -117,6 +117,7 @@ public class FeedbackTab extends Fragment{
 
      
  		protected Void doInBackground(String... params) {
+ 			/*
 			GmailSender sender = new GmailSender("dsankeerthan@gmail.com", "Bus900as{12#");
  		    try {
 				sender.sendMail(params[0], params[1], params[2], params[3]);
@@ -124,9 +125,9 @@ public class FeedbackTab extends Fragment{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
- 			
+ 			*/
 			return null;
-
+          
  		}
  		
  		public void onPostExecute(Void a) {

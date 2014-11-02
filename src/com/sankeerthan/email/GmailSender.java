@@ -1,3 +1,4 @@
+/*
 package com.sankeerthan.email;
 
 import javax.activation.DataHandler;   
@@ -106,4 +107,4 @@ public class GmailSender extends javax.mail.Authenticator {
             throw new IOException("Not Supported");   
         }   
     }   
-}  
+}*/  

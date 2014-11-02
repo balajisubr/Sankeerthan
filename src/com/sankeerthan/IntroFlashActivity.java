@@ -22,7 +22,6 @@ public class IntroFlashActivity extends Activity {
         super.onCreate(bundle);
         setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.flash);
-        bar = (ProgressBar) this.findViewById(R.id.progressBar);
         LookUpData.setContext(this);
         
         new Handler().postDelayed(new Runnable(){

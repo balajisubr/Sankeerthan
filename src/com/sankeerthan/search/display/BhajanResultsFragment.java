@@ -3,8 +3,8 @@ package com.sankeerthan.search.display;
 import java.util.ArrayList;
 
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
+//import com.google.android.gms.ads.AdRequest;
+//import com.google.android.gms.ads.AdView;
 import com.sankeerthan.MainActivity;
 import com.sankeerthan.R;
 import com.sankeerthan.Sankeerthan;
@@ -87,7 +87,7 @@ public class BhajanResultsFragment extends ListFragment {
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 	    View view = inflater.inflate(R.layout.bhajan_list, container, false);
-	   
+	   /*
 	    AdView adView = (AdView) view.findViewById(R.id.adView);
 	    //adView.setAdSize(com.google.android.gms.ads.AdSize.BANNER);
 	    AdRequest adRequest = new AdRequest.Builder()
@@ -97,7 +97,7 @@ public class BhajanResultsFragment extends ListFragment {
 	    .build();
 	    
 	    adView.loadAd(adRequest);
-	    
+	    */
 	    Button searchBtn = (Button) view.findViewById(R.id.btn_search);
 	    searchBtn.setOnClickListener(new OnClickListener(){
 

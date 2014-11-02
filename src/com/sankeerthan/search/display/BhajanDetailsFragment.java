@@ -380,7 +380,7 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
 	    ArrayList<Group> titles = new ArrayList<Group>();
 	    ArrayList<Child> content = new ArrayList<Child>();
 	    Group lyricsGroup = new Group();
-	    lyricsGroup.setName("  â–ºLYRICS: ");
+	    lyricsGroup.setName("  ¥LYRICS: ");
 	    String[] lyrics = formatLyrics(details.get("lyrics"));
 	    for(int i = 0; i < lyrics.length; i++){
 	    	Child c = new Child();
@@ -392,7 +392,7 @@ public class BhajanDetailsFragment extends ListFragment implements  OnTouchListe
         content = new ArrayList<Child>();
 
 	    Group meaningGroup = new Group();
-	    meaningGroup.setName("  â–ºMEANING: ");
+	    meaningGroup.setName("  ¥MEANING: ");
 	    Child meaning = new Child();
 	    meaning.setName(details.get("meaning"));
 	    meaning.setTag(null);
