@@ -33,7 +33,7 @@
     <string name="hint_country">Please enter your location/country (Optional)</string>
     <string name="submit">Submit</string>
     <string name="search_hint">Enter bhajan info</string>
-    <string name="facebook_text">NOTE: The feedback form is not currently working. Please like our Facebook page and follow our Twitter page to get latest tips and updates:</string>
+    <string name="facebook_text">NOTE: The feedback form is not currently working.Please email feedback to sankeerthan.bhajan@gmail.com Please like our Facebook page and follow our Twitter page to get latest tips and updates:</string>
     
     <color name="Black">#000000</color>
     <color name="ExpandChildBackground">#CEFAC6</color>
