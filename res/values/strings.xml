@@ -1,12 +1,42 @@
 <resources>
-    <string name="app_name">Bhajans</string>
+    <string name="app_name">Sankeerthan</string>
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
-    <string name="title_activity_main">MainActivity</string>
-    <string name="search_raaga">Search By Raaga</string>
-    <string name="search_bhajan">Search By Name</string>
-    <string name="search_deity">Search By Deity</string>
+    <string name="title_activity_main">Sankeerthan</string>
+    <string name="search_raaga">Search By Raaga(E.g Kalyani, Mohanam)</string>
+    <string name="search_bhajan">Search By Name(E.g. Akhanda Jyothi Jalao)</string>
+    <string name="search_deity">Search By Deity(E.g. Sathya Sai, Rama, Sarva Dharma)</string>
     <string name="search">Search</string>
-    <string name="hello">Hello World, SoftwarePassionView!</string>
+    <string name="back_to_search_page">"Back to Search Page"</string>
+    <string name="play">Play</string>
+    <string name="pause">Pause</string>
+    <string name="favorite">Like</string>
+    <string name="unfavorite">Unlike</string>
+    <string name="bhajan">Bhajan Stream</string>
+    <string name="discourse">Discourse Stream</string>    
+    <string name="telugu">Telugu Stream</string>
+    <string name="asia">Asian Stream</string>
+    <string name="afri">Africa Stream</string>
+    <string name="ameri">American Stream</string>
     <string name="main_no_items">No orders to display</string>
+    <string name="stream_note">Note: Once you click on a stream, it might take up to 20 seconds to buffer. Please wait till data is buffered. Also, click on the currently playing stream to pause playing it.</string>
+    <string name="click_on_fav"> Note that you must be connected to the Internet or cellular data to view Bhajan details like lyrics, raaga, deity, meaning and to play it. </string>
+    <string name="click_on_list"> Note that you must be connected to the Internet or cellular data to view Bhajan details. You may also go back to Search Page by clicking the button in this page. </string>
+    <string name="list_desc">Listed below are the Bhajans according to your selected criteria. Scroll the list below and view Bhajan Details like raaga, deity, lyrics, meaning and to play the Bhajan. </string>
+    <string name="fav_desc">Scroll the list below to select and play a favorite Bhajan. To remove them from your favorites, go to the Bhajan details and click on Unlike.</string>
+    <string name="intro_text"> With Sankeerthan (or \'good music\'), you can search for a Bhajan and view its meaning, lyrics, raaga, deity and to play it. You can search by the name of the bhajan or the specific deity on which the Bhajan is based. Another criteria to search is \'raaga\' which are standard Indian melodic modes. You can also mark your favorite Bhajans and listen to them at any time. Please note that you must be connected to Internet to listen to any Bhajan, view its lyrics, meaning etc. You can also listen to RadioSai Live Streams or view \'Sai Inspires\' for the day. Please send feedback/suggestions to Sankeerthan.Bhajan@gmail.com. Aum Sai Ram</string>
+    <string name="facebook">facebook.com/SankeerthanBhajan</string>
+    <string name="twitter">twitter.com/SankeerthanApp</string>
+    <string name="hint_email">Please enter your email (Required)</string>
+    <string name="hint_name">Please enter your name (Required)</string>
+    <string name="hint_feedback">Please enter your feedback (Required)</string>
+    <string name="hint_country">Please enter your location/country (Optional)</string>
+    <string name="submit">Submit</string>
+    <string name="search_hint">Enter bhajan info</string>
+    <string name="facebook_text">NOTE: The feedback form is not currently working.Please email feedback to sankeerthan.bhajan@gmail.com Please like our Facebook page and follow our Twitter page to get latest tips and updates:</string>
+    
+    <color name="Black">#000000</color>
+    <color name="ExpandChildBackground">#CEFAC6</color>
+    <color name="ExpandGroupBackground">#99CC00</color>
+
 </resources>
